@@ -4,7 +4,7 @@ box::use(
     httr[GET, content, add_headers], 
     tibble[tibble], 
     purrr[map2_chr],
-    dplyr[select]
+    dplyr[select, arrange]
 )
 
 #' @export
@@ -12,8 +12,8 @@ ui <- function(id) {
     ns <- NS(id)
     
     tagList(
-        h3("Manuscripts"),
-        DTOutput(ns("manuscripts"))
+        h3("Texts"),
+        DTOutput(ns("texts"))
     )
     
 }
@@ -50,21 +50,18 @@ server <- function(id) {
         # }
         # 
         # manuscripts <- get_manuscripts(manuscript_id, token)
-        manuscripts <- readRDS("app/data/manuscripts.rds")
+        texts <- readRDS("app/data/works.rds") |> 
+            arrange(title)
         
-        output$manuscripts <- renderDataTable({
-            m_table <- manuscripts
-            m_table$manuscript <- purrr::map2_chr(
-                m_table$manuscript, m_table$id, function(x, y) {
-                    as.character(a(x, href=paste0("/#!/manuscript_detail?manuscriptId=", y)))
+        output$texts <- renderDataTable({
+            t_table <- texts
+            t_table$title <- purrr::map2_chr(
+                t_table$title, t_table$id, function(x, y) {
+                    as.character(a(x, href=paste0("/#!/text_detail?textId=", y)))
                 }
             )
-            # m_table$catalogue_link <- purrr::map_chr(m_table$catalogue_link, function(x) {
-            #     if_else(!is.na(x), as.character(a("Link", href=x)),
-            #             "")
-            # })
-            
-            return(m_table |> select(-c(id, catalogue_link)))
+            return(t_table |> select(-c(id, translator_wiki, translation_from, translation_to, 
+                                        edition, edition_link, notes, literature)))
         }, escape = FALSE, rownames = FALSE)
     })
 }

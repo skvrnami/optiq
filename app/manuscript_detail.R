@@ -4,7 +4,7 @@ box::use(
     httr[GET, content, add_headers], 
     tibble[tibble],
     shiny.router[get_query_param],
-    dplyr[filter, pull]
+    dplyr[filter, pull, left_join, select]
 )
 
 #' @export
@@ -16,12 +16,19 @@ ui <- function(id) {
         
         h3("Manuscript"),
         div(
-            htmltools::tags$b("Manuscript: "),
+            htmltools::tags$b("Shelfmark: "),
             textOutput(ns("manuscript")),    
         ),
         
         div(
+            htmltools::tags$b("Origin: ")
+        ),
+        
+        uiOutput(ns("facsimile")),
+        
+        div(
             htmltools::tags$b("Catalogue: "),
+            uiOutput(ns("catalogue")),
             uiOutput(ns("catalogue_link"))
         ),
         
@@ -29,7 +36,14 @@ ui <- function(id) {
             uiOutput(ns("iiif"))
         ),
         
-        textOutput(ns("id"))
+        h3("Texts"),
+        uiOutput(ns("copies")),
+        
+        div(
+            htmltools::tags$b("Permalink: "),
+            textOutput(ns("id"))    
+        )
+        
     )
 }
 
@@ -81,6 +95,18 @@ server <- function(id) {
                 as.character()
         })
         
+        output$catalogue <- renderUI({
+            req(manuscript_id())
+            catalogue <- readRDS("app/data/manuscripts.rds") |>
+                filter(id == !!as.character(manuscript_id())) |>
+                pull(catalogue) 
+            if(!is.na(catalogue)){
+                catalogue
+            }else{
+                "-"
+            }
+        })
+        
         output$catalogue_link <- renderUI({
             req(manuscript_id())
             link <- readRDS("app/data/manuscripts.rds") |>
@@ -91,36 +117,82 @@ server <- function(id) {
             }
         })
         
+        output$facsimile <- renderUI({
+            req(manuscript_id())
+            facs <- readRDS("app/data/manuscripts.rds") |>
+                filter(id == !!as.character(manuscript_id())) |>
+                pull(facsimile) 
+            if(!is.na(facs)){
+                div(
+                    htmltools::tags$b("Facsimile:"),
+                    a(facs, href = facs)
+                )    
+            }else{
+                div()
+            }
+        })
+        
         output$iiif <- renderUI({
             req(manuscript_id())
+            
             iiif <- readRDS("app/data/manuscripts.rds") |>
                 filter(id == !!as.character(manuscript_id())) |>
                 pull(iihf) 
+            
             if(!is.na(iiif)){
-                htmltools::HTML(paste0('
-                <div id="my-mirador"></div>
-                <script type="text/javascript">
-                var mirador = Mirador.viewer({
-                    id: "my-mirador",
-                    manifests: {"',
-                iiif, 
-                '": { },
-                },
-                windows: [
-                    {
-                        loadedManifest: "',
-                iiif, '",
-                canvasIndex: 2,
-                thumbnailNavigationPosition: "far-bottom",
-                },
-                ],
-                });
-                </script>'))
+                manuscript_id <- as.character(manuscript_id())
+                a("Digitalised copy (Mirador)", href=paste0("/#!/mirador?manuscriptId=", manuscript_id))
             }
+        })
+        
+        output$copies <- renderUI({
+            req(manuscript_id())
+            shelfmark <- readRDS("app/data/manuscripts.rds") |>
+                filter(id == !!as.character(manuscript_id())) |>
+                pull(manuscript) |>
+                as.character()
+            works <- readRDS("app/data/works.rds") |> 
+                select(text_id = id, title)
+            copies <- readRDS("app/data/manuscript_copies.rds") |>
+                filter(manuscript == !!shelfmark) |>
+                left_join(works, by = c("text"="title"))
+            
+            
+            purrr::map(1:nrow(copies), function(i) {
+                div(
+                    htmltools::tags$table(
+                        htmltools::tags$tr(
+                            htmltools::tags$td(
+                                htmltools::tags$b("Title")
+                            ),
+                            htmltools::tags$td(
+                                a(copies$text[i], href=paste0("#!/text_detail?textId=", copies$text_id[i]))
+                            ),
+                        ),
+                        htmltools::tags$tr(
+                            htmltools::tags$td(
+                                htmltools::tags$b("Foliation")
+                            ),
+                            htmltools::tags$td(
+                                copies$foliation[i]
+                            ),
+                        ),
+                        htmltools::tags$tr(
+                            htmltools::tags$td(
+                                htmltools::tags$b("Date")
+                            ),
+                            htmltools::tags$td(
+                                copies$date[i]
+                            ),
+                        )
+                    ),
+                    htmltools::tags$br()
+                )
+            })
         })
 
         output$id <- renderText({
-            manuscript_id()
+            paste0("https://něco.cz/manuscript_detail?manuscriptId=", manuscript_id())
         })
         
         

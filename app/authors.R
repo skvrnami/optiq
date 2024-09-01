@@ -1,8 +1,9 @@
 box::use(
-    shiny[h3, moduleServer, NS, div, tagList],
+    shiny[h3, moduleServer, NS, div, tagList, a],
     DT[DTOutput, renderDataTable], 
     httr[GET, content, add_headers], 
-    tibble[tibble]
+    tibble[tibble],
+    dplyr[select]
 )
 
 #' @export
@@ -43,6 +44,15 @@ server <- function(id) {
         #                        token = token)
         authors <- readRDS("app/data/authors.rds")
         
-        output$authors <- renderDataTable(authors)
+        output$authors <- renderDataTable({
+            a_table <- authors
+            a_table$name <- purrr::map2_chr(
+                a_table$name, a_table$id, function(x, y) {
+                    as.character(a(x, href=paste0("/#!/author_detail?authorId=", y)))
+                }
+            )
+            
+            return(a_table |> select(-c(id)))
+        }, escape = FALSE, rownames = FALSE)
     })
 }
