@@ -4,7 +4,7 @@ box::use(
     httr[GET, content, add_headers], 
     tibble[tibble],
     shiny.router[get_query_param],
-    dplyr[filter, pull, left_join, select]
+    dplyr[filter, pull, left_join, select, case_when, if_else]
 )
 
 #' @export
@@ -15,34 +15,10 @@ ui <- function(id) {
         htmltools::tags$script(src = "https://unpkg.com/mirador@latest/dist/mirador.min.js"),
         
         h3("Manuscript"),
-        div(
-            htmltools::tags$b("Shelfmark: "),
-            textOutput(ns("manuscript")),    
-        ),
-        
-        div(
-            htmltools::tags$b("Origin: ")
-        ),
-        
-        uiOutput(ns("facsimile")),
-        
-        div(
-            htmltools::tags$b("Catalogue: "),
-            uiOutput(ns("catalogue")),
-            uiOutput(ns("catalogue_link"))
-        ),
-        
-        div(
-            uiOutput(ns("iiif"))
-        ),
+        uiOutput(ns("manuscript")),
         
         h3("Texts"),
-        uiOutput(ns("copies")),
-        
-        div(
-            htmltools::tags$b("Permalink: "),
-            textOutput(ns("id"))    
-        )
+        uiOutput(ns("copies"))
         
     )
 }
@@ -87,62 +63,83 @@ server <- function(id) {
             as.character(manuscript_id)
         })
         
-        output$manuscript <- renderText({
+        output$manuscript <- renderUI({
             req(manuscript_id())
-            readRDS("app/data/manuscripts.rds") |>
-                filter(id == !!as.character(manuscript_id())) |>
-                pull(manuscript) |>
-                as.character()
-        })
-        
-        output$catalogue <- renderUI({
-            req(manuscript_id())
-            catalogue <- readRDS("app/data/manuscripts.rds") |>
-                filter(id == !!as.character(manuscript_id())) |>
-                pull(catalogue) 
-            if(!is.na(catalogue)){
-                catalogue
-            }else{
-                "-"
-            }
-        })
-        
-        output$catalogue_link <- renderUI({
-            req(manuscript_id())
-            link <- readRDS("app/data/manuscripts.rds") |>
-                filter(id == !!as.character(manuscript_id())) |>
-                pull(catalogue_link) 
-            if(!is.na(link)){
-                a("Catalogue link", href=link)
-            }
-        })
-        
-        output$facsimile <- renderUI({
-            req(manuscript_id())
-            facs <- readRDS("app/data/manuscripts.rds") |>
-                filter(id == !!as.character(manuscript_id())) |>
-                pull(facsimile) 
-            if(!is.na(facs)){
+            
+            manuscript <- readRDS("app/data/manuscripts.rds") |>
+                filter(id == !!as.character(manuscript_id()))
+            
+            div(
                 div(
-                    htmltools::tags$b("Facsimile:"),
-                    a(facs, href = facs)
-                )    
-            }else{
-                div()
-            }
-        })
-        
-        output$iiif <- renderUI({
-            req(manuscript_id())
-            
-            iiif <- readRDS("app/data/manuscripts.rds") |>
-                filter(id == !!as.character(manuscript_id())) |>
-                pull(iihf) 
-            
-            if(!is.na(iiif)){
-                manuscript_id <- as.character(manuscript_id())
-                a("Digitalised copy (Mirador)", href=paste0("/#!/mirador?manuscriptId=", manuscript_id))
-            }
+                    div("ID", class = "name"), 
+                    div(manuscript$id), 
+                    class = "row"
+                ),
+                div(
+                    div("Shelfmark", class = "name"),
+                    div(manuscript$manuscript),
+                    class = "row"
+                ),
+                div(
+                    div("Catalogue", class = "name"),
+                    div(
+                        if(!is.na(manuscript$catalogue) & !is.na(manuscript$catalogue_link)){
+                            a(manuscript$catalogue, href = manuscript$catalogue_link)
+                        }else if(!is.na(manuscript$catalogue)){
+                            manuscript$catalogue
+                        }else{
+                            "-"
+                        }),
+                    class = "row"
+                ),
+                div(
+                    div("Grid", class = "name"),
+                    div(manuscript$grid), 
+                    class = "row"
+                ),
+                div(
+                    div("Wikidata", class = "name"),
+                    div(
+                        if(!is.na(manuscript$wikidata)){
+                            a(manuscript$wikidata, href = paste0("https://www.wikidata.org/wiki/", manuscript$wikidata))
+                        }else{
+                            "-"
+                        }
+                    ), 
+                    class = "row"
+                ),
+                div(
+                    div("GND", class = "name"),
+                    div(manuscript$gnd), 
+                    class = "row"
+                ),
+                div(
+                    div("Digital copy", class = "name"),
+                    div(manuscript$digital_copy), 
+                    class = "row"
+                ),
+                div(
+                    div("Facsimile", class = "name"),
+                    div(manuscript$facsimile), 
+                    class = "row"
+                ),
+                div(
+                    div("Digitized copy (Mirador)", class = "name"),
+                    div(
+                        if(!is.na(manuscript$iihf)){
+                            a("Digitalised copy (Mirador)", href=paste0("/#!/mirador?manuscriptId=", manuscript$id))
+                        }else{
+                            "-"
+                        }
+                    ),
+                    class = "row"
+                ),
+                div(
+                    div("Permalink", class = "name"),
+                    div(paste0("https://něco.cz/manuscript_detail?manuscriptId=", manuscript$id)),
+                    class = "row"
+                )
+            )
         })
         
         output$copies <- renderUI({
@@ -160,41 +157,24 @@ server <- function(id) {
             
             purrr::map(1:nrow(copies), function(i) {
                 div(
-                    htmltools::tags$table(
-                        htmltools::tags$tr(
-                            htmltools::tags$td(
-                                htmltools::tags$b("Title")
-                            ),
-                            htmltools::tags$td(
-                                a(copies$text[i], href=paste0("#!/text_detail?textId=", copies$text_id[i]))
-                            ),
-                        ),
-                        htmltools::tags$tr(
-                            htmltools::tags$td(
-                                htmltools::tags$b("Foliation")
-                            ),
-                            htmltools::tags$td(
-                                copies$foliation[i]
-                            ),
-                        ),
-                        htmltools::tags$tr(
-                            htmltools::tags$td(
-                                htmltools::tags$b("Date")
-                            ),
-                            htmltools::tags$td(
-                                copies$date[i]
-                            ),
-                        )
+                    div(
+                        div("Title", class = "name"), 
+                        div(a(copies$text[i], href=paste0("#!/text_detail?textId=", copies$text_id[i]))),
+                        class = "row"
+                    ),
+                    div(
+                        div("Foliation", class = "name"),
+                        div(copies$foliation[i]),
+                        class = "row"
+                    ),
+                    div(
+                        div("Date", class = "name"),
+                        div(copies$date[i]), 
+                        class = "row"
                     ),
                     htmltools::tags$br()
                 )
             })
         })
-
-        output$id <- renderText({
-            paste0("https://něco.cz/manuscript_detail?manuscriptId=", manuscript_id())
-        })
-        
-        
     })
 }
