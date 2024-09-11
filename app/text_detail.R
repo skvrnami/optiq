@@ -4,7 +4,7 @@ box::use(
     httr[GET, content, add_headers], 
     tibble[tibble],
     shiny.router[get_query_param],
-    dplyr[filter, pull, select, left_join]
+    dplyr[filter, pull, select, left_join, slice]
 )
 
 #' @export
@@ -67,6 +67,13 @@ server <- function(id) {
             text <- readRDS("app/data/works.rds") |>
                 filter(id == !!as.character(text_id()))
             
+            copies <- readRDS("app/data/manuscript_copies.rds") |>
+                filter(text == !!text$title) |>
+                slice(1) |>
+                select(text, sigla)
+            
+            text <- left_join(text, copies, by = c("title"="text"))
+            
             author <- readRDS("app/data/authors.rds") |>
                 filter(name == text$author)
             
@@ -74,6 +81,11 @@ server <- function(id) {
                 div(
                     div("ID", class = "name"), 
                     div(text$id), 
+                    class = "row"
+                ),
+                div(
+                    div("Sigla", class = "name"), 
+                    div(text$sigla), 
                     class = "row"
                 ),
                 div(
@@ -113,6 +125,11 @@ server <- function(id) {
                     }else{
                         div("-")
                     }, 
+                    class = "row"
+                ),
+                div(
+                    div("Literature", class = "name"),
+                    div(text$literature),
                     class = "row"
                 ),
                 div(
