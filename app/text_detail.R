@@ -4,7 +4,7 @@ box::use(
     httr[GET, content, add_headers], 
     tibble[tibble],
     shiny.router[get_query_param],
-    dplyr[filter, pull]
+    dplyr[filter, pull, select, left_join]
 )
 
 #' @export
@@ -13,16 +13,11 @@ ui <- function(id) {
     
     tagList(
         h3("Text"),
+        uiOutput(ns("text")),
         
-        div(
-            htmltools::tags$b("Author: "),
-            textOutput(ns("author"))
-        ),
+        h3("Manuscripts"),
+        uiOutput(ns("copies"))
         
-        div(
-            htmltools::tags$b("Permalink: "),
-            textOutput(ns("id"))    
-        )
         
     )
 }
@@ -67,16 +62,100 @@ server <- function(id) {
             as.character(text_id)
         })
         
-        output$author <- renderText({
+        output$text <- renderUI({
             req(text_id())
-            readRDS("app/data/works.rds") |>
-                filter(id == !!as.character(text_id())) |>
-                pull(author) |>
-                as.character()
+            text <- readRDS("app/data/works.rds") |>
+                filter(id == !!as.character(text_id()))
+            
+            author <- readRDS("app/data/authors.rds") |>
+                filter(name == text$author)
+            
+            div(
+                div(
+                    div("ID", class = "name"), 
+                    div(text$id), 
+                    class = "row"
+                ),
+                div(
+                    div("Title", class = "name"),
+                    div(text$title),
+                    class = "row"
+                ),
+                div(
+                    div("Author", class = "name"),
+                    if(text$author == "Anonymous"){
+                        div(text$author)    
+                    }else{
+                        div(a(text$author, href=paste0("#!/author_detail?authorId=", author$id)))
+                    },
+                    class = "row"
+                ), 
+                div(
+                    div("Translator", class = "name"), 
+                    div(text$translator), 
+                    class = "row"
+                ),
+                div(
+                    div("Translation", class = "name"), 
+                    if(!is.na(text$translation_from)){
+                        div(paste0(text$translation_from,
+                                   " → ", 
+                                   text$translation_to))
+                    }else{
+                        div("-")
+                    }, 
+                    class = "row"
+                ),
+                div(
+                    div("Edition", class = "name"), 
+                    if(!is.na(text$edition)){
+                        div(a(text$edition, href = text$edition_link))
+                    }else{
+                        div("-")
+                    }, 
+                    class = "row"
+                ),
+                div(
+                    div("Permalink", class = "name"),
+                    div(paste0("https://něco.cz/text_detail?textId=", text$id)),
+                    class = "row"
+                )
+            )
         })
         
-        output$id <- renderText({
-            paste0("https://něco.cz/text_detail?textId=", text_id())
+        output$copies <- renderUI({
+            req(text_id())
+            text <- readRDS("app/data/works.rds") |>
+                filter(id == !!as.character(text_id()))
+            
+            manuscripts <- readRDS("app/data/manuscripts.rds") |>
+                select(manuscript_id = id, manuscript)
+            
+            copies <- readRDS("app/data/manuscript_copies.rds") |>
+                filter(text == !!text$title) |>
+                left_join(manuscripts, by = c("manuscript"))
+            
+            
+            purrr::map(1:nrow(copies), function(i) {
+                div(
+                    div(
+                        div("Manuscript", class = "name"), 
+                        div(a(copies$manuscript[i], href=paste0("#!/manuscript_detail?manuscriptId=", copies$manuscript_id[i]))),
+                        class = "row"
+                    ),
+                    div(
+                        div("Foliation", class = "name"),
+                        div(copies$foliation[i]),
+                        class = "row"
+                    ),
+                    div(
+                        div("Date", class = "name"),
+                        div(copies$date[i]), 
+                        class = "row"
+                    ),
+                    htmltools::tags$br()
+                )
+            })
         })
         
         
