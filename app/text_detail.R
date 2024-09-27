@@ -166,6 +166,11 @@ server <- function(id) {
                         class = "row"
                     ),
                     div(
+                        div("Incipit", class = "name"),
+                        div(copies$incipit[i]), 
+                        class = "row"
+                    ),
+                    div(
                         div("Date", class = "name"),
                         div(copies$date[i]), 
                         class = "row"
