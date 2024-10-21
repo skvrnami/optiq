@@ -68,11 +68,11 @@ server <- function(id) {
                 filter(id == !!as.character(text_id()))
             
             copies <- readRDS("app/data/manuscript_copies.rds") |>
-                filter(text == !!text$title) |>
+                filter(sigla == !!text$sigla) |>
                 slice(1) |>
                 select(text, sigla)
             
-            text <- left_join(text, copies, by = c("title"="text"))
+            text <- left_join(text, copies, by = "sigla")
             
             author <- readRDS("app/data/authors.rds") |>
                 filter(name == text$author)
@@ -121,7 +121,8 @@ server <- function(id) {
                 div(
                     div("Edition", class = "name"), 
                     if(!is.na(text$edition)){
-                        div(a(text$edition, href = text$edition_link))
+                        div(a(text$edition, href = text$edition_link, 
+                              target = "_blank"))
                     }else{
                         div("-")
                     }, 
@@ -130,6 +131,15 @@ server <- function(id) {
                 div(
                     div("Literature", class = "name"),
                     div(text$literature),
+                    class = "row"
+                ),
+                div(
+                    div("Note", class = "name"), 
+                    if(!is.na(text$notes)){
+                        div(text$notes)    
+                    }else{
+                        div("-")
+                    }, 
                     class = "row"
                 ),
                 div(
@@ -149,7 +159,7 @@ server <- function(id) {
                 select(manuscript_id = id, manuscript)
             
             copies <- readRDS("app/data/manuscript_copies.rds") |>
-                filter(text == !!text$title) |>
+                filter(sigla == !!text$sigla) |>
                 left_join(manuscripts, by = c("manuscript"))
             
             
@@ -157,7 +167,9 @@ server <- function(id) {
                 div(
                     div(
                         div("Manuscript", class = "name"), 
-                        div(a(copies$manuscript[i], href=paste0("#!/manuscript_detail?manuscriptId=", copies$manuscript_id[i]))),
+                        div(a(copies$manuscript[i], 
+                              href=paste0("#!/manuscript_detail?manuscriptId=", 
+                                          copies$manuscript_id[i]))),
                         class = "row"
                     ),
                     div(
@@ -172,7 +184,7 @@ server <- function(id) {
                     ),
                     div(
                         div("Date", class = "name"),
-                        div(copies$date[i]), 
+                        div(copies$date[i]),
                         class = "row"
                     ),
                     htmltools::tags$br()

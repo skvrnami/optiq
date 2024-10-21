@@ -48,7 +48,7 @@ server <- function(id) {
             a_table <- authors
             a_table$name <- purrr::map2_chr(
                 a_table$name, a_table$id, function(x, y) {
-                    as.character(a(x, href=paste0("/#!/author_detail?authorId=", y)))
+                    as.character(a(x, href=paste0("#!/author_detail?authorId=", y)))
                 }
             )
             

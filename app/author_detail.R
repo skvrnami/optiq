@@ -77,7 +77,9 @@ server <- function(id) {
                 ),
                 div(
                     div("Wikidata", class = "name"),
-                    div(a(author$author_wiki, href = paste0("https://www.wikidata.org/wiki/", author$author_wiki))),
+                    div(a(author$author_wiki, 
+                          href = paste0("https://www.wikidata.org/wiki/", author$author_wiki), 
+                          target = "_blank")),
                     class = "row"
                 ),
                 div(

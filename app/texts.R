@@ -57,10 +57,11 @@ server <- function(id) {
             t_table <- texts
             t_table$title <- purrr::map2_chr(
                 t_table$title, t_table$id, function(x, y) {
-                    as.character(a(x, href=paste0("/#!/text_detail?textId=", y)))
+                    as.character(a(x, href=paste0("#!/text_detail?textId=", y)))
                 }
             )
-            return(t_table |> select(-c(id, translator_wiki, translation_from, translation_to, 
+            return(t_table |> select(-c(id, translator, # translator_wiki, 
+                                        translation_from, translation_to, 
                                         edition, edition_link, notes, literature)))
         }, escape = FALSE, rownames = FALSE)
     })

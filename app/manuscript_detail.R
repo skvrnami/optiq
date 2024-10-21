@@ -4,7 +4,7 @@ box::use(
     httr[GET, content, add_headers], 
     tibble[tibble],
     shiny.router[get_query_param],
-    dplyr[filter, pull, left_join, select, case_when, if_else]
+    dplyr[filter, pull, left_join, select, case_when, if_else, arrange]
 )
 
 #' @export
@@ -127,7 +127,7 @@ server <- function(id) {
                     div("Digitized copy (Mirador)", class = "name"),
                     div(
                         if(!is.na(manuscript$iihf)){
-                            a("Digitalised copy (Mirador)", href=paste0("/#!/mirador?manuscriptId=", manuscript$id))
+                            a("Digitalised copy (Mirador)", href=paste0("#!/mirador?manuscriptId=", manuscript$id))
                         }else{
                             "-"
                         }
@@ -149,10 +149,11 @@ server <- function(id) {
                 pull(manuscript) |>
                 as.character()
             works <- readRDS("app/data/works.rds") |> 
-                select(text_id = id, title)
+                select(text_id = id, sigla)
             copies <- readRDS("app/data/manuscript_copies.rds") |>
                 filter(manuscript == !!shelfmark) |>
-                left_join(works, by = c("text"="title"))
+                left_join(works, by = c("sigla"="sigla")) |>
+                arrange(foliation)
             
             
             purrr::map(1:nrow(copies), function(i) {
@@ -169,7 +170,7 @@ server <- function(id) {
                     ),
                     div(
                         div("Date", class = "name"),
-                        div(copies$date[i]), 
+                        div(copies$date[i]),
                         class = "row"
                     ),
                     htmltools::tags$br()

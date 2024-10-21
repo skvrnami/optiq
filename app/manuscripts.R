@@ -56,7 +56,7 @@ server <- function(id) {
             m_table <- manuscripts
             m_table$manuscript <- purrr::map2_chr(
                 m_table$manuscript, m_table$id, function(x, y) {
-                    as.character(a(x, href=paste0("/#!/manuscript_detail?manuscriptId=", y)))
+                    as.character(a(x, href=paste0("#!/manuscript_detail?manuscriptId=", y)))
                 }
             )
             # m_table$catalogue_link <- purrr::map_chr(m_table$catalogue_link, function(x) {

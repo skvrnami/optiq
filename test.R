@@ -56,7 +56,8 @@ parse_works <- function(objects){
             edition = x$object_definitions$`35371`$object_definition_value, 
             edition_link = x$object_definitions$`35372`$object_definition_value, 
             literature = x$object_definitions$`35390`$object_definition_value, 
-            notes = x$object_definitions$`35391`$object_definition_value
+            notes = x$object_definitions$`35391`$object_definition_value, 
+            sigla = x$object_definitions$`35368`$object_definition_value
         )
     })
 }
