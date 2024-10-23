@@ -148,8 +148,11 @@ server <- function(id) {
                 filter(id == !!as.character(manuscript_id())) |>
                 pull(manuscript) |>
                 as.character()
+            authors <- readRDS("app/data/authors.rds") |>
+                select(author_id = id, name)
             works <- readRDS("app/data/works.rds") |> 
-                select(text_id = id, sigla)
+                select(text_id = id, sigla, author) |>
+                left_join(authors, by = c("author"="name"))
             copies <- readRDS("app/data/manuscript_copies.rds") |>
                 filter(manuscript == !!shelfmark) |>
                 left_join(works, by = c("sigla"="sigla")) |>
@@ -164,8 +167,18 @@ server <- function(id) {
                         class = "row"
                     ),
                     div(
+                        div("Author", class = "name"), 
+                        div(a(copies$author[i], href=paste0("#!/author_detail?authorId=", copies$author_id[i]))),
+                        class = "row"
+                    ),
+                    div(
                         div("Foliation", class = "name"),
                         div(copies$foliation[i]),
+                        class = "row"
+                    ),
+                    div(
+                        div("Sigla", class = "name"),
+                        div(copies$sigla[i]),
                         class = "row"
                     ),
                     div(
