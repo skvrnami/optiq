@@ -64,7 +64,7 @@ server <- function(id) {
             #             "")
             # })
             
-            return(m_table |> select(-c(id, catalogue_link)))
+            return(m_table |> select(Manuscript = manuscript, Catalogue = catalogue))
         }, escape = FALSE, rownames = FALSE)
     })
 }

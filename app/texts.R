@@ -4,7 +4,7 @@ box::use(
     httr[GET, content, add_headers], 
     tibble[tibble], 
     purrr[map2_chr],
-    dplyr[select, arrange]
+    dplyr[select, arrange, left_join]
 )
 
 #' @export
@@ -50,8 +50,12 @@ server <- function(id) {
         # }
         # 
         # manuscripts <- get_manuscripts(manuscript_id, token)
+        authors <- readRDS("app/data/authors.rds") |> 
+            select(author_id = id, author = name)
+        
         texts <- readRDS("app/data/works.rds") |> 
-            arrange(title)
+            arrange(title) |>
+            left_join(authors, by = "author")
         
         output$texts <- renderDataTable({
             t_table <- texts
@@ -60,9 +64,12 @@ server <- function(id) {
                     as.character(a(x, href=paste0("#!/text_detail?textId=", y)))
                 }
             )
-            return(t_table |> select(-c(id, translator, # translator_wiki, 
-                                        translation_from, translation_to, 
-                                        edition, edition_link, notes, literature)))
+            t_table$author <- purrr::map2_chr(
+                t_table$author, t_table$author_id, function(x, y) {
+                    as.character(a(x, href=paste0("#!/author_detail?authorId=", y)))
+                }
+            ) 
+            return(t_table |> select(Author = author, Title = title, Sigla = sigla))
         }, escape = FALSE, rownames = FALSE)
     })
 }
