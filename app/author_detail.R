@@ -65,33 +65,36 @@ server <- function(id) {
                 filter(id == !!as.character(author_id()))
             
             div(
-                div(
-                    div("ID", class = "name"), 
-                    div(author$id), 
-                    class = "row"
-                ),
+                # div(
+                #     div("ID", class = "name"), 
+                #     div(author$id), 
+                #     class = "row"
+                # ),
                 div(
                     div("Name", class = "name"),
-                    div(author$name),
+                    div(author$name, class = "value"),
                     class = "row"
                 ),
                 div(
                     div("Wikidata", class = "name"),
                     div(a(author$author_wiki, 
                           href = paste0("https://www.wikidata.org/wiki/", author$author_wiki), 
-                          target = "_blank")),
+                          target = "_blank"), 
+                        class = "value"),
                     class = "row"
                 ),
                 div(
                     div("Origin", class = "name"),
-                    div(author$origin), 
+                    div(author$origin, class = "value"), 
                     class = "row"
                 ),
                 div(
                     div("Permalink", class = "name"),
-                    paste0("https://něco.cz/author_detail?authorId=", author$id),
+                    div(paste0("https://něco.cz/author_detail?authorId=", author$id), 
+                        class = "value"),
                     class = "row"
-                )
+                ), 
+                class = "table"
             )
         })
         

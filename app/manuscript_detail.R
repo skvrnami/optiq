@@ -70,14 +70,14 @@ server <- function(id) {
                 filter(id == !!as.character(manuscript_id()))
             
             div(
-                div(
-                    div("ID", class = "name"), 
-                    div(manuscript$id), 
-                    class = "row"
-                ),
+                # div(
+                #     div("ID", class = "name"), 
+                #     div(manuscript$id), 
+                #     class = "row"
+                # ),
                 div(
                     div("Shelfmark", class = "name"),
-                    div(manuscript$manuscript),
+                    div(manuscript$manuscript, class = "value"),
                     class = "row"
                 ),
                 div(
@@ -89,12 +89,12 @@ server <- function(id) {
                             manuscript$catalogue
                         }else{
                             "-"
-                        }),
+                        }, class = "value"),
                     class = "row"
                 ),
                 div(
                     div("Grid", class = "name"),
-                    div(manuscript$grid), 
+                    div(manuscript$grid, class = "value"), 
                     class = "row"
                 ),
                 div(
@@ -104,23 +104,24 @@ server <- function(id) {
                             a(manuscript$wikidata, href = paste0("https://www.wikidata.org/wiki/", manuscript$wikidata))
                         }else{
                             "-"
-                        }
+                        }, 
+                        class = "value"
                     ), 
                     class = "row"
                 ),
                 div(
                     div("GND", class = "name"),
-                    div(manuscript$gnd), 
+                    div(manuscript$gnd, class = "value"), 
                     class = "row"
                 ),
                 div(
                     div("Digital copy", class = "name"),
-                    div(manuscript$digital_copy), 
+                    div(manuscript$digital_copy, class = "value"), 
                     class = "row"
                 ),
                 div(
                     div("Facsimile", class = "name"),
-                    div(manuscript$facsimile), 
+                    div(manuscript$facsimile, class = "value"), 
                     class = "row"
                 ),
                 div(
@@ -130,15 +131,18 @@ server <- function(id) {
                             a("Digitalised copy (Mirador)", href=paste0("#!/mirador?manuscriptId=", manuscript$id))
                         }else{
                             "-"
-                        }
+                        }, 
+                        class = "value"
                     ),
                     class = "row"
                 ),
                 div(
                     div("Permalink", class = "name"),
-                    div(paste0("https://něco.cz/manuscript_detail?manuscriptId=", manuscript$id)),
+                    div(paste0("https://něco.cz/manuscript_detail?manuscriptId=", manuscript$id), 
+                        class = "value"),
                     class = "row"
-                )
+                ), 
+                class = "table"
             )
         })
         
@@ -163,27 +167,29 @@ server <- function(id) {
                 div(
                     div(
                         div("Title", class = "name"), 
-                        div(a(copies$text[i], href=paste0("#!/text_detail?textId=", copies$text_id[i]))),
+                        div(a(copies$text[i], href=paste0("#!/text_detail?textId=", copies$text_id[i])), 
+                            class = "value"),
                         class = "row"
                     ),
                     div(
                         div("Author", class = "name"), 
-                        div(a(copies$author[i], href=paste0("#!/author_detail?authorId=", copies$author_id[i]))),
+                        div(a(copies$author[i], href=paste0("#!/author_detail?authorId=", copies$author_id[i])), 
+                            class = "value"),
                         class = "row"
                     ),
                     div(
                         div("Foliation", class = "name"),
-                        div(copies$foliation[i]),
+                        div(copies$foliation[i], class = "value"),
                         class = "row"
                     ),
                     div(
                         div("Sigla", class = "name"),
-                        div(copies$sigla[i]),
+                        div(copies$sigla[i], class = "value"),
                         class = "row"
                     ),
                     div(
                         div("Date", class = "name"),
-                        div(copies$date[i]),
+                        div(copies$date[i], class = "value"),
                         class = "row"
                     ),
                     htmltools::tags$br()

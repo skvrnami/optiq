@@ -78,33 +78,34 @@ server <- function(id) {
                 filter(name == text$author)
             
             div(
-                div(
-                    div("ID", class = "name"), 
-                    div(text$id), 
-                    class = "row"
-                ),
+                # div(
+                #     div("ID", class = "name"), 
+                #     div(text$id), 
+                #     class = "row"
+                # ),
                 div(
                     div("Sigla", class = "name"), 
-                    div(text$sigla), 
+                    div(text$sigla, class = "value"), 
                     class = "row"
                 ),
                 div(
                     div("Title", class = "name"),
-                    div(text$title),
+                    div(text$title, class = "value"),
                     class = "row"
                 ),
                 div(
                     div("Author", class = "name"),
                     if(text$author == "Anonymous"){
-                        div(text$author)    
+                        div(text$author, class = "value")    
                     }else{
-                        div(a(text$author, href=paste0("#!/author_detail?authorId=", author$id)))
+                        div(a(text$author, href=paste0("#!/author_detail?authorId=", author$id)), 
+                            class = "value")
                     },
                     class = "row"
                 ), 
                 div(
                     div("Translator", class = "name"), 
-                    div(text$translator), 
+                    div(text$translator, class = "value"), 
                     class = "row"
                 ),
                 div(
@@ -112,9 +113,10 @@ server <- function(id) {
                     if(!is.na(text$translation_from)){
                         div(paste0(text$translation_from,
                                    " → ", 
-                                   text$translation_to))
+                                   text$translation_to), 
+                            class = "value")
                     }else{
-                        div("-")
+                        div("-", class = "value")
                     }, 
                     class = "row"
                 ),
@@ -122,31 +124,34 @@ server <- function(id) {
                     div("Edition", class = "name"), 
                     if(!is.na(text$edition)){
                         div(a(text$edition, href = text$edition_link, 
-                              target = "_blank"))
+                              target = "_blank"), 
+                            class = "value")
                     }else{
-                        div("-")
+                        div("-", class = "value")
                     }, 
                     class = "row"
                 ),
                 div(
                     div("Literature", class = "name"),
-                    div(text$literature),
+                    div(text$literature, class = "value"),
                     class = "row"
                 ),
                 div(
                     div("Note", class = "name"), 
                     if(!is.na(text$notes)){
-                        div(text$notes)    
+                        div(text$notes, class = "value")    
                     }else{
-                        div("-")
+                        div("-", class = "value")
                     }, 
                     class = "row"
                 ),
                 div(
                     div("Permalink", class = "name"),
-                    div(paste0("https://něco.cz/text_detail?textId=", text$id)),
+                    div(paste0("https://něco.cz/text_detail?textId=", text$id), 
+                        class = "value"),
                     class = "row"
-                )
+                ), 
+                class = "table"
             )
         })
         
@@ -169,25 +174,27 @@ server <- function(id) {
                         div("Manuscript", class = "name"), 
                         div(a(copies$manuscript[i], 
                               href=paste0("#!/manuscript_detail?manuscriptId=", 
-                                          copies$manuscript_id[i]))),
+                                          copies$manuscript_id[i])), 
+                            class = "value"),
                         class = "row"
                     ),
                     div(
                         div("Foliation", class = "name"),
-                        div(copies$foliation[i]),
+                        div(copies$foliation[i], class = "value"),
                         class = "row"
                     ),
                     div(
                         div("Incipit", class = "name"),
-                        div(copies$incipit[i]), 
+                        div(copies$incipit[i], class = "value"), 
                         class = "row"
                     ),
                     div(
                         div("Date", class = "name"),
-                        div(copies$date[i]),
+                        div(copies$date[i], class = "value"),
                         class = "row"
                     ),
-                    htmltools::tags$br()
+                    htmltools::tags$br(), 
+                    class = "table"
                 )
             })
         })
