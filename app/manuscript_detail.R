@@ -1,10 +1,12 @@
 box::use(
     shiny[h3, moduleServer, NS, div, tagList, textOutput, renderText, reactive, req, 
-          uiOutput, renderUI, a],
+          uiOutput, renderUI, a, HTML],
     httr[GET, content, add_headers], 
     tibble[tibble],
     shiny.router[get_query_param],
-    dplyr[filter, pull, left_join, select, case_when, if_else, arrange]
+    dplyr[filter, pull, left_join, select, case_when, if_else, arrange, where, 
+          mutate], 
+    tidyr[pivot_longer, everything]
 )
 
 #' @export
@@ -67,83 +69,66 @@ server <- function(id) {
             req(manuscript_id())
             
             manuscript <- readRDS("app/data/manuscripts.rds") |>
-                filter(id == !!as.character(manuscript_id()))
-            
-            div(
-                # div(
-                #     div("ID", class = "name"), 
-                #     div(manuscript$id), 
-                #     class = "row"
-                # ),
-                div(
-                    div("Shelfmark", class = "name"),
-                    div(manuscript$manuscript, class = "value"),
-                    class = "row"
-                ),
-                div(
-                    div("Catalogue", class = "name"),
-                    div(
-                        if(!is.na(manuscript$catalogue) & !is.na(manuscript$catalogue_link)){
-                            a(manuscript$catalogue, href = manuscript$catalogue_link)
-                        }else if(!is.na(manuscript$catalogue)){
-                            manuscript$catalogue
-                        }else{
-                            "-"
-                        }, class = "value"),
-                    class = "row"
-                ),
-                div(
-                    div("Grid", class = "name"),
-                    div(manuscript$grid, class = "value"), 
-                    class = "row"
-                ),
-                div(
-                    div("Wikidata", class = "name"),
-                    div(
-                        if(!is.na(manuscript$wikidata)){
-                            a(manuscript$wikidata, href = paste0("https://www.wikidata.org/wiki/", manuscript$wikidata))
-                        }else{
-                            "-"
-                        }, 
-                        class = "value"
-                    ), 
-                    class = "row"
-                ),
-                div(
-                    div("GND", class = "name"),
-                    div(manuscript$gnd, class = "value"), 
-                    class = "row"
-                ),
-                div(
-                    div("Digital copy", class = "name"),
-                    div(manuscript$digital_copy, class = "value"), 
-                    class = "row"
-                ),
-                div(
-                    div("Facsimile", class = "name"),
-                    div(manuscript$facsimile, class = "value"), 
-                    class = "row"
-                ),
-                div(
-                    div("Digitized copy (Mirador)", class = "name"),
-                    div(
-                        if(!is.na(manuscript$iihf)){
-                            a("Digitalised copy (Mirador)", href=paste0("#!/mirador?manuscriptId=", manuscript$id))
-                        }else{
-                            "-"
-                        }, 
-                        class = "value"
+                filter(id == !!as.character(manuscript_id())) |>
+                mutate(
+                    catalogue = if_else(
+                        !is.na(catalogue_link) & !is.na(catalogue),
+                        as.character(a(catalogue, href = catalogue_link, 
+                                       target = "_blank")),
+                        catalogue
                     ),
-                    class = "row"
-                ),
+                    digital_copy = if_else(
+                        !is.na(digital_copy),
+                        as.character(a(digital_copy, href = digital_copy, 
+                                       target = "_blank")),
+                        digital_copy
+                    ),
+                    wikidata = if_else(
+                        !is.na(wikidata), 
+                        as.character(a(wikidata, href = paste0("https://www.wikidata.org/wiki/", wikidata), 
+                                       target = "_blank")),
+                        wikidata
+                    ),
+                    iihf = if_else(
+                        !is.na(iihf),
+                        as.character(a("Digitalised copy (Mirador)", href = paste0("#!/mirador?manuscriptId=", id),
+                                       target = "_blank")),
+                        iihf
+                    ),
+                    permalink = paste0("https://něco.cz/manuscript_detail?manuscriptId=", id)
+                ) |>
+                select(-c(catalogue_link, id)) |>
+                select(where(~!is.na(.x)))
+            
+            manuscript_long <- manuscript |> 
+                pivot_longer(
+                cols = everything(),
+                names_to = "name", 
+                values_to = "value"
+            ) |> 
+                mutate(
+                    name = case_when(
+                        name == "manuscript" ~ "Shelfmark",
+                        name == "catalogue" ~ "Catalogue",
+                        name == "facsimile" ~ "Facsimile",
+                        name == "wikidata" ~ "Wikidata",
+                        name == "grid" ~ "Grid",
+                        name == "gnd" ~ "GND",
+                        name == "digital_copy" ~ "Digital copy",
+                        name == "iihf" ~ "Digitized copy (Mirador)",
+                        name == "permalink" ~ "Permanlink",
+                        TRUE ~ name
+                    )
+                )
+            
+            purrr::map(1:nrow(manuscript_long), function(x) {
                 div(
-                    div("Permalink", class = "name"),
-                    div(paste0("https://něco.cz/manuscript_detail?manuscriptId=", manuscript$id), 
-                        class = "value"),
+                    div(manuscript_long$name[x], class = "name"),
+                    div(HTML(manuscript_long$value[x]), class = "value"), 
                     class = "row"
-                ), 
-                class = "table"
-            )
+                )
+            }) |> div(class = "table")
+
         })
         
         output$copies <- renderUI({
@@ -158,6 +143,10 @@ server <- function(id) {
                 select(text_id = id, sigla, author) |>
                 left_join(authors, by = c("author"="name"))
             copies <- readRDS("app/data/manuscript_copies.rds") |>
+                mutate(manuscript = if_else(sigla == "114", 
+                                            "Venice, Biblioteca Nazionale Marciana, MS Zanetti Lat. 535 (Valentinelli XIV .13)",
+                                            manuscript
+                )) |>
                 filter(manuscript == !!shelfmark) |>
                 left_join(works, by = c("sigla"="sigla")) |>
                 arrange(foliation)
