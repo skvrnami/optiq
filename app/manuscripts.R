@@ -1,6 +1,6 @@
 box::use(
     shiny[h3, moduleServer, NS, div, tagList, a],
-    DT[DTOutput, renderDataTable], 
+    DT[DTOutput, renderDataTable, JS], 
     httr[GET, content, add_headers], 
     tibble[tibble], 
     purrr[map2_chr],
@@ -54,17 +54,37 @@ server <- function(id) {
         
         output$manuscripts <- renderDataTable({
             m_table <- manuscripts
-            m_table$manuscript <- purrr::map2_chr(
-                m_table$manuscript, m_table$id, function(x, y) {
-                    as.character(a(x, href=paste0("#!/manuscript_detail?manuscriptId=", y)))
-                }
-            )
+            # m_table$manuscript <- purrr::map2_chr(
+            #     m_table$manuscript, m_table$id, function(x, y) {
+            #         as.character(a(x, href=paste0("#!/manuscript_detail?manuscriptId=", y)))
+            #     }
+            # )
             # m_table$catalogue_link <- purrr::map_chr(m_table$catalogue_link, function(x) {
             #     if_else(!is.na(x), as.character(a("Link", href=x)),
             #             "")
             # })
             
-            return(m_table |> select(Manuscript = manuscript, Catalogue = catalogue))
-        }, escape = FALSE, rownames = FALSE)
+            return(m_table |> select(id, Manuscript = manuscript, Catalogue = catalogue))
+        }, escape = FALSE, rownames = FALSE, 
+        # style = 'bootstrap',
+        # filter = list(position = 'top', clear = FALSE),
+        options = list(
+            # dom = "<\"datatables-scroll\"t>",
+            ordering = TRUE,
+            columnDefs = list(
+                list(targets = 1, render = JS(
+                    "function(data, type, row, meta) {
+                    if (type === 'display') {
+                    data = '<a href=\"#!/manuscript_detail?manuscriptId=' + 
+                    row[0] + '\" >' + row[1] + '</a>';
+                    }
+                    return data;
+                    }"
+                    )), 
+                list(visible = FALSE, targets = 0)
+            )
+        )
+        
+        )
     })
 }
