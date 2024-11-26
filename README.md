@@ -26,8 +26,8 @@ https://docs.google.com/document/d/1DQ9nP1kYwcYe0VXOb8U0G4uWentZc3X4nWGv4B7Ea6w/
     
 - [x] manuscript - osekat počty sloupců
 - [x] názvy sloupců u datatable
-    - [ ] table s autory
-    - [ ] řazení sloupců, kde je odkaz - https://stackoverflow.com/questions/77451302/sort-hyperlinks-by-tag-in-shiny-datatable
+    - [x] table s autory
+    - [x] řazení sloupců, kde je odkaz - https://stackoverflow.com/questions/77451302/sort-hyperlinks-by-tag-in-shiny-datatable
 
 - [ ] sloučit některé sloupce dohromady
 - [x] neozbrazovat něco v tabulce, pokud chybí data

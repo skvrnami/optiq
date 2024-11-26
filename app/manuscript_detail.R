@@ -95,7 +95,7 @@ server <- function(id) {
                                        target = "_blank")),
                         iihf
                     ),
-                    permalink = paste0("https://něco.cz/manuscript_detail?manuscriptId=", id)
+                    permalink = paste0("http://optiq.flu.cas.cz/#!/manuscript_detail?manuscriptId=", id)
                 ) |>
                 select(-c(catalogue_link, id)) |>
                 select(where(~!is.na(.x)))

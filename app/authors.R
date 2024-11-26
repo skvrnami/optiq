@@ -1,9 +1,9 @@
 box::use(
     shiny[h3, moduleServer, NS, div, tagList, a],
-    DT[DTOutput, renderDataTable], 
+    DT[DTOutput, renderDataTable, JS], 
     httr[GET, content, add_headers], 
     tibble[tibble],
-    dplyr[select]
+    dplyr[select, rename]
 )
 
 #' @export
@@ -46,13 +46,31 @@ server <- function(id) {
         
         output$authors <- renderDataTable({
             a_table <- authors
-            a_table$name <- purrr::map2_chr(
-                a_table$name, a_table$id, function(x, y) {
-                    as.character(a(x, href=paste0("#!/author_detail?authorId=", y)))
-                }
-            )
+            # a_table$name <- purrr::map2_chr(
+            #     a_table$name, a_table$id, function(x, y) {
+            #         as.character(a(x, href=paste0("#!/author_detail?authorId=", y)))
+            #     }
+            # )
             
-            return(a_table |> select(-c(id)))
-        }, escape = FALSE, rownames = FALSE)
+            return(a_table |> rename(Name = name, `Alternative name`=alternative_name, 
+                                     `Wiki ID` = author_wiki, `Origin` = origin))
+        }, escape = FALSE, rownames = FALSE,
+        options = list(
+            # dom = "<\"datatables-scroll\"t>",
+            ordering = TRUE,
+            columnDefs = list(
+                list(targets = 1, render = JS(
+                    "function(data, type, row, meta) {
+                    if (type === 'display') {
+                    data = '<a href=\"#!/author_detail?authorId=' + 
+                    row[0] + '\" >' + row[1] + '</a>';
+                    }
+                    return data;
+                    }"
+                )), 
+                list(visible = FALSE, targets = 0)
+            )
+        )
+        )
     })
 }

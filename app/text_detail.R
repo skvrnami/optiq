@@ -99,7 +99,7 @@ server <- function(id) {
                         as.character(a(edition, href = edition_link, target = "_blank")),
                         edition
                     ),
-                    permalink = paste0("https://něco.cz/text_detail?textId=", id)
+                    permalink = paste0("http://optiq.flu.cas.cz/#!/text_detail?textId=", id)
                 ) |>
                 select(-c(author_id, translation_from, translation_to, id, 
                           edition_link)) |>

@@ -1,6 +1,6 @@
 box::use(
     shiny[h3, moduleServer, NS, div, tagList, a],
-    DT[DTOutput, renderDataTable], 
+    DT[DTOutput, renderDataTable, JS], 
     httr[GET, content, add_headers], 
     tibble[tibble], 
     purrr[map2_chr],
@@ -59,17 +59,37 @@ server <- function(id) {
         
         output$texts <- renderDataTable({
             t_table <- texts
-            t_table$title <- purrr::map2_chr(
-                t_table$title, t_table$id, function(x, y) {
-                    as.character(a(x, href=paste0("#!/text_detail?textId=", y)))
-                }
+            
+            return(t_table |> select(id, author_id, Author = author, Title = title, Sigla = sigla))
+        }, escape = FALSE, rownames = FALSE, 
+        options = list(
+            # dom = "<\"datatables-scroll\"t>",
+            ordering = TRUE,
+            columnDefs = list(
+                list(visible = FALSE, targets = 0),
+                list(visible = FALSE, targets = 1),
+                list(targets = 3, render = JS(
+                    "function(data, type, row, meta) {
+                    if (type === 'display') {
+                    data = '<a href=\"#!/text_detail?textId=' + 
+                    row[0] + '\" >' + row[3] + '</a>';
+                    }
+                    return data;
+                    }"
+                )), 
+                list(targets = 2, render = JS(
+                    "function(data, type, row, meta) {
+                    if (type === 'display') {
+                    data = '<a href=\"#!/author_detail?authorId=' + 
+                    row[1] + '\" >' + row[2] + '</a>';
+                    }
+                    return data;
+                    }"
+                ))
+                
             )
-            t_table$author <- purrr::map2_chr(
-                t_table$author, t_table$author_id, function(x, y) {
-                    as.character(a(x, href=paste0("#!/author_detail?authorId=", y)))
-                }
-            ) 
-            return(t_table |> select(Author = author, Title = title, Sigla = sigla))
-        }, escape = FALSE, rownames = FALSE)
+        )
+        
+        )
     })
 }
