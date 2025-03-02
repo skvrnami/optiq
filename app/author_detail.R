@@ -76,6 +76,11 @@ server <- function(id) {
                     class = "row"
                 ),
                 div(
+                    div("Lifetime", class = "name"),
+                    div(author$origin, class = "value"), 
+                    class = "row"
+                ),
+                div(
                     div("Wikidata", class = "name"),
                     div(a(author$author_wiki, 
                           href = paste0("https://www.wikidata.org/wiki/", author$author_wiki), 
@@ -84,13 +89,8 @@ server <- function(id) {
                     class = "row"
                 ),
                 div(
-                    div("Origin", class = "name"),
-                    div(author$origin, class = "value"), 
-                    class = "row"
-                ),
-                div(
                     div("Permalink", class = "name"),
-                    div(paste0("https://něco.cz/author_detail?authorId=", author$id), 
+                    div(paste0("http://optiq.flu.cas.cz/#!/author_detail?authorId=", author$id), 
                         class = "value"),
                     class = "row"
                 ), 

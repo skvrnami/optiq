@@ -1,6 +1,7 @@
 box::use(
     shiny[actionButton, column, div, fluidRow, h2, moduleServer, NS, observeEvent, p],
     shiny.router[change_page],
+    htmltools[HTML, br]
 )
 
 #' @export
@@ -9,11 +10,28 @@ ui <- function(id) {
     fluidRow(
         div(
             h2("Home page"),
-            p("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cum sociis natoque penatibus et magnis. Leo vel orci porta non. Rutrum quisque non tellus orci ac auctor augue. Nunc faucibus a pellentesque sit amet porttitor. Tristique senectus et netus et malesuada. Volutpat est velit egestas dui. Netus et malesuada fames ac turpis egestas sed. Volutpat est velit egestas dui id ornare arcu odio. Mattis molestie a iaculis at erat pellentesque. Aliquam id diam maecenas ultricies mi. Fringilla est ullamcorper eget nulla facilisi etiam. Id leo in vitae turpis massa sed elementum tempus egestas. Scelerisque purus semper eget duis at tellus."),
-            p("Quis hendrerit dolor magna eget est. Orci dapibus ultrices in iaculis nunc sed augue. Varius quam quisque id diam vel quam. Egestas congue quisque egestas diam in. Dis parturient montes nascetur ridiculus mus mauris vitae. Tellus integer feugiat scelerisque varius morbi enim nunc faucibus. Dolor sit amet consectetur adipiscing elit ut aliquam. Amet luctus venenatis lectus magna. In dictum non consectetur a. Dolor sit amet consectetur adipiscing elit pellentesque habitant. Eget lorem dolor sed viverra ipsum nunc aliquet bibendum enim. Semper risus in hendrerit gravida rutrum quisque non tellus. Imperdiet proin fermentum leo vel orci porta non pulvinar. Lorem ipsum dolor sit amet consectetur adipiscing elit ut aliquam. Praesent tristique magna sit amet purus gravida. Ullamcorper sit amet risus nullam eget felis eget nunc. Diam in arcu cursus euismod quis viverra."),
-            p("Morbi tristique senectus et netus et malesuada fames ac. Arcu dictum varius duis at consectetur lorem donec massa. Velit ut tortor pretium viverra. Fringilla ut morbi tincidunt augue interdum. Ipsum consequat nisl vel pretium lectus quam. In iaculis nunc sed augue lacus viverra vitae congue. Egestas egestas fringilla phasellus faucibus scelerisque eleifend donec. Nunc aliquet bibendum enim facilisis gravida. Metus vulputate eu scelerisque felis imperdiet proin fermentum. Hac habitasse platea dictumst quisque sagittis purus. Et malesuada fames ac turpis egestas sed. Odio tempor orci dapibus ultrices in iaculis nunc. Odio morbi quis commodo odio aenean sed adipiscing diam donec. At quis risus sed vulputate odio ut. Sed cras ornare arcu dui vivamus arcu felis bibendum. Sit amet cursus sit amet dictum sit amet justo. Imperdiet dui accumsan sit amet nulla facilisi morbi tempus. Tristique risus nec feugiat in fermentum posuere urna nec tincidunt."),
-            p("Urna duis convallis convallis tellus id. Et pharetra pharetra massa massa ultricies. Faucibus a pellentesque sit amet porttitor eget dolor morbi. Hendrerit gravida rutrum quisque non tellus orci. Justo nec ultrices dui sapien eget. Leo a diam sollicitudin tempor. Fringilla ut morbi tincidunt augue. In aliquam sem fringilla ut morbi tincidunt. Sollicitudin aliquam ultrices sagittis orci a. Donec enim diam vulputate ut pharetra sit. Aliquet enim tortor at auctor urna nunc id cursus. Pellentesque adipiscing commodo elit at imperdiet. Lacus sed turpis tincidunt id. Sed risus pretium quam vulputate dignissim suspendisse. At tempor commodo ullamcorper a lacus vestibulum sed."),
-            p("Quam quisque id diam vel quam elementum pulvinar. Lectus urna duis convallis convallis tellus id interdum velit. Mi sit amet mauris commodo quis. Volutpat odio facilisis mauris sit amet massa vitae tortor. Dui faucibus in ornare quam viverra orci sagittis eu volutpat. Pellentesque massa placerat duis ultricies lacus sed turpis tincidunt. Viverra orci sagittis eu volutpat odio facilisis. Nisi lacus sed viverra tellus in hac. Sed elementum tempus egestas sed sed risus pretium quam vulputate. Eu mi bibendum neque egestas. Nibh sed pulvinar proin gravida hendrerit. Viverra tellus in hac habitasse. Proin libero nunc consequat interdum varius sit amet mattis. Phasellus egestas tellus rutrum tellus pellentesque eu tincidunt tortor.")
+            p("The OptiQ project aims to create a database application for a corpus of medieval and early modern texts on the history of optics, which are preserved mainly in manuscripts."),
+            p(HTML("The project is based on David C. Lindberg's <i>A Catalogue of Medieval and Renaissance Optical Manuscripts</i> (1975). The database, which also includes Bohemian and Central European manuscripts and literature, provides access to other online relevant materials (digital manuscript catalogues, editions, manuscript facsimiles, author databases, etc.) according to the latest digital standards (e.g. IIIF).")),
+            p(HTML("In synergy with Dr Lukáš Lička's research, supported by the Czech Grant Agency within the project <i>Peckham's Age: The Role of Jan Peckham's Perspectiva communis in the Dissemination and Development of Optical Knowledge, 1279-1542</i>, the database will be expanded in the last phase to include many newly discovered texts and manuscripts. This will constitute a scientific infrastructure corresponding to the current knowledge and research needs.")),
+            p("Therefore, the application does not claim to be entirely current in terms of individual texts and manuscripts."),
+            p("OptiQ includes two main tools:", 
+              HTML("<ol>
+                    <li>The Manuscripts item consists of a catalogue of the manuscript corpus with extant texts on optics</li>
+                    <li>The Texts item consists of a catalogue of the corpus of texts on optics preserved in the manuscripts of our database</li>
+                   </ol>")
+            ),
+            p("To support the maintenance and further development of the database, we ask all users to acknowledge the use of OptiQ in their research outcomes and to use the permalinks available on the individual pages with detailed information on texts and manuscripts."),
+            p("OptiQ has been developed at the Institute of Philosophy of the Czech Academy of Sciences within the Lindat/CLARIAH-CZ project (LM2023062) and is fully supported by the Ministry of Education, Youth, and Sports of the Czech Republic under the programme LM of \"Large Infrastructures\". The team comprises Lukáš Lička, Jan Škvrňák and Ota Pavlíček."),
+            
+            p("We welcome any feedback, suggestions for cooperation or enrichment of the application at:",
+              br(), "Ota Pavlíček", br(),
+              "Institute of Philosophy", br(),
+              "Czech Academy of Sciences", br(),
+              "Jilská 1", br(),
+              "110 00 Prague", br(),
+              "Czech Republic", br(),
+              "ota.pavlicek[at]flu.cas.cz", br()
+              )
         )
     )
         

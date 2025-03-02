@@ -52,12 +52,13 @@ server <- function(id) {
             #     }
             # )
             
-            return(a_table |> rename(Name = name, `Alternative name`=alternative_name, 
-                                     `Wiki ID` = author_wiki, `Origin` = origin))
+            return(a_table |> select(id, Name = name, `Alternative name`=alternative_name, 
+                                     `Lifetime` = origin, `Wiki ID` = author_wiki))
         }, escape = FALSE, rownames = FALSE,
         options = list(
             # dom = "<\"datatables-scroll\"t>",
             ordering = TRUE,
+            pageLength = 50,
             columnDefs = list(
                 list(targets = 1, render = JS(
                     "function(data, type, row, meta) {
@@ -68,7 +69,18 @@ server <- function(id) {
                     return data;
                     }"
                 )), 
-                list(visible = FALSE, targets = 0)
+                list(visible = FALSE, targets = 0), 
+                list(targets = 4, render = JS(
+                    "function(data, type, row, meta) {
+                    if (type === 'display') {
+                    if (!!row[4]) {
+                    data = '<a href=\"https://www.wikidata.org/wiki/' + 
+                    row[4] + '\" >' + row[4] + '</a>';
+                    }
+                    }
+                    return data;
+                    }"
+                ))
             )
         )
         )
