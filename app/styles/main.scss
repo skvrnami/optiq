@@ -41,6 +41,10 @@ h1 {
     unicode-bidi: isolate;
 }
 
+h3 {
+  padding-left: 0px;
+}
+
 ul {
     list-style-type: none;
     margin: 20px 0 0 0;
@@ -91,12 +95,10 @@ footer img {
 .row {
     display: flex; 
     flex-direction: row; 
-    gap: 10px; 
 }
 
 .name, .value {
   flex: 1; /* Equal width for all columns */
-  // padding: 10px; /* Optional: Adds padding */
   // border: 1px solid #ccc; /* Optional: Adds border for visibility */
   box-sizing: border-box; /* Include padding and borders in the width calculation */
 }
@@ -105,9 +107,17 @@ footer img {
     flex-basis: 15%; /* Set a fixed basis (e.g., 30%) for the 'name' column */
     font-weight: bold;
     width: 16rem;
-    padding: 0.4rem 0rem;
+    padding: 0.4rem 1.4rem;
 }
 
 .value {
     flex-basis: 85%; /* Set a fixed basis (e.g., 70%) for the 'value' column */
+}
+
+.copy {
+  border: 1px solid #333;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  width: 70%;
 }

@@ -4,7 +4,7 @@ box::use(
     httr[GET, content, add_headers], 
     tibble[tibble], 
     purrr[map2_chr],
-    dplyr[select]
+    dplyr[select, left_join]
 )
 
 #' @export
@@ -50,7 +50,17 @@ server <- function(id) {
         # }
         # 
         # manuscripts <- get_manuscripts(manuscript_id, token)
-        manuscripts <- readRDS("app/data/manuscripts.rds")
+        copies <- readRDS("app/data/manuscript_copies.rds") |>
+            select(manuscript, sigla, text, date) |>
+            unique()
+        authors <- readRDS("app/data/authors.rds") |>
+            select(author_id = id, name)
+        works <- readRDS("app/data/works.rds") |>
+            select(text_id = id, sigla, author) |>
+            left_join(authors, by = c("author"="name"))
+        manuscripts <- readRDS("app/data/manuscripts.rds") |>
+            left_join(copies, by = "manuscript") |>
+            left_join(works, by = "sigla")
         
         output$manuscripts <- renderDataTable({
             m_table <- manuscripts
@@ -64,7 +74,9 @@ server <- function(id) {
             #             "")
             # })
             
-            return(m_table |> select(id, Manuscript = manuscript, Catalogue = catalogue))
+            return(m_table |> select(id, Shelfmark = manuscript, Author = author, 
+                                     Siglum = sigla, Title = text, 
+                                     Origin = date, Facsimile = facsimile, author_id))
         }, escape = FALSE, rownames = FALSE, 
         # style = 'bootstrap',
         # filter = list(position = 'top', clear = FALSE),
@@ -80,8 +92,29 @@ server <- function(id) {
                     }
                     return data;
                     }"
-                    )), 
-                list(visible = FALSE, targets = 0)
+                    )),
+                list(targets = 2, render = JS(
+                    "function(data, type, row, meta) {
+                    if (type === 'display') {
+                    data = '<a href=\"#!/author_detail?authorId=' + 
+                    row[7] + '\" >' + row[2] + '</a>';
+                    }
+                    return data;
+                    }"
+                )),
+                list(targets = 6, render = JS(
+                    "function(data, type, row, meta) {
+                    if (type === 'display') {
+                    if (!!row[6]) {
+                    data = '<a href=\"' + 
+                    row[6] + '\" >' + 'Link' + '</a>';
+                    }
+                    }
+                    return data;
+                    }"
+                )),
+                list(visible = FALSE, targets = 0), 
+                list(visible = FALSE, targets = 7)
             )
         )
         

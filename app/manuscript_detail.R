@@ -68,8 +68,13 @@ server <- function(id) {
         output$manuscript <- renderUI({
             req(manuscript_id())
             
+            copies <- readRDS("app/data/manuscript_copies.rds") |>
+                select(manuscript, date) |>
+                unique()
+            
             manuscript <- readRDS("app/data/manuscripts.rds") |>
                 filter(id == !!as.character(manuscript_id())) |>
+                left_join(copies, by = "manuscript") |>
                 mutate(
                     catalogue = if_else(
                         !is.na(catalogue_link) & !is.na(catalogue),
@@ -109,6 +114,7 @@ server <- function(id) {
                 mutate(
                     name = case_when(
                         name == "manuscript" ~ "Shelfmark",
+                        name == "date" ~ "Origin",
                         name == "catalogue" ~ "Catalogue",
                         name == "facsimile" ~ "Facsimile",
                         name == "wikidata" ~ "Wikidata",
@@ -116,7 +122,7 @@ server <- function(id) {
                         name == "gnd" ~ "GND",
                         name == "digital_copy" ~ "Digital copy",
                         name == "iihf" ~ "Digitized copy (Mirador)",
-                        name == "permalink" ~ "Permanlink",
+                        name == "permalink" ~ "Permalink",
                         TRUE ~ name
                     )
                 )
@@ -171,19 +177,20 @@ server <- function(id) {
                         div(copies$foliation[i], class = "value"),
                         class = "row"
                     ),
-                    div(
-                        div("Sigla", class = "name"),
-                        div(copies$sigla[i], class = "value"),
-                        class = "row"
-                    ),
-                    div(
-                        div("Date", class = "name"),
-                        div(copies$date[i], class = "value"),
-                        class = "row"
-                    ),
-                    htmltools::tags$br()
+                    # div(
+                    #     div("Sigla", class = "name"),
+                    #     div(copies$sigla[i], class = "value"),
+                    #     class = "row"
+                    # ),
+                    # div(
+                    #     div("Date", class = "name"),
+                    #     div(copies$date[i], class = "value"),
+                    #     class = "row"
+                    # ),
+                    class = "copy"
                 )
             })
+            
         })
     })
 }
