@@ -82,6 +82,7 @@ server <- function(id) {
                 select(author_id = id, name)
             
             text <- left_join(text, author, by = c("author"="name")) |> 
+                select(id, sigla, author, title, everything()) |>
                 # left_join(text, copies, by = "sigla") |>
                 mutate(
                     author = if_else(
@@ -113,14 +114,14 @@ server <- function(id) {
                 ) |> 
                 mutate(
                     name = case_when(
-                        name == "sigla" ~ "Sigla",
+                        name == "sigla" ~ "Siglum",
                         name == "title" ~ "Title",
                         name == "author" ~ "Author",
                         name == "translator" ~ "Translator",
                         name == "translation" ~ "Translation",
                         name == "edition" ~ "Edition",
                         name == "literature" ~ "Literature",
-                        name == "notes" ~ "Note",
+                        name == "notes" ~ "Notes",
                         name == "permalink" ~ "Permanlink",
                         TRUE ~ name
                     )
@@ -151,11 +152,10 @@ server <- function(id) {
                 )) |> 
                 left_join(manuscripts, by = c("manuscript"))
             
-            
             purrr::map(1:nrow(copies), function(i) {
                 div(
                     div(
-                        div("Manuscript", class = "name"), 
+                        div("Shelfmark", class = "name"), 
                         div(a(copies$manuscript[i], 
                               href=paste0("#!/manuscript_detail?manuscriptId=", 
                                           copies$manuscript_id[i])), 
@@ -168,17 +168,21 @@ server <- function(id) {
                         class = "row"
                     ),
                     div(
+                        div("Date", class = "name"),
+                        div(copies$date[i], class = "value"),
+                        class = "row"
+                    ),
+                    div(
                         div("Incipit", class = "name"),
                         div(copies$incipit[i], class = "value"), 
                         class = "row"
                     ),
                     div(
-                        div("Date", class = "name"),
-                        div(copies$date[i], class = "value"),
+                        div("Note", class = "name"),
+                        div(if_else(is.na(copies$note[i]), "", copies$note[i]), class = "value"),
                         class = "row"
                     ),
-                    htmltools::tags$br(), 
-                    class = "table"
+                    class = "copy"
                 )
             })
         })

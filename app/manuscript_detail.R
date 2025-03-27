@@ -1,6 +1,6 @@
 box::use(
     shiny[h3, moduleServer, NS, div, tagList, textOutput, renderText, reactive, req, 
-          uiOutput, renderUI, a, HTML],
+          uiOutput, renderUI, a, HTML, img],
     httr[GET, content, add_headers], 
     tibble[tibble],
     shiny.router[get_query_param],
@@ -82,9 +82,15 @@ server <- function(id) {
                                        target = "_blank")),
                         catalogue
                     ),
+                    facsimile = if_else(
+                        !is.na(facsimile),
+                        as.character(a("Link ", img(width="20", height="20", src="https://img.icons8.com/ios/50/link--v1.png"), href = facsimile, 
+                                       target = "_blank")),
+                        facsimile
+                    ),
                     digital_copy = if_else(
                         !is.na(digital_copy),
-                        as.character(a(digital_copy, href = digital_copy, 
+                        as.character(a("Link ", img(width="20", height="20", src="https://img.icons8.com/ios/50/link--v1.png"), href = digital_copy, 
                                        target = "_blank")),
                         digital_copy
                     ),

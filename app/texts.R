@@ -1,10 +1,10 @@
 box::use(
-    shiny[h3, moduleServer, NS, div, tagList, a],
+    shiny[h3, moduleServer, NS, div, tagList, a, img],
     DT[DTOutput, renderDataTable, JS], 
     httr[GET, content, add_headers], 
     tibble[tibble], 
     purrr[map2_chr],
-    dplyr[select, arrange, left_join]
+    dplyr[select, arrange, left_join, mutate, if_else]
 )
 
 #' @export
@@ -60,7 +60,7 @@ server <- function(id) {
         output$texts <- renderDataTable({
             t_table <- texts
             
-            return(t_table |> select(id, author_id, Author = author, Title = title, Sigla = sigla))
+            return(t_table |> select(id, author_id, Siglum = sigla, Author = author, Title = title, Edition = edition_link))
         }, escape = FALSE, rownames = FALSE, 
         options = list(
             # dom = "<\"datatables-scroll\"t>",
@@ -71,21 +71,33 @@ server <- function(id) {
                 list(targets = 3, render = JS(
                     "function(data, type, row, meta) {
                     if (type === 'display') {
+                    data = '<a href=\"#!/author_detail?authorId=' + 
+                    row[1] + '\" >' + row[3] + '</a>';
+                    }
+                    return data;
+                    }"
+                )),
+                list(targets = 4, render = JS(
+                    "function(data, type, row, meta) {
+                    if (type === 'display') {
                     data = '<a href=\"#!/text_detail?textId=' + 
-                    row[0] + '\" >' + row[3] + '</a>';
+                    row[0] + '\" >' + row[4] + '</a>';
                     }
                     return data;
                     }"
                 )), 
-                list(targets = 2, render = JS(
+                list(targets = 5, render = JS(
                     "function(data, type, row, meta) {
                     if (type === 'display') {
-                    data = '<a href=\"#!/author_detail?authorId=' + 
-                    row[1] + '\" >' + row[2] + '</a>';
+                    if (!!row[5]) {
+                    data = '<a href=\"' + 
+                    row[5] + '\" ><img width=\"20\" height=\"20\" src=\"https://img.icons8.com/ios/50/link--v1.png\"/></a>';
+                    }
                     }
                     return data;
                     }"
                 ))
+                
                 
             )
         )
