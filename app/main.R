@@ -1,6 +1,6 @@
 box::use(
   shiny[fluidPage, titlePanel, fluidRow, sidebarLayout, sidebarPanel, mainPanel, 
-        div, p, moduleServer, NS, renderUI, tags, uiOutput, a, img, h1],
+        div, p, moduleServer, NS, renderUI, tags, uiOutput, a, img, h1, HTML],
   shiny.router[router_ui, router_server, route, route_link]
 )
 

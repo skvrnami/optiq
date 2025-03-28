@@ -107,7 +107,7 @@ server <- function(id) {
                     if (type === 'display') {
                     if (!!row[6]) {
                     data = '<a href=\"' + 
-                    row[6] + '\" >' + 'Link' + '</a>';
+                    row[6] + '\" ><img width=\"20\" height=\"20\" src=\"https://img.icons8.com/ios/50/link--v1.png\"/></a>';
                     }
                     }
                     return data;
