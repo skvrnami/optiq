@@ -1,0 +1,905 @@
+[
+  {
+    "id": 1,
+    "placeId": "Q15681",
+    "cityLabel": "Jaén",
+    "x": 37.769722,
+    "y": -3.788889
+  },
+  {
+    "id": 2,
+    "placeId": "Q5818",
+    "cityLabel": "Córdoba",
+    "x": 37.89,
+    "y": -4.78
+  },
+  {
+    "id": 3,
+    "placeId": "Q78",
+    "cityLabel": "Basel",
+    "x": 47.560556,
+    "y": 7.590556
+  },
+  {
+    "id": 4,
+    "placeId": "Q49111",
+    "cityLabel": "Cambridge",
+    "x": 42.375,
+    "y": -71.106111
+  },
+  {
+    "id": 5,
+    "placeId": "Q23436",
+    "cityLabel": "Edinburgh",
+    "x": 55.953333,
+    "y": -3.189167
+  },
+  {
+    "id": 6,
+    "placeId": "Q371748",
+    "cityLabel": "San Lorenzo de El Escorial",
+    "x": 40.593611,
+    "y": -4.142778
+  },
+  {
+    "id": 7,
+    "placeId": "Q2044",
+    "cityLabel": "Florence",
+    "x": 43.771389,
+    "y": 11.254167
+  },
+  {
+    "id": 8,
+    "placeId": "Q31487",
+    "cityLabel": "Kraków",
+    "x": 50.061389,
+    "y": 19.937222
+  },
+  {
+    "id": 9,
+    "placeId": "Q84",
+    "cityLabel": "London",
+    "x": 51.507222,
+    "y": -0.1275
+  },
+  {
+    "id": 10,
+    "placeId": "Q34217",
+    "cityLabel": "Oxford",
+    "x": 51.751944,
+    "y": -1.257778
+  },
+  {
+    "id": 11,
+    "placeId": "Q90",
+    "cityLabel": "Paris",
+    "x": 48.856667,
+    "y": 2.352222
+  },
+  {
+    "id": 12,
+    "placeId": "Q220",
+    "cityLabel": "Rome",
+    "x": 41.893056,
+    "y": 12.482778
+  },
+  {
+    "id": 13,
+    "placeId": "Q237",
+    "cityLabel": "Vatican City",
+    "x": 41.904,
+    "y": 12.453
+  },
+  {
+    "id": 14,
+    "placeId": "Q131612",
+    "cityLabel": "Wiener Neustadt",
+    "x": 47.816667,
+    "y": 16.25
+  },
+  {
+    "id": 15,
+    "placeId": "Q572921",
+    "cityLabel": "Lauingen",
+    "x": 48.566667,
+    "y": 10.433333
+  },
+  {
+    "id": 16,
+    "placeId": "Q365",
+    "cityLabel": "Cologne",
+    "x": 50.942222,
+    "y": 6.957778
+  },
+  {
+    "id": 17,
+    "placeId": "Q64",
+    "cityLabel": "Berlin",
+    "x": 52.516667,
+    "y": 13.383333
+  },
+  {
+    "id": 18,
+    "placeId": "Q1726",
+    "cityLabel": "Munich",
+    "x": 48.1375,
+    "y": 11.575
+  },
+  {
+    "id": 19,
+    "placeId": "Q40898",
+    "cityLabel": "Nancy",
+    "x": 48.692778,
+    "y": 6.183611
+  },
+  {
+    "id": 20,
+    "placeId": "Q1085",
+    "cityLabel": "Prague",
+    "x": 50.0875,
+    "y": 14.421389
+  },
+  {
+    "id": 21,
+    "placeId": "Q3138",
+    "cityLabel": "Trier",
+    "x": 49.75565,
+    "y": 6.63935
+  },
+  {
+    "id": 22,
+    "placeId": "Q1729",
+    "cityLabel": "Erfurt",
+    "x": 50.978056,
+    "y": 11.028889
+  },
+  {
+    "id": 23,
+    "placeId": "Q22690",
+    "cityLabel": "Metz",
+    "x": 49.119722,
+    "y": 6.176944
+  },
+  {
+    "id": 24,
+    "placeId": "Q2751",
+    "cityLabel": "Siena",
+    "x": 43.318333,
+    "y": 11.331389
+  },
+  {
+    "id": 25,
+    "placeId": "Q48195",
+    "cityLabel": "Basra",
+    "x": 30.515,
+    "y": 47.81
+  },
+  {
+    "id": 26,
+    "placeId": "Q85",
+    "cityLabel": "Cairo",
+    "x": 30.044444,
+    "y": 31.235833
+  },
+  {
+    "id": 27,
+    "placeId": "Q1731",
+    "cityLabel": "Dresden",
+    "x": 51.05,
+    "y": 13.74
+  },
+  {
+    "id": 28,
+    "placeId": "Q4093",
+    "cityLabel": "Glasgow",
+    "x": 55.861111,
+    "y": -4.25
+  },
+  {
+    "id": 29,
+    "placeId": "Q456",
+    "cityLabel": "Lyon",
+    "x": 45.758889,
+    "y": 4.841389
+  },
+  {
+    "id": 30,
+    "placeId": "Q490",
+    "cityLabel": "Milan",
+    "x": 45.466944,
+    "y": 9.19
+  },
+  {
+    "id": 31,
+    "placeId": "Q773853",
+    "cityLabel": "Venice",
+    "x": 33.990833,
+    "y": -118.459167
+  },
+  {
+    "id": 32,
+    "placeId": "Q186234",
+    "cityLabel": "Kufa",
+    "x": 32.03,
+    "y": 44.4
+  },
+  {
+    "id": 33,
+    "placeId": "Q1530",
+    "cityLabel": "Baghdad",
+    "x": 33.315278,
+    "y": 44.366111
+  },
+  {
+    "id": 34,
+    "placeId": "Q55893348",
+    "cityLabel": "Seville city",
+    "x": 37.382778,
+    "y": -5.973056
+  },
+  {
+    "id": 35,
+    "placeId": "Q36405",
+    "cityLabel": "Aberdeen",
+    "x": 57.15,
+    "y": -2.1
+  },
+  {
+    "id": 36,
+    "placeId": "Q41604",
+    "cityLabel": "Amiens",
+    "x": 49.891944,
+    "y": 2.297778
+  },
+  {
+    "id": 37,
+    "placeId": "Q20103",
+    "cityLabel": "Assisi",
+    "x": 43.07,
+    "y": 12.6175
+  },
+  {
+    "id": 38,
+    "placeId": "Q239",
+    "cityLabel": "City of Brussels",
+    "x": 50.846667,
+    "y": 4.351667
+  },
+  {
+    "id": 39,
+    "placeId": "Q5025235",
+    "cityLabel": "Cambrai",
+    "x": -34.65,
+    "y": 139.283
+  },
+  {
+    "id": 40,
+    "placeId": "Q7003",
+    "cityLabel": "Dijon",
+    "x": 47.323056,
+    "y": 5.041944
+  },
+  {
+    "id": 41,
+    "placeId": "Q13362",
+    "cityLabel": "Ferrara",
+    "x": 44.835297,
+    "y": 11.619865
+  },
+  {
+    "id": 42,
+    "placeId": "Q13298",
+    "cityLabel": "Graz",
+    "x": 47.070833,
+    "y": 15.438611
+  },
+  {
+    "id": 43,
+    "placeId": "Q25390",
+    "cityLabel": "Leeuwarden",
+    "x": 53.2,
+    "y": 5.783333
+  },
+  {
+    "id": 44,
+    "placeId": "Q28260",
+    "cityLabel": "Lincoln",
+    "x": 40.809167,
+    "y": -96.678056
+  },
+  {
+    "id": 45,
+    "placeId": "Q13373",
+    "cityLabel": "Lucca",
+    "x": 43.85,
+    "y": 10.516667
+  },
+  {
+    "id": 46,
+    "placeId": "Q116592",
+    "cityLabel": "Cassino",
+    "x": 41.491667,
+    "y": 13.833333
+  },
+  {
+    "id": 47,
+    "placeId": "Q6441",
+    "cityLabel": "Montpellier",
+    "x": 43.610919,
+    "y": 3.877231
+  },
+  {
+    "id": 48,
+    "placeId": "Q2634",
+    "cityLabel": "Naples",
+    "x": 40.835833,
+    "y": 14.248611
+  },
+  {
+    "id": 49,
+    "placeId": "Q60",
+    "cityLabel": "New York City",
+    "x": 40.712778,
+    "y": -74.006111
+  },
+  {
+    "id": 50,
+    "placeId": "Q2090",
+    "cityLabel": "Nuremberg",
+    "x": 49.453889,
+    "y": 11.0775
+  },
+  {
+    "id": 51,
+    "placeId": "Q47554",
+    "cityLabel": "Toruń",
+    "x": 53.016667,
+    "y": 18.616667
+  },
+  {
+    "id": 52,
+    "placeId": "Q2028",
+    "cityLabel": "Verona",
+    "x": 45.438611,
+    "y": 10.992778
+  },
+  {
+    "id": 53,
+    "placeId": "Q4122",
+    "cityLabel": "Wolfenbüttel",
+    "x": 52.162222,
+    "y": 10.536944
+  },
+  {
+    "id": 54,
+    "placeId": "Q2999",
+    "cityLabel": "Würzburg",
+    "x": 49.794444,
+    "y": 9.929444
+  },
+  {
+    "id": 55,
+    "placeId": "Q117211",
+    "cityLabel": "Roccasecca",
+    "x": 41.55,
+    "y": 13.666667
+  },
+  {
+    "id": 56,
+    "placeId": "Q1775258",
+    "cityLabel": "Fossanova Abbey",
+    "x": 41.43808,
+    "y": 13.195656
+  },
+  {
+    "id": 57,
+    "placeId": "Q2158",
+    "cityLabel": "Valencia",
+    "x": 7.904167,
+    "y": 125.092778
+  },
+  {
+    "id": 58,
+    "placeId": "Q3078478",
+    "cityLabel": "Grau",
+    "x": 39.4602,
+    "y": -0.331897
+  },
+  {
+    "id": 59,
+    "placeId": "Q1639226",
+    "cityLabel": "Villanueva de Jiloca",
+    "x": 41.075278,
+    "y": -1.3925
+  },
+  {
+    "id": 60,
+    "placeId": "Q1449",
+    "cityLabel": "Genoa",
+    "x": 44.407186,
+    "y": 8.933983
+  },
+  {
+    "id": 61,
+    "placeId": "Q4072887",
+    "cityLabel": "Afshona",
+    "x": 39.994444,
+    "y": 64.379167
+  },
+  {
+    "id": 62,
+    "placeId": "Q28587",
+    "cityLabel": "Hamadan",
+    "x": 34.8,
+    "y": 48.516667
+  },
+  {
+    "id": 63,
+    "placeId": "Q49145",
+    "cityLabel": "New Haven",
+    "x": 41.308333,
+    "y": -72.925
+  },
+  {
+    "id": 64,
+    "placeId": "Q2915726",
+    "cityLabel": "Bisley",
+    "x": 51.753511,
+    "y": -2.140469
+  },
+  {
+    "id": 65,
+    "placeId": "Q1244536",
+    "cityLabel": "Ilchester",
+    "x": 51.0011,
+    "y": -2.6825
+  },
+  {
+    "id": 66,
+    "placeId": "Q23157",
+    "cityLabel": "Somerset",
+    "x": 51.3,
+    "y": -3
+  },
+  {
+    "id": 67,
+    "placeId": "Q1761",
+    "cityLabel": "Dublin",
+    "x": 53.349722,
+    "y": -6.260278
+  },
+  {
+    "id": 68,
+    "placeId": "Q749",
+    "cityLabel": "Groningen",
+    "x": 53.218889,
+    "y": 6.5675
+  },
+  {
+    "id": 69,
+    "placeId": "Q6057871",
+    "cityLabel": "Palacio de Biblioteca y Museos Nacionales",
+    "x": 40.423547,
+    "y": -3.689367
+  },
+  {
+    "id": 70,
+    "placeId": "Q56134",
+    "cityLabel": "Salamanca",
+    "x": -31.766667,
+    "y": -70.966667
+  },
+  {
+    "id": 71,
+    "placeId": "Q172157",
+    "cityLabel": "Winchester",
+    "x": 51.063333,
+    "y": -1.308611
+  },
+  {
+    "id": 72,
+    "placeId": "Q1891",
+    "cityLabel": "Bologna",
+    "x": 44.493889,
+    "y": 11.342778
+  },
+  {
+    "id": 73,
+    "placeId": "Q2683",
+    "cityLabel": "Parma",
+    "x": 44.801472,
+    "y": 10.328
+  },
+  {
+    "id": 74,
+    "placeId": "Q85136359",
+    "cityLabel": "San Tommaso Apostolo Church",
+    "x": 45.313123,
+    "y": 9.506218
+  },
+  {
+    "id": 75,
+    "placeId": "Q2491024",
+    "cityLabel": "Bredwardine",
+    "x": 52.095,
+    "y": -2.976
+  },
+  {
+    "id": 76,
+    "placeId": "Q207639",
+    "cityLabel": "Chichester",
+    "x": 50.8365,
+    "y": -0.7792
+  },
+  {
+    "id": 77,
+    "placeId": "Q148349",
+    "cityLabel": "Lambeth",
+    "x": 51.4903,
+    "y": -0.1193
+  },
+  {
+    "id": 78,
+    "placeId": "Q53896",
+    "cityLabel": "Longobucco",
+    "x": 39.45,
+    "y": 16.616667
+  },
+  {
+    "id": 79,
+    "placeId": "Q617",
+    "cityLabel": "Padua",
+    "x": 45.407778,
+    "y": 11.873333
+  },
+  {
+    "id": 80,
+    "placeId": "Q28151514",
+    "cityLabel": "Carthage",
+    "x": 36.855,
+    "y": 10.330556
+  },
+  {
+    "id": 81,
+    "placeId": "Q334051",
+    "cityLabel": "Abbey of Monte Cassino",
+    "x": 41.49,
+    "y": 13.814
+  },
+  {
+    "id": 82,
+    "placeId": "Q70",
+    "cityLabel": "Bern",
+    "x": 46.94798,
+    "y": 7.44743
+  },
+  {
+    "id": 83,
+    "placeId": "Q37776",
+    "cityLabel": "Besançon",
+    "x": 47.242222,
+    "y": 6.021389
+  },
+  {
+    "id": 84,
+    "placeId": "Q41185",
+    "cityLabel": "Caen",
+    "x": 49.181389,
+    "y": -0.363611
+  },
+  {
+    "id": 85,
+    "placeId": "Q87",
+    "cityLabel": "Alexandria",
+    "x": 31.1975,
+    "y": 29.8925
+  },
+  {
+    "id": 86,
+    "placeId": "Q20436",
+    "cityLabel": "Foligno",
+    "x": 42.956111,
+    "y": 12.703333
+  },
+  {
+    "id": 87,
+    "placeId": "Q41753",
+    "cityLabel": "Klagenfurt am Wörthersee",
+    "x": 46.616667,
+    "y": 14.3
+  },
+  {
+    "id": 88,
+    "placeId": "Q597",
+    "cityLabel": "Lisbon",
+    "x": 38.708042,
+    "y": -9.139016
+  },
+  {
+    "id": 89,
+    "placeId": "Q404241",
+    "cityLabel": "Aigen-Schlägl",
+    "x": 48.646667,
+    "y": 13.9725
+  },
+  {
+    "id": 90,
+    "placeId": "Q316527",
+    "cityLabel": "Toledo",
+    "x": 10.383333,
+    "y": 123.65
+  },
+  {
+    "id": 91,
+    "placeId": "Q203298",
+    "cityLabel": "Briançon",
+    "x": 44.895833,
+    "y": 6.635
+  },
+  {
+    "id": 92,
+    "placeId": "Q18986",
+    "cityLabel": "Pergamon",
+    "x": 39.116667,
+    "y": 27.183333
+  },
+  {
+    "id": 93,
+    "placeId": "Q1105858",
+    "cityLabel": "Camboulit",
+    "x": 44.6,
+    "y": 1.949722
+  },
+  {
+    "id": 94,
+    "placeId": "Q1903",
+    "cityLabel": "Catania",
+    "x": 37.502669,
+    "y": 15.087269
+  },
+  {
+    "id": 95,
+    "placeId": "Q1799",
+    "cityLabel": "Wrocław",
+    "x": 51.11,
+    "y": 17.0325
+  },
+  {
+    "id": 96,
+    "placeId": "Q686979",
+    "cityLabel": "Stradbroke",
+    "x": 52.318,
+    "y": 1.274
+  },
+  {
+    "id": 97,
+    "placeId": "Q1951638",
+    "cityLabel": "Buckden",
+    "x": 52.293446,
+    "y": -0.252419
+  },
+  {
+    "id": 98,
+    "placeId": "Q180057",
+    "cityLabel": "Lincoln",
+    "x": 53.25,
+    "y": -0.55
+  },
+  {
+    "id": 99,
+    "placeId": "Q279",
+    "cityLabel": "Modena",
+    "x": 44.64582,
+    "y": 10.92572
+  },
+  {
+    "id": 100,
+    "placeId": "Q2526099",
+    "cityLabel": "Petworth",
+    "x": 50.986,
+    "y": -0.609
+  },
+  {
+    "id": 101,
+    "placeId": "Q170366",
+    "cityLabel": "Ahvaz",
+    "x": 31.318889,
+    "y": 48.684167
+  },
+  {
+    "id": 102,
+    "placeId": "Q3869",
+    "cityLabel": "Marburg",
+    "x": 50.816667,
+    "y": 8.766667
+  },
+  {
+    "id": 103,
+    "placeId": "Q1741",
+    "cityLabel": "Vienna",
+    "x": 48.208333,
+    "y": 16.3725
+  },
+  {
+    "id": 104,
+    "placeId": "Q41262",
+    "cityLabel": "Nottingham",
+    "x": 52.955,
+    "y": -1.149167
+  },
+  {
+    "id": 105,
+    "placeId": "Q41876",
+    "cityLabel": "Reims",
+    "x": 49.265278,
+    "y": 4.028611
+  },
+  {
+    "id": 106,
+    "placeId": "Q1479",
+    "cityLabel": "Bordeaux",
+    "x": 44.837778,
+    "y": -0.579444
+  },
+  {
+    "id": 107,
+    "placeId": "Q7880",
+    "cityLabel": "Toulouse",
+    "x": 43.604444,
+    "y": 1.443333
+  },
+  {
+    "id": 108,
+    "placeId": "Q154184",
+    "cityLabel": "Anchiano",
+    "x": 43.799167,
+    "y": 10.938133
+  },
+  {
+    "id": 109,
+    "placeId": "Q1122731",
+    "cityLabel": "Clos Lucé",
+    "x": 47.41024,
+    "y": 0.99204
+  },
+  {
+    "id": 110,
+    "placeId": "Q205116",
+    "cityLabel": "Amboise",
+    "x": 47.411389,
+    "y": 0.9825
+  },
+  {
+    "id": 111,
+    "placeId": "Q13666",
+    "cityLabel": "Messina",
+    "x": 38.193611,
+    "y": 15.554167
+  },
+  {
+    "id": 112,
+    "placeId": "Q1302971",
+    "cityLabel": "Gundeshapur",
+    "x": 32.283333,
+    "y": 48.516667
+  },
+  {
+    "id": 113,
+    "placeId": "Q170047",
+    "cityLabel": "Samarra",
+    "x": 34.1959,
+    "y": 43.88568
+  },
+  {
+    "id": 114,
+    "placeId": "Q3126",
+    "cityLabel": "Erlangen",
+    "x": 49.596389,
+    "y": 11.004444
+  },
+  {
+    "id": 115,
+    "placeId": "Q2079",
+    "cityLabel": "Leipzig",
+    "x": 51.340632,
+    "y": 12.374733
+  },
+  {
+    "id": 116,
+    "placeId": "Q516709",
+    "cityLabel": "Fleury-sur-Orne",
+    "x": 49.146111,
+    "y": -0.376389
+  },
+  {
+    "id": 117,
+    "placeId": "Q188743",
+    "cityLabel": "Lisieux",
+    "x": 49.145556,
+    "y": 0.225556
+  },
+  {
+    "id": 118,
+    "placeId": "Q246884",
+    "cityLabel": "Lewes",
+    "x": 50.874722,
+    "y": 0.011667
+  },
+  {
+    "id": 119,
+    "placeId": "Q29303",
+    "cityLabel": "Canterbury",
+    "x": 51.278333,
+    "y": 1.0775
+  },
+  {
+    "id": 120,
+    "placeId": "Q155622",
+    "cityLabel": "Bernkastel-Kues",
+    "x": 49.916111,
+    "y": 7.069444
+  },
+  {
+    "id": 121,
+    "placeId": "Q580868",
+    "cityLabel": "Kremsmünster",
+    "x": 48.055,
+    "y": 14.130833
+  },
+  {
+    "id": 122,
+    "placeId": "Q1639175",
+    "cityLabel": "Palazzo dei Papi di Viterbo",
+    "x": 42.41574,
+    "y": 12.100968
+  },
+  {
+    "id": 123,
+    "placeId": "Q1302772",
+    "cityLabel": "Ptolemais Hermiou",
+    "x": 26.476944,
+    "y": 31.803611
+  },
+  {
+    "id": 124,
+    "placeId": "Q1145180",
+    "cityLabel": "Canopus",
+    "x": 31.3,
+    "y": 30.083333
+  },
+  {
+    "id": 125,
+    "placeId": "Q636188",
+    "cityLabel": "Ray",
+    "x": 35.5975,
+    "y": 51.434444
+  },
+  {
+    "id": 126,
+    "placeId": "Q3766",
+    "cityLabel": "Damascus",
+    "x": 33.513056,
+    "y": 36.291944
+  },
+  {
+    "id": 127,
+    "placeId": "Q14819",
+    "cityLabel": "Freiberg",
+    "x": 50.911944,
+    "y": 13.342778
+  },
+  {
+    "id": 128,
+    "placeId": "Q627521",
+    "cityLabel": "Pommersfelden",
+    "x": 49.766667,
+    "y": 10.816667
+  },
+  {
+    "id": 129,
+    "placeId": "Q2820751",
+    "cityLabel": "Abbaye de Vicogne",
+    "x": 50.3999,
+    "y": 3.46638
+  }
+]

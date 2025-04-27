@@ -1,0 +1,1733 @@
+[
+  {
+    "id": 1,
+    "name": "Abhomadi Malfegeyr",
+    "alternativeName": "Abu  ‘Abd Allah Muhammad ibn Mu'idh",
+    "wikidataId": "Q2987645",
+    "placeOfBirth": [
+      1
+    ],
+    "placeOfDeath": [
+      1
+    ],
+    "dateOfBirth": [
+      989
+    ],
+    "dateOfDeath": [
+      1079,
+      1050
+    ],
+    "occupations": [
+      "mathematician",
+      "qadi"
+    ],
+    "religion": "Islam",
+    "citizenships": [
+      "al-Andalus"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Albertus Magnus",
+    "alternativeName": "",
+    "wikidataId": "Q60059",
+    "placeOfBirth": [
+      15
+    ],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1200,
+      1193,
+      1205,
+      1206
+    ],
+    "dateOfDeath": [
+      1280,
+      1280,
+      1292
+    ],
+    "occupations": [
+      "chemist",
+      "musicologist",
+      "philosopher",
+      "writer",
+      "economist",
+      "astrologer",
+      "entomologist",
+      "theologian",
+      "geographer",
+      "botanist",
+      "Catholic bishop",
+      "teacher"
+    ],
+    "religion": "Catholic Church",
+    "citizenships": [
+      "Germany"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Alcoati",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 4,
+    "name": "Aldobrandino da Siena",
+    "alternativeName": "",
+    "wikidataId": "Q2832270",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1300
+    ],
+    "dateOfDeath": [
+      1296
+    ],
+    "occupations": [
+      "physician",
+      "physician writer"
+    ],
+    "religion": "",
+    "citizenships": [
+      "Kingdom of France"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Alhazen",
+    "alternativeName": "Abu ‘Alí al-Hasan ibn al-Hasan ibn  al - Haytham",
+    "wikidataId": "Q11104",
+    "placeOfBirth": [
+      25
+    ],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      965,
+      965
+    ],
+    "dateOfDeath": [
+      1039,
+      1038,
+      1039,
+      1040,
+      1040,
+      1041,
+      1049
+    ],
+    "occupations": [
+      "mathematician",
+      "physicist",
+      "philosopher",
+      "astronomer",
+      "inventor",
+      "astrologer",
+      "engineer"
+    ],
+    "religion": "Islam",
+    "citizenships": []
+  },
+  {
+    "id": 6,
+    "name": "Alkindi",
+    "alternativeName": "Ya‘qub ibn Ishaq al-Kindi",
+    "wikidataId": "Q179759",
+    "placeOfBirth": [
+      32
+    ],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      801,
+      800,
+      796
+    ],
+    "dateOfDeath": [
+      873,
+      866
+    ],
+    "occupations": [
+      "philosopher",
+      "mathematician",
+      "cryptologist",
+      "astronomer",
+      "physician",
+      "music theorist"
+    ],
+    "religion": "Islam",
+    "citizenships": [
+      "Abbasid Caliphate"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Anonymous",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 8,
+    "name": "Aquinas, Thomas",
+    "alternativeName": "",
+    "wikidataId": "Q9438",
+    "placeOfBirth": [
+      55
+    ],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1225,
+      1225,
+      1225
+    ],
+    "dateOfDeath": [
+      1274,
+      1274,
+      1274
+    ],
+    "occupations": [
+      "theologian",
+      "professor",
+      "Latin Catholic priest",
+      "philosopher",
+      "writer",
+      "Catholic theologian",
+      "friar",
+      "theology teacher"
+    ],
+    "religion": "Catholicism",
+    "citizenships": []
+  },
+  {
+    "id": 9,
+    "name": "Arnald of Villanova",
+    "alternativeName": "",
+    "wikidataId": "Q356568",
+    "placeOfBirth": [
+      58,
+      59
+    ],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1240,
+      1258
+    ],
+    "dateOfDeath": [
+      1311,
+      1313
+    ],
+    "occupations": [
+      "theologian",
+      "philosopher",
+      "physician",
+      "diplomat",
+      "alchemist"
+    ],
+    "religion": "Catholic Church",
+    "citizenships": [
+      "Crown of Aragon"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Avicenna",
+    "alternativeName": "Abi ‘Ali al-Husain ibn ‘Abdallah ibn Sina",
+    "wikidataId": "Q8011",
+    "placeOfBirth": [
+      61
+    ],
+    "placeOfDeath": [
+      62
+    ],
+    "dateOfBirth": [
+      980
+    ],
+    "dateOfDeath": [
+      1037,
+      1037
+    ],
+    "occupations": [
+      "philosopher",
+      "poet",
+      "astronomer",
+      "physician",
+      "music theorist",
+      "physicist",
+      "mathematician",
+      "chemist",
+      "ethicist",
+      "Islamic jurist",
+      "writer",
+      "author",
+      "polymath"
+    ],
+    "religion": "Islam",
+    "citizenships": []
+  },
+  {
+    "id": 11,
+    "name": "Bacon, Roger",
+    "alternativeName": "",
+    "wikidataId": "Q171677",
+    "placeOfBirth": [
+      65,
+      66,
+      64
+    ],
+    "placeOfDeath": [
+      10
+    ],
+    "dateOfBirth": [
+      1220,
+      1214,
+      1219
+    ],
+    "dateOfDeath": [
+      1292,
+      1294
+    ],
+    "occupations": [
+      "philosopher",
+      "physicist",
+      "theologian",
+      "musicologist",
+      "music theorist",
+      "astrologer",
+      "alchemist",
+      "translator",
+      "inventor",
+      "mathematician",
+      "writer"
+    ],
+    "religion": "Catholicism",
+    "citizenships": [
+      "Kingdom of England"
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Barnabas de Regio (Riatinis)",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 13,
+    "name": "Bartholomeus de Bononia",
+    "alternativeName": "",
+    "wikidataId": "Q4865301",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [
+      1294
+    ],
+    "occupations": [
+      "philosopher",
+      "theologian"
+    ],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 14,
+    "name": "Bertutius Bononiensis, Nicolaus",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 15,
+    "name": "Blasius of Parma",
+    "alternativeName": "Biagio Pelacani",
+    "wikidataId": "Q855257",
+    "placeOfBirth": [
+      73
+    ],
+    "placeOfDeath": [
+      73
+    ],
+    "dateOfBirth": [
+      1355,
+      1347
+    ],
+    "dateOfDeath": [
+      1416,
+      1416
+    ],
+    "occupations": [
+      "philosopher",
+      "mathematician",
+      "university teacher",
+      "astrologer"
+    ],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 16,
+    "name": "Bonetus, Nicholas",
+    "alternativeName": "",
+    "wikidataId": "Q3340115",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1280
+    ],
+    "dateOfDeath": [
+      1343,
+      1360
+    ],
+    "occupations": [
+      "Catholic theologian"
+    ],
+    "religion": "",
+    "citizenships": [
+      "Kingdom of France"
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Bradwardine, Thomas",
+    "alternativeName": "",
+    "wikidataId": "Q461116",
+    "placeOfBirth": [
+      76,
+      75
+    ],
+    "placeOfDeath": [
+      77
+    ],
+    "dateOfBirth": [
+      1290,
+      1300,
+      1295
+    ],
+    "dateOfDeath": [
+      1349
+    ],
+    "occupations": [
+      "mathematician",
+      "university teacher",
+      "Catholic priest",
+      "physicist",
+      "philosopher",
+      "theologian",
+      "Catholic bishop"
+    ],
+    "religion": "Catholic Church",
+    "citizenships": [
+      "Kingdom of England",
+      "United Kingdom"
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Bruno Longoburgensis",
+    "alternativeName": "",
+    "wikidataId": "Q3645980",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1200
+    ],
+    "dateOfDeath": [
+      1286
+    ],
+    "occupations": [
+      "physician",
+      "surgeon"
+    ],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 19,
+    "name": "Cardinalis",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 20,
+    "name": "Claudianus (?)",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 21,
+    "name": "Constantinus Africanus",
+    "alternativeName": "",
+    "wikidataId": "Q468641",
+    "placeOfBirth": [
+      80
+    ],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1050,
+      1015,
+      1010,
+      1020,
+      1020
+    ],
+    "dateOfDeath": [
+      1087,
+      1087
+    ],
+    "occupations": [
+      "physician",
+      "translator",
+      "writer",
+      "monk"
+    ],
+    "religion": "Catholicism",
+    "citizenships": []
+  },
+  {
+    "id": 22,
+    "name": "Curelovius, Joannes",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 23,
+    "name": "David Armenicus",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 24,
+    "name": "Dino del Garbo",
+    "alternativeName": "",
+    "wikidataId": "Q1226654",
+    "placeOfBirth": [
+      7
+    ],
+    "placeOfDeath": [
+      7
+    ],
+    "dateOfBirth": [
+      1280
+    ],
+    "dateOfDeath": [
+      1327
+    ],
+    "occupations": [
+      "physician",
+      "university teacher"
+    ],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 25,
+    "name": "Dominicus de Clavasio",
+    "alternativeName": "",
+    "wikidataId": "Q107709361",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [
+      "teacher"
+    ],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 26,
+    "name": "Durnheimer, Wigandus",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 27,
+    "name": "Egidius of Baisiu",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 28,
+    "name": "Enchusen, Walterus",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 29,
+    "name": "Euclid",
+    "alternativeName": "",
+    "wikidataId": "Q8747",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      0,
+      0
+    ],
+    "dateOfDeath": [
+      0
+    ],
+    "occupations": [
+      "mathematician",
+      "writer"
+    ],
+    "religion": "",
+    "citizenships": [
+      "Classical Athens"
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Finé, Oronce",
+    "alternativeName": "",
+    "wikidataId": "Q983291",
+    "placeOfBirth": [
+      91
+    ],
+    "placeOfDeath": [
+      11
+    ],
+    "dateOfBirth": [
+      1494,
+      1494
+    ],
+    "dateOfDeath": [
+      1555,
+      1555
+    ],
+    "occupations": [
+      "mathematician",
+      "astronomer",
+      "cartographer",
+      "professor",
+      "architect",
+      "engraver"
+    ],
+    "religion": "",
+    "citizenships": [
+      "France"
+    ]
+  },
+  {
+    "id": 31,
+    "name": "Friesenogger, Maurus",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 32,
+    "name": "Fusoris, Johannes",
+    "alternativeName": "",
+    "wikidataId": "Q103850687",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 33,
+    "name": "Galen of Pergamum",
+    "alternativeName": "",
+    "wikidataId": "Q8778",
+    "placeOfBirth": [],
+    "placeOfDeath": [
+      12
+    ],
+    "dateOfBirth": [
+      129,
+      200
+    ],
+    "dateOfDeath": [
+      300
+    ],
+    "occupations": [
+      "physician writer",
+      "surgeon",
+      "biologist",
+      "neuroscientist",
+      "physician",
+      "philosopher"
+    ],
+    "religion": "",
+    "citizenships": [
+      "Ancient Rome"
+    ]
+  },
+  {
+    "id": 34,
+    "name": "Gentile da Foligno",
+    "alternativeName": "",
+    "wikidataId": "Q524048",
+    "placeOfBirth": [
+      86
+    ],
+    "placeOfDeath": [
+      86
+    ],
+    "dateOfBirth": [
+      1280,
+      1290,
+      1201
+    ],
+    "dateOfDeath": [
+      1348
+    ],
+    "occupations": [
+      "physician",
+      "university teacher",
+      "philosopher"
+    ],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 35,
+    "name": "Gerard of Odo",
+    "alternativeName": "",
+    "wikidataId": "Q5550335",
+    "placeOfBirth": [
+      93
+    ],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1285
+    ],
+    "dateOfDeath": [
+      1348
+    ],
+    "occupations": [
+      "theologian",
+      "Catholic priest"
+    ],
+    "religion": "Catholic Church",
+    "citizenships": []
+  },
+  {
+    "id": 36,
+    "name": "Gerard of Verona",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 37,
+    "name": "Giovanni da Fontana",
+    "alternativeName": "",
+    "wikidataId": "Q526613",
+    "placeOfBirth": [
+      79
+    ],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1395
+    ],
+    "dateOfDeath": [
+      1455
+    ],
+    "occupations": [
+      "physicist",
+      "physician",
+      "engineer",
+      "writer"
+    ],
+    "religion": "",
+    "citizenships": [
+      "Republic of Venice"
+    ]
+  },
+  {
+    "id": 38,
+    "name": "Grassus, Benvenutus (of Jerusalem)",
+    "alternativeName": "",
+    "wikidataId": "Q41791669",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1200
+    ],
+    "dateOfDeath": [
+      1290
+    ],
+    "occupations": [
+      "ophthalmologist"
+    ],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 39,
+    "name": "Grimesbi, J. de.",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 40,
+    "name": "Grosseteste, Robert",
+    "alternativeName": "",
+    "wikidataId": "Q256541",
+    "placeOfBirth": [
+      96
+    ],
+    "placeOfDeath": [
+      97,
+      98
+    ],
+    "dateOfBirth": [
+      1168,
+      1175,
+      1170
+    ],
+    "dateOfDeath": [
+      1253,
+      1253
+    ],
+    "occupations": [
+      "theologian",
+      "philosopher",
+      "mathematician",
+      "physicist",
+      "astronomer",
+      "naturalist",
+      "Catholic priest",
+      "Catholic deacon",
+      "Catholic bishop"
+    ],
+    "religion": "Catholic Church",
+    "citizenships": [
+      "Kingdom of England",
+      "United Kingdom"
+    ]
+  },
+  {
+    "id": 41,
+    "name": "Grymesby, Gilbert",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 42,
+    "name": "Haly Abbas",
+    "alternativeName": "‘Ali ibn al-‘Abbas al-Majisi",
+    "wikidataId": "Q543191",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      930
+    ],
+    "dateOfDeath": [
+      994
+    ],
+    "occupations": [
+      "writer",
+      "psychologist",
+      "physician"
+    ],
+    "religion": "",
+    "citizenships": [
+      "Buyid dynasty"
+    ]
+  },
+  {
+    "id": 43,
+    "name": "Henry of Langenstein (Hesse)",
+    "alternativeName": "",
+    "wikidataId": "Q71997",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1325
+    ],
+    "dateOfDeath": [
+      1397
+    ],
+    "occupations": [
+      "astronomer",
+      "university teacher",
+      "theologian"
+    ],
+    "religion": "Catholic Church",
+    "citizenships": [
+      "Germany"
+    ]
+  },
+  {
+    "id": 44,
+    "name": "Henry of Southwark",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 45,
+    "name": "Hero of Alexandria",
+    "alternativeName": "",
+    "wikidataId": "Q161853",
+    "placeOfBirth": [
+      85
+    ],
+    "placeOfDeath": [
+      85
+    ],
+    "dateOfBirth": [
+      10
+    ],
+    "dateOfDeath": [
+      75
+    ],
+    "occupations": [
+      "mathematician",
+      "physicist",
+      "mechanical automaton engineer",
+      "engineer",
+      "inventor"
+    ],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 46,
+    "name": "Jesu Haly",
+    "alternativeName": "‘Ali ibn ‘Isa",
+    "wikidataId": "Q18686295",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      940
+    ],
+    "dateOfDeath": [
+      1010
+    ],
+    "occupations": [
+      "ophthalmologist"
+    ],
+    "religion": "Islam",
+    "citizenships": []
+  },
+  {
+    "id": 47,
+    "name": "Johannes de Arderne",
+    "alternativeName": "",
+    "wikidataId": "Q1698723",
+    "placeOfBirth": [],
+    "placeOfDeath": [
+      9
+    ],
+    "dateOfBirth": [
+      1307
+    ],
+    "dateOfDeath": [
+      1392
+    ],
+    "occupations": [
+      "surgeon"
+    ],
+    "religion": "",
+    "citizenships": [
+      "Kingdom of England"
+    ]
+  },
+  {
+    "id": 48,
+    "name": "Johannes de Carth. (Carthusia?)",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 49,
+    "name": "Johannes de Casso",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 50,
+    "name": "John of Legnano",
+    "alternativeName": "",
+    "wikidataId": "Q362683",
+    "placeOfBirth": [
+      30
+    ],
+    "placeOfDeath": [
+      72
+    ],
+    "dateOfBirth": [
+      1320
+    ],
+    "dateOfDeath": [
+      1383
+    ],
+    "occupations": [
+      "writer",
+      "canon law jurist"
+    ],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 51,
+    "name": "John of Paris",
+    "alternativeName": "",
+    "wikidataId": "Q717037",
+    "placeOfBirth": [
+      11
+    ],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1240,
+      1255
+    ],
+    "dateOfDeath": [
+      1304,
+      1306
+    ],
+    "occupations": [
+      "philosopher",
+      "theologian",
+      "Catholic priest"
+    ],
+    "religion": "Catholic Church",
+    "citizenships": [
+      "France"
+    ]
+  },
+  {
+    "id": 52,
+    "name": "Lanfrancus",
+    "alternativeName": "",
+    "wikidataId": "Q1804838",
+    "placeOfBirth": [
+      30
+    ],
+    "placeOfDeath": [
+      11
+    ],
+    "dateOfBirth": [
+      1250
+    ],
+    "dateOfDeath": [
+      1310
+    ],
+    "occupations": [
+      "physician",
+      "surgeon"
+    ],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 53,
+    "name": "Leonardo da Vinci",
+    "alternativeName": "",
+    "wikidataId": "Q762",
+    "placeOfBirth": [
+      108
+    ],
+    "placeOfDeath": [
+      109,
+      110
+    ],
+    "dateOfBirth": [
+      1452,
+      1452
+    ],
+    "dateOfDeath": [
+      1519,
+      1519
+    ],
+    "occupations": [
+      "painter",
+      "engineer",
+      "astronomer",
+      "philosopher",
+      "anatomist",
+      "mathematician",
+      "sculptor",
+      "polymath",
+      "architect",
+      "civil engineer",
+      "diplomat",
+      "inventor",
+      "composer",
+      "physicist",
+      "physiologist",
+      "botanist",
+      "chemist",
+      "zoologist",
+      "caricaturist",
+      "scientist",
+      "architectural draftsperson",
+      "designer",
+      "writer",
+      "visual artist"
+    ],
+    "religion": "atheism",
+    "citizenships": [
+      "Republic of Florence"
+    ]
+  },
+  {
+    "id": 54,
+    "name": "Luca da Parma",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 55,
+    "name": "Mauritius",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 56,
+    "name": "Maurolico, Francesco",
+    "alternativeName": "",
+    "wikidataId": "Q736315",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1494
+    ],
+    "dateOfDeath": [
+      1575,
+      1575
+    ],
+    "occupations": [
+      "mathematician",
+      "astronomer",
+      "historian of mathematics",
+      "university teacher",
+      "translator",
+      "Catholic priest"
+    ],
+    "religion": "Catholic Church",
+    "citizenships": []
+  },
+  {
+    "id": 57,
+    "name": "Mesue, Johannes",
+    "alternativeName": "Abia Zakariya Yuhanna ibn Masawaih",
+    "wikidataId": "Q1291511",
+    "placeOfBirth": [
+      112
+    ],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      777
+    ],
+    "dateOfDeath": [
+      857
+    ],
+    "occupations": [
+      "physician",
+      "pharmacist"
+    ],
+    "religion": "Nestorianism",
+    "citizenships": []
+  },
+  {
+    "id": 58,
+    "name": "Michael de Aretio",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 59,
+    "name": "Molinerius, Johannes",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 60,
+    "name": "Montagnana, Bartholomeus",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 61,
+    "name": "Nicolaus Salernitanus (?)",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 62,
+    "name": "Nivelio, Jacob",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 63,
+    "name": "Noricus, Conrad",
+    "alternativeName": "",
+    "wikidataId": "Q29269615",
+    "placeOfBirth": [
+      50
+    ],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1470
+    ],
+    "dateOfDeath": [
+      1530
+    ],
+    "occupations": [
+      "physician",
+      "university teacher",
+      "astrologer"
+    ],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 64,
+    "name": "Oresme, Nicole",
+    "alternativeName": "",
+    "wikidataId": "Q310777",
+    "placeOfBirth": [
+      116
+    ],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1320,
+      1323
+    ],
+    "dateOfDeath": [
+      1382
+    ],
+    "occupations": [
+      "philosopher",
+      "mathematician",
+      "economist",
+      "Catholic priest",
+      "astronomer",
+      "musicologist",
+      "professor",
+      "psychologist",
+      "translator",
+      "physicist",
+      "theologian",
+      "Catholic bishop"
+    ],
+    "religion": "Catholic Church",
+    "citizenships": [
+      "Kingdom of France"
+    ]
+  },
+  {
+    "id": 65,
+    "name": "Pecham, John",
+    "alternativeName": "",
+    "wikidataId": "Q1322939",
+    "placeOfBirth": [
+      118
+    ],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1227
+    ],
+    "dateOfDeath": [
+      1292
+    ],
+    "occupations": [
+      "Catholic priest",
+      "theologian",
+      "philosopher",
+      "writer"
+    ],
+    "religion": "Catholic Church",
+    "citizenships": []
+  },
+  {
+    "id": 66,
+    "name": "Peter of Limoges",
+    "alternativeName": "",
+    "wikidataId": "Q23619774",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1240
+    ],
+    "dateOfDeath": [
+      1306
+    ],
+    "occupations": [
+      "theologian",
+      "canon",
+      "scholar"
+    ],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 67,
+    "name": "Petrus Hispanus",
+    "alternativeName": "Pope John XXI",
+    "wikidataId": "Q172916",
+    "placeOfBirth": [
+      88
+    ],
+    "placeOfDeath": [
+      122
+    ],
+    "dateOfBirth": [
+      1215
+    ],
+    "dateOfDeath": [
+      1277
+    ],
+    "occupations": [
+      "politician",
+      "university teacher",
+      "Catholic priest",
+      "physician",
+      "philosopher",
+      "mathematician"
+    ],
+    "religion": "Catholic Church",
+    "citizenships": [
+      "Kingdom of Portugal"
+    ]
+  },
+  {
+    "id": 68,
+    "name": "Philippus (Aldobrandinus?/de Roderia?)",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 69,
+    "name": "Pseudo-Euclid",
+    "alternativeName": "",
+    "wikidataId": "Q117667730",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 70,
+    "name": "Ptolemy, Claudius",
+    "alternativeName": "",
+    "wikidataId": "Q34943",
+    "placeOfBirth": [
+      123
+    ],
+    "placeOfDeath": [
+      85
+    ],
+    "dateOfBirth": [
+      100,
+      87,
+      85
+    ],
+    "dateOfDeath": [
+      170,
+      165
+    ],
+    "occupations": [
+      "mathematician",
+      "geographer",
+      "astronomer",
+      "astrologer",
+      "music theorist",
+      "philosopher",
+      "musicologist",
+      "epigrammatist",
+      "writer"
+    ],
+    "religion": "",
+    "citizenships": [
+      "Ancient Rome"
+    ]
+  },
+  {
+    "id": 71,
+    "name": "Raynerius de Belforte",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 72,
+    "name": "Rhazes",
+    "alternativeName": "Abú Bakr Muhammad ibn Zakariya al-Rázi",
+    "wikidataId": "Q169234",
+    "placeOfBirth": [
+      125
+    ],
+    "placeOfDeath": [
+      125
+    ],
+    "dateOfBirth": [
+      866,
+      854,
+      854,
+      864,
+      865
+    ],
+    "dateOfDeath": [
+      935,
+      925
+    ],
+    "occupations": [
+      "mathematician",
+      "chemist",
+      "philosopher",
+      "inventor",
+      "physician"
+    ],
+    "religion": "Muslim",
+    "citizenships": []
+  },
+  {
+    "id": 73,
+    "name": "Serapion, Johannes, the Elder",
+    "alternativeName": "Yihanna ibn Sarabiyiin",
+    "wikidataId": "Q2601875",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      864
+    ],
+    "dateOfDeath": [],
+    "occupations": [
+      "physician",
+      "priest"
+    ],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 74,
+    "name": "Soverus, Bartholomeus",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 75,
+    "name": "Theodoric of Freiberg",
+    "alternativeName": "",
+    "wikidataId": "Q1224163",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1250,
+      1240
+    ],
+    "dateOfDeath": [
+      1310,
+      1318
+    ],
+    "occupations": [
+      "physicist",
+      "philosopher",
+      "university teacher",
+      "theologian",
+      "mystic",
+      "naturalist"
+    ],
+    "religion": "Catholic Church",
+    "citizenships": [
+      "Germany"
+    ]
+  },
+  {
+    "id": 76,
+    "name": "Tideus",
+    "alternativeName": "",
+    "wikidataId": "Q116119525",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [
+      "physician"
+    ],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 77,
+    "name": "Walter of Odington (Evesham)",
+    "alternativeName": "",
+    "wikidataId": "Q358235",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [
+      1300
+    ],
+    "dateOfDeath": [
+      1330
+    ],
+    "occupations": [
+      "composer",
+      "astronomer",
+      "musicologist",
+      "music theorist"
+    ],
+    "religion": "",
+    "citizenships": [
+      "Kingdom of England"
+    ]
+  },
+  {
+    "id": 78,
+    "name": "William of Brescia",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 79,
+    "name": "Witelo",
+    "alternativeName": "",
+    "wikidataId": "Q710858",
+    "placeOfBirth": [],
+    "placeOfDeath": [
+      129
+    ],
+    "dateOfBirth": [
+      1230
+    ],
+    "dateOfDeath": [
+      1275
+    ],
+    "occupations": [
+      "mathematician",
+      "physicist",
+      "psychologist",
+      "philosopher",
+      "theologian",
+      "Christian monk",
+      "monk",
+      "cleric"
+    ],
+    "religion": "Catholic Church",
+    "citizenships": [
+      "Duchy of Silesia"
+    ]
+  },
+  {
+    "id": 80,
+    "name": "Zacharias (of Salerno?)",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  },
+  {
+    "id": 81,
+    "name": "Zakys",
+    "alternativeName": "",
+    "wikidataId": "",
+    "placeOfBirth": [],
+    "placeOfDeath": [],
+    "dateOfBirth": [],
+    "dateOfDeath": [],
+    "occupations": [],
+    "religion": "",
+    "citizenships": []
+  }
+]

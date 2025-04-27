@@ -1,0 +1,786 @@
+[
+  {
+    "id": 1,
+    "nativeLabel": "University of Basel",
+    "placeType": "public research university",
+    "cityId": 3,
+    "wikidataId": "Q372608"
+  },
+  {
+    "id": 2,
+    "nativeLabel": "University of Cambridge",
+    "placeType": "collegiate university",
+    "cityId": 4,
+    "wikidataId": "Q35794"
+  },
+  {
+    "id": 3,
+    "nativeLabel": "Royal Observatory",
+    "placeType": "astronomical observatory",
+    "cityId": 5,
+    "wikidataId": "Q3106882"
+  },
+  {
+    "id": 4,
+    "nativeLabel": "Royal Monastery of San Lorenzo de El Escorial",
+    "placeType": "Roman Catholic monastery",
+    "cityId": 6,
+    "wikidataId": "Q28471"
+  },
+  {
+    "id": 5,
+    "nativeLabel": "Biblioteca Riccardiana",
+    "placeType": "state public library",
+    "cityId": 7,
+    "wikidataId": "Q856409"
+  },
+  {
+    "id": 6,
+    "nativeLabel": "Jagiellonian Library",
+    "placeType": "library",
+    "cityId": 8,
+    "wikidataId": "Q24101"
+  },
+  {
+    "id": 7,
+    "nativeLabel": "British Museum",
+    "placeType": "national museum",
+    "cityId": 9,
+    "wikidataId": "Q6373"
+  },
+  {
+    "id": 8,
+    "nativeLabel": "Bodleian Library",
+    "placeType": "academic library",
+    "cityId": 10,
+    "wikidataId": "Q82133"
+  },
+  {
+    "id": 9,
+    "nativeLabel": "Bibliothèque nationale de France",
+    "placeType": "national library",
+    "cityId": 11,
+    "wikidataId": "Q193563"
+  },
+  {
+    "id": 10,
+    "nativeLabel": "Biblioteca Nazionale Centrale di Roma",
+    "placeType": "national library",
+    "cityId": 12,
+    "wikidataId": "Q6382871"
+  },
+  {
+    "id": 11,
+    "nativeLabel": "Bibliothèque d'Agglomération du Pays de Saint-Omer",
+    "placeType": "cultural institution",
+    "cityId": null,
+    "wikidataId": "Q61931287"
+  },
+  {
+    "id": 12,
+    "nativeLabel": "Vatican Library",
+    "placeType": "national library",
+    "cityId": 13,
+    "wikidataId": "Q213678"
+  },
+  {
+    "id": 13,
+    "nativeLabel": "Austrian National Library",
+    "placeType": "national library",
+    "cityId": 14,
+    "wikidataId": "Q304037"
+  },
+  {
+    "id": 14,
+    "nativeLabel": "Berlin State Library",
+    "placeType": "universal library",
+    "cityId": 17,
+    "wikidataId": "Q170109"
+  },
+  {
+    "id": 15,
+    "nativeLabel": null,
+    "placeType": null,
+    "cityId": null,
+    "wikidataId": null
+  },
+  {
+    "id": 16,
+    "nativeLabel": "Bavarian State Library",
+    "placeType": "universal library",
+    "cityId": 18,
+    "wikidataId": "Q256507"
+  },
+  {
+    "id": 17,
+    "nativeLabel": "Bibliothèque municipale de Nancy",
+    "placeType": "municipal library",
+    "cityId": 19,
+    "wikidataId": "Q630448"
+  },
+  {
+    "id": 18,
+    "nativeLabel": "National Library of the Czech Republic",
+    "placeType": "national library",
+    "cityId": 20,
+    "wikidataId": "Q1967876"
+  },
+  {
+    "id": 19,
+    "nativeLabel": "Princeton University Library",
+    "placeType": "library",
+    "cityId": null,
+    "wikidataId": "Q3297681"
+  },
+  {
+    "id": 20,
+    "nativeLabel": "Municipal Library Trier",
+    "placeType": "municipal library",
+    "cityId": 21,
+    "wikidataId": "Q1590176"
+  },
+  {
+    "id": 21,
+    "nativeLabel": "University of Erfurt",
+    "placeType": "university",
+    "cityId": 22,
+    "wikidataId": "Q702524"
+  },
+  {
+    "id": 22,
+    "nativeLabel": "Metz, Bibliothèque Municipale",
+    "placeType": "municipal library",
+    "cityId": 23,
+    "wikidataId": "Q2901549"
+  },
+  {
+    "id": 23,
+    "nativeLabel": "Biblioteca Angelica",
+    "placeType": "conservation library",
+    "cityId": 12,
+    "wikidataId": "Q856380"
+  },
+  {
+    "id": 24,
+    "nativeLabel": "Saxon State and University Library, Dresden",
+    "placeType": "academic library",
+    "cityId": 27,
+    "wikidataId": "Q323270"
+  },
+  {
+    "id": 25,
+    "nativeLabel": "Biblioteca Medicea Laurenziana",
+    "placeType": "state public library",
+    "cityId": 7,
+    "wikidataId": "Q856419"
+  },
+  {
+    "id": 26,
+    "nativeLabel": "National Central Library of Florence",
+    "placeType": "state public library",
+    "cityId": 7,
+    "wikidataId": "Q460907"
+  },
+  {
+    "id": 27,
+    "nativeLabel": "Glasgow University Library",
+    "placeType": "library",
+    "cityId": 28,
+    "wikidataId": "Q5566950"
+  },
+  {
+    "id": 28,
+    "nativeLabel": "Royal College of Physicians, London",
+    "placeType": null,
+    "cityId": 9,
+    "wikidataId": "Q16003969"
+  },
+  {
+    "id": 29,
+    "nativeLabel": "Bibliothèque municipale de Lyon",
+    "placeType": "cultural institution",
+    "cityId": 29,
+    "wikidataId": "Q8622"
+  },
+  {
+    "id": 30,
+    "nativeLabel": "Biblioteca Ambrosiana",
+    "placeType": "conservation library",
+    "cityId": 30,
+    "wikidataId": "Q815611"
+  },
+  {
+    "id": 31,
+    "nativeLabel": "Biblioteca Nazionale Marciana",
+    "placeType": "state public library",
+    "cityId": 31,
+    "wikidataId": "Q578460"
+  },
+  {
+    "id": 32,
+    "nativeLabel": "Raccolta Gozzadini, Biblioteca comunale dell'Archiginnasio.",
+    "placeType": "collection",
+    "cityId": 34,
+    "wikidataId": "Q120869221"
+  },
+  {
+    "id": 33,
+    "nativeLabel": "University of Aberdeen",
+    "placeType": "public research university",
+    "cityId": 35,
+    "wikidataId": "Q270532"
+  },
+  {
+    "id": 34,
+    "nativeLabel": "Bibliothèques d'Amiens Métropole",
+    "placeType": "organization",
+    "cityId": 36,
+    "wikidataId": "Q2901553"
+  },
+  {
+    "id": 35,
+    "nativeLabel": "Biblioteca Comunale di Assisi",
+    "placeType": "public library",
+    "cityId": 37,
+    "wikidataId": "Q112875464"
+  },
+  {
+    "id": 36,
+    "nativeLabel": "Royal Library of Belgium",
+    "placeType": "Federal Scientific Institute",
+    "cityId": 38,
+    "wikidataId": "Q383931"
+  },
+  {
+    "id": 37,
+    "nativeLabel": "Mediathèque municipale, Cambrai",
+    "placeType": "library",
+    "cityId": 39,
+    "wikidataId": "Q55598713"
+  },
+  {
+    "id": 38,
+    "nativeLabel": "Bibliothèque municipale de Dijon - Le Puits d'amour",
+    "placeType": "library",
+    "cityId": 40,
+    "wikidataId": "Q22964540"
+  },
+  {
+    "id": 39,
+    "nativeLabel": "Biblioteca del Liceo Ludovico Ariosto - Ferrara",
+    "placeType": "school library",
+    "cityId": 41,
+    "wikidataId": "Q113359545"
+  },
+  {
+    "id": 40,
+    "nativeLabel": "University of Graz Library",
+    "placeType": "university library",
+    "cityId": 42,
+    "wikidataId": "Q604066"
+  },
+  {
+    "id": 41,
+    "nativeLabel": "Leeuwarden public library",
+    "placeType": "public library",
+    "cityId": 43,
+    "wikidataId": "Q61915782"
+  },
+  {
+    "id": 42,
+    "nativeLabel": "Lincoln Cathedral",
+    "placeType": "Anglican or Episcopal cathedral",
+    "cityId": 44,
+    "wikidataId": "Q390169"
+  },
+  {
+    "id": 43,
+    "nativeLabel": "Wellcome Institute for the History of Medicine",
+    "placeType": "university",
+    "cityId": 9,
+    "wikidataId": "Q19600144"
+  },
+  {
+    "id": 44,
+    "nativeLabel": "Biblioteca statale di Lucca",
+    "placeType": "state public library",
+    "cityId": 45,
+    "wikidataId": "Q18596252"
+  },
+  {
+    "id": 45,
+    "nativeLabel": "Abbey of Monte Cassino",
+    "placeType": "benedictine abbey",
+    "cityId": 46,
+    "wikidataId": "Q334051"
+  },
+  {
+    "id": 46,
+    "nativeLabel": "University of Montpellier",
+    "placeType": "university in France",
+    "cityId": 47,
+    "wikidataId": "Q776223"
+  },
+  {
+    "id": 47,
+    "nativeLabel": "Biblioteca nazionale Vittorio Emanuele III",
+    "placeType": "state public library",
+    "cityId": 48,
+    "wikidataId": "Q2256644"
+  },
+  {
+    "id": 48,
+    "nativeLabel": "Columbia University Libraries",
+    "placeType": "academic library",
+    "cityId": 49,
+    "wikidataId": "Q5149897"
+  },
+  {
+    "id": 49,
+    "nativeLabel": "Nuremberg City Library",
+    "placeType": "municipal library",
+    "cityId": 50,
+    "wikidataId": "Q2326885"
+  },
+  {
+    "id": 50,
+    "nativeLabel": "Magdalen College",
+    "placeType": "college of the University of Oxford",
+    "cityId": 10,
+    "wikidataId": "Q81162"
+  },
+  {
+    "id": 51,
+    "nativeLabel": "St John's College",
+    "placeType": "college of the University of Oxford",
+    "cityId": 10,
+    "wikidataId": "Q609646"
+  },
+  {
+    "id": 52,
+    "nativeLabel": "Biblioteca Casanatense",
+    "placeType": "conservation library",
+    "cityId": 12,
+    "wikidataId": "Q2901274"
+  },
+  {
+    "id": 53,
+    "nativeLabel": "Biblioteca comunale Perugia",
+    "placeType": "library",
+    "cityId": 34,
+    "wikidataId": "Q120869222"
+  },
+  {
+    "id": 54,
+    "nativeLabel": "Copernicus Library in Toruń",
+    "placeType": "public library",
+    "cityId": 51,
+    "wikidataId": "Q16570010"
+  },
+  {
+    "id": 55,
+    "nativeLabel": "Biblioteca Capitolare di Verona",
+    "placeType": "religious library",
+    "cityId": 52,
+    "wikidataId": "Q2901256"
+  },
+  {
+    "id": 56,
+    "nativeLabel": "Herzog August Library",
+    "placeType": "research library",
+    "cityId": 53,
+    "wikidataId": "Q663820"
+  },
+  {
+    "id": 57,
+    "nativeLabel": "University Library Würzburg",
+    "placeType": "research institute",
+    "cityId": 54,
+    "wikidataId": "Q1247229"
+  },
+  {
+    "id": 58,
+    "nativeLabel": "Historical Library of the University of Valencia",
+    "placeType": "library",
+    "cityId": 57,
+    "wikidataId": "Q66862818"
+  },
+  {
+    "id": 59,
+    "nativeLabel": "Yale School of Medicine",
+    "placeType": "medical school",
+    "cityId": 63,
+    "wikidataId": "Q1961140"
+  },
+  {
+    "id": 60,
+    "nativeLabel": "Bibliothèque de l'Arsenal",
+    "placeType": "national library",
+    "cityId": 11,
+    "wikidataId": "Q2256147"
+  },
+  {
+    "id": 61,
+    "nativeLabel": "Trinity College Dublin",
+    "placeType": "collegiate university",
+    "cityId": 67,
+    "wikidataId": "Q258464"
+  },
+  {
+    "id": 62,
+    "nativeLabel": "University of Groningen Library",
+    "placeType": "academic library",
+    "cityId": 68,
+    "wikidataId": "Q200899"
+  },
+  {
+    "id": 63,
+    "nativeLabel": "Biblioteca Nacional de España",
+    "placeType": "national library",
+    "cityId": 69,
+    "wikidataId": "Q750403"
+  },
+  {
+    "id": 64,
+    "nativeLabel": "Library of the Pontifical University of Salamanca",
+    "placeType": "academic library",
+    "cityId": 70,
+    "wikidataId": "Q24943845"
+  },
+  {
+    "id": 65,
+    "nativeLabel": "Winchester College",
+    "placeType": "independent school",
+    "cityId": 71,
+    "wikidataId": "Q1059517"
+  },
+  {
+    "id": 66,
+    "nativeLabel": "Sorbonne Library",
+    "placeType": "academic library",
+    "cityId": 11,
+    "wikidataId": "Q2901379"
+  },
+  {
+    "id": 67,
+    "nativeLabel": "Biblioteca del Seminario vescovile di Lodi",
+    "placeType": "public library",
+    "cityId": 74,
+    "wikidataId": "Q85225692"
+  },
+  {
+    "id": 68,
+    "nativeLabel": "Bibliotheque de la Ville de Tournai",
+    "placeType": "library",
+    "cityId": 34,
+    "wikidataId": "Q120869227"
+  },
+  {
+    "id": 69,
+    "nativeLabel": "Burgerbibliothek of Berne",
+    "placeType": "memory institution",
+    "cityId": 82,
+    "wikidataId": "Q669509"
+  },
+  {
+    "id": 70,
+    "nativeLabel": "Bibliothèque municipale de Besançon",
+    "placeType": "municipal library",
+    "cityId": 83,
+    "wikidataId": "Q2901451"
+  },
+  {
+    "id": 71,
+    "nativeLabel": "Merton College Library",
+    "placeType": "university library",
+    "cityId": 10,
+    "wikidataId": "Q6820719"
+  },
+  {
+    "id": 72,
+    "nativeLabel": "Académie Nationale de Médecine",
+    "placeType": "national academy",
+    "cityId": 11,
+    "wikidataId": "Q337555"
+  },
+  {
+    "id": 73,
+    "nativeLabel": "Library of Caen",
+    "placeType": "public library",
+    "cityId": 84,
+    "wikidataId": "Q2901347"
+  },
+  {
+    "id": 74,
+    "nativeLabel": "Biblioteca Ludovico Jacobilli",
+    "placeType": "special library",
+    "cityId": 86,
+    "wikidataId": "Q117192340"
+  },
+  {
+    "id": 75,
+    "nativeLabel": "Carinthia state library",
+    "placeType": "library",
+    "cityId": 87,
+    "wikidataId": "Q1795421"
+  },
+  {
+    "id": 76,
+    "nativeLabel": "National Library of Portugal",
+    "placeType": "national library",
+    "cityId": 88,
+    "wikidataId": "Q245966"
+  },
+  {
+    "id": 77,
+    "nativeLabel": "Biblioteca di San Marco",
+    "placeType": "library",
+    "cityId": 34,
+    "wikidataId": "Q120869223"
+  },
+  {
+    "id": 78,
+    "nativeLabel": "Biblioteca Particular de Antonio Rodriguez Monino",
+    "placeType": "private collection",
+    "cityId": 34,
+    "wikidataId": "Q120869224"
+  },
+  {
+    "id": 79,
+    "nativeLabel": "Bibliotheca Ebneriana",
+    "placeType": "library",
+    "cityId": 34,
+    "wikidataId": "Q120869225"
+  },
+  {
+    "id": 80,
+    "nativeLabel": "Stift Schlägl",
+    "placeType": "monastery",
+    "cityId": 89,
+    "wikidataId": "Q183474"
+  },
+  {
+    "id": 81,
+    "nativeLabel": "Provincial Historial Archive of Toledo",
+    "placeType": "archive",
+    "cityId": 90,
+    "wikidataId": "Q5702972"
+  },
+  {
+    "id": 82,
+    "nativeLabel": "Wrocław University Library",
+    "placeType": "university library",
+    "cityId": 95,
+    "wikidataId": "Q1720553"
+  },
+  {
+    "id": 83,
+    "nativeLabel": "Biblioteca Marucelliana",
+    "placeType": "state public library",
+    "cityId": 7,
+    "wikidataId": "Q741371"
+  },
+  {
+    "id": 84,
+    "nativeLabel": "Biblioteca Estense Universitaria",
+    "placeType": "conservation library",
+    "cityId": 99,
+    "wikidataId": "Q1219443"
+  },
+  {
+    "id": 85,
+    "nativeLabel": "Petworth House",
+    "placeType": "art museum",
+    "cityId": 100,
+    "wikidataId": "Q2081335"
+  },
+  {
+    "id": 86,
+    "nativeLabel": "National Museum in Prague",
+    "placeType": "national museum",
+    "cityId": 20,
+    "wikidataId": "Q188112"
+  },
+  {
+    "id": 87,
+    "nativeLabel": "Michalovce",
+    "placeType": "municipality of Slovakia",
+    "cityId": 7,
+    "wikidataId": "Q460925"
+  },
+  {
+    "id": 88,
+    "nativeLabel": "Scydmaenidae",
+    "placeType": "taxon",
+    "cityId": 7,
+    "wikidataId": "Q460932"
+  },
+  {
+    "id": 89,
+    "nativeLabel": "Bibliothèque Mazarine",
+    "placeType": "library",
+    "cityId": 11,
+    "wikidataId": "Q774570"
+  },
+  {
+    "id": 90,
+    "nativeLabel": "Bibliothèque municipale de Reims",
+    "placeType": "library",
+    "cityId": 105,
+    "wikidataId": "Q114667290"
+  },
+  {
+    "id": 91,
+    "nativeLabel": "Bibliothèques de Toulouse",
+    "placeType": "library",
+    "cityId": 107,
+    "wikidataId": "Q2901556"
+  },
+  {
+    "id": 92,
+    "nativeLabel": "Bibliothèque de l'Institut de France",
+    "placeType": "heritage library",
+    "cityId": 11,
+    "wikidataId": "Q18571193"
+  },
+  {
+    "id": 93,
+    "nativeLabel": "All Souls College",
+    "placeType": "college of the University of Oxford",
+    "cityId": 10,
+    "wikidataId": "Q81092"
+  },
+  {
+    "id": 94,
+    "nativeLabel": "Chapter Library and Biblioteca Colombina, Sevilla",
+    "placeType": "religious library",
+    "cityId": 34,
+    "wikidataId": "Q120869220"
+  },
+  {
+    "id": 95,
+    "nativeLabel": "University Library of Erlangen-Nürnberg",
+    "placeType": "academic library",
+    "cityId": 114,
+    "wikidataId": "Q15979678"
+  },
+  {
+    "id": 96,
+    "nativeLabel": null,
+    "placeType": null,
+    "cityId": null,
+    "wikidataId": null
+  },
+  {
+    "id": 97,
+    "nativeLabel": "Bibliotheca Naniana",
+    "placeType": "library",
+    "cityId": 34,
+    "wikidataId": "Q120869226"
+  },
+  {
+    "id": 98,
+    "nativeLabel": null,
+    "placeType": "Wikimedia disambiguation page",
+    "cityId": 7,
+    "wikidataId": "Q460921"
+  },
+  {
+    "id": 99,
+    "nativeLabel": "John Smeaton",
+    "placeType": "human",
+    "cityId": 7,
+    "wikidataId": "Q460922"
+  },
+  {
+    "id": 100,
+    "nativeLabel": "Library of the Cusanusstift",
+    "placeType": "library",
+    "cityId": 120,
+    "wikidataId": "Q856546"
+  },
+  {
+    "id": 101,
+    "nativeLabel": "Leipzig University Library",
+    "placeType": "academic library",
+    "cityId": 115,
+    "wikidataId": "Q872896"
+  },
+  {
+    "id": 102,
+    "nativeLabel": "Library of the Metropolitan Chapter of Prague",
+    "placeType": "religious library",
+    "cityId": 20,
+    "wikidataId": "Q20755622"
+  },
+  {
+    "id": 103,
+    "nativeLabel": "Kremsmünster Abbey",
+    "placeType": "art museum",
+    "cityId": 121,
+    "wikidataId": "Q688659"
+  },
+  {
+    "id": 104,
+    "nativeLabel": "Marie-Luce Romanens",
+    "placeType": "human",
+    "cityId": 7,
+    "wikidataId": "Q460923"
+  },
+  {
+    "id": 105,
+    "nativeLabel": "Edinburgh Central Library",
+    "placeType": "public library",
+    "cityId": 5,
+    "wikidataId": "Q5061355"
+  },
+  {
+    "id": 106,
+    "nativeLabel": "Yevgeniya Isakova",
+    "placeType": "human",
+    "cityId": 7,
+    "wikidataId": "Q460928"
+  },
+  {
+    "id": 107,
+    "nativeLabel": "Dai Greene",
+    "placeType": "human",
+    "cityId": 7,
+    "wikidataId": "Q460929"
+  },
+  {
+    "id": 108,
+    "nativeLabel": "Aline Bonjour",
+    "placeType": "human",
+    "cityId": 7,
+    "wikidataId": "Q460927"
+  },
+  {
+    "id": 109,
+    "nativeLabel": "Nadia Dajani",
+    "placeType": "human",
+    "cityId": 7,
+    "wikidataId": "Q460930"
+  },
+  {
+    "id": 110,
+    "nativeLabel": "Maretsch Castle",
+    "placeType": "château",
+    "cityId": 7,
+    "wikidataId": "Q460931"
+  },
+  {
+    "id": 111,
+    "nativeLabel": "Schlossbibliothek Pommersfelden",
+    "placeType": "castle library",
+    "cityId": 128,
+    "wikidataId": "Q129699266"
+  },
+  {
+    "id": 112,
+    "nativeLabel": "Anita Valen",
+    "placeType": "human",
+    "cityId": 7,
+    "wikidataId": "Q460914"
+  }
+]
