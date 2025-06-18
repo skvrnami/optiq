@@ -4,7 +4,7 @@ box::use(
     httr[GET, content, add_headers], 
     tibble[tibble], 
     purrr[map2_chr],
-    dplyr[select, left_join]
+    dplyr[select, left_join, arrange]
 )
 
 #' @export
@@ -63,7 +63,8 @@ server <- function(id) {
             left_join(works, by = "sigla")
         
         output$manuscripts <- renderDataTable({
-            m_table <- manuscripts
+            m_table <- manuscripts |> 
+                arrange(text, manuscript)
             # m_table$manuscript <- purrr::map2_chr(
             #     m_table$manuscript, m_table$id, function(x, y) {
             #         as.character(a(x, href=paste0("#!/manuscript_detail?manuscriptId=", y)))
@@ -83,6 +84,7 @@ server <- function(id) {
         options = list(
             # dom = "<\"datatables-scroll\"t>",
             ordering = TRUE,
+            pageLength = 50,
             columnDefs = list(
                 list(targets = 1, render = JS(
                     "function(data, type, row, meta) {

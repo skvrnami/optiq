@@ -5,8 +5,9 @@ box::use(
     tibble[tibble],
     shiny.router[get_query_param],
     dplyr[filter, pull, left_join, select, case_when, if_else, arrange, where, 
-          mutate], 
-    tidyr[pivot_longer, everything]
+          mutate, reframe, across, group_by], 
+    tidyr[pivot_longer, everything], 
+    stats[na.omit]
 )
 
 #' @export
@@ -72,9 +73,12 @@ server <- function(id) {
                 select(manuscript, date) |>
                 unique()
             
-            manuscript <- readRDS("app/data/manuscripts.rds") |>
+            manuscript_joined <- readRDS("app/data/manuscripts.rds") |>
                 filter(id == !!as.character(manuscript_id())) |>
-                left_join(copies, by = "manuscript") |>
+                left_join(copies, by = "manuscript")
+            
+            if(nrow(manuscript_joined) == 1){
+                manuscript <- manuscript_joined |> 
                 mutate(
                     catalogue = if_else(
                         !is.na(catalogue_link) & !is.na(catalogue),
@@ -111,7 +115,51 @@ server <- function(id) {
                 select(-c(catalogue_link, id)) |>
                 select(where(~!is.na(.x)))
             
+            }else{
+                manuscript <- manuscript_joined |> 
+                    group_by(id, manuscript) |> 
+                    reframe(across(everything(), ~paste0(na.omit(unique(.x)), collapse = ", "))) |> 
+                    mutate(
+                    catalogue = if_else(
+                        !is.na(catalogue_link) & !is.na(catalogue),
+                        as.character(a(catalogue, href = catalogue_link, 
+                                       target = "_blank")),
+                        catalogue
+                    ),
+                    facsimile = if_else(
+                        !is.na(facsimile),
+                        as.character(a("Link ", img(width="20", height="20", src="https://img.icons8.com/ios/50/link--v1.png"), href = facsimile, 
+                                       target = "_blank")),
+                        facsimile
+                    ),
+                    digital_copy = if_else(
+                        !is.na(digital_copy),
+                        as.character(a("Link ", img(width="20", height="20", src="https://img.icons8.com/ios/50/link--v1.png"), href = digital_copy, 
+                                       target = "_blank")),
+                        digital_copy
+                    ),
+                    wikidata = if_else(
+                        !is.na(wikidata), 
+                        as.character(a(wikidata, href = paste0("https://www.wikidata.org/wiki/", wikidata), 
+                                       target = "_blank")),
+                        wikidata
+                    ),
+                    iihf = if_else(
+                        !is.na(iihf),
+                        as.character(a("Digitalised copy (Mirador)", href = paste0("#!/mirador?manuscriptId=", id),
+                                       target = "_blank")),
+                        iihf
+                    ),
+                    permalink = paste0("http://optiq.flu.cas.cz/#!/manuscript_detail?manuscriptId=", id)
+                ) |>
+                select(-c(catalogue_link, id)) |>
+                select(where(~!is.na(.x)))
+
+
+            }
+
             manuscript_long <- manuscript |> 
+                select(manuscript, date, everything()) |> 
                 pivot_longer(
                 cols = everything(),
                 names_to = "name", 

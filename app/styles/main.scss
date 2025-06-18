@@ -101,17 +101,19 @@ footer img {
   flex: 1; /* Equal width for all columns */
   // border: 1px solid #ccc; /* Optional: Adds border for visibility */
   box-sizing: border-box; /* Include padding and borders in the width calculation */
+  margin: 0.4rem 1.4rem;
 }
 
 .name {
     flex-basis: 15%; /* Set a fixed basis (e.g., 30%) for the 'name' column */
     font-weight: bold;
     width: 16rem;
-    padding: 0.4rem 1.4rem;
+    
 }
 
 .value {
     flex-basis: 85%; /* Set a fixed basis (e.g., 70%) for the 'value' column */
+    // padding: 0.4rem 1.4rem;
 }
 
 .copy {

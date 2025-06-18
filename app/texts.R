@@ -65,6 +65,7 @@ server <- function(id) {
         options = list(
             # dom = "<\"datatables-scroll\"t>",
             ordering = TRUE,
+            pageLength = 50,
             columnDefs = list(
                 list(visible = FALSE, targets = 0),
                 list(visible = FALSE, targets = 1),

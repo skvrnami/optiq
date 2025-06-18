@@ -3,7 +3,7 @@ box::use(
     DT[DTOutput, renderDataTable, JS], 
     httr[GET, content, add_headers], 
     tibble[tibble],
-    dplyr[select, rename]
+    dplyr[select, rename, arrange]
 )
 
 #' @export
@@ -45,7 +45,8 @@ server <- function(id) {
         authors <- readRDS("app/data/authors.rds")
         
         output$authors <- renderDataTable({
-            a_table <- authors
+            a_table <- authors |> 
+                arrange(name)
             # a_table$name <- purrr::map2_chr(
             #     a_table$name, a_table$id, function(x, y) {
             #         as.character(a(x, href=paste0("#!/author_detail?authorId=", y)))
