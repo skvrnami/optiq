@@ -106,7 +106,9 @@ server <- function(id) {
                     ),
                     iihf = if_else(
                         !is.na(iihf),
-                        as.character(a("Digitalised copy (Mirador)", href = paste0("#!/mirador?manuscriptId=", id),
+                        as.character(a("Digitalised copy (Mirador)", 
+                                       img(width="20", height="20", src="static/iiif.png"),
+                                       href = paste0("#!/mirador?manuscriptId=", id),
                                        target = "_blank")),
                         iihf
                     ),
