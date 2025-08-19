@@ -14,6 +14,8 @@
 
 library(httr)
 library(tibble)
+library(dplyr)
+library(tidyr)
 
 # Authors
 parse_authors <- function(objects) {
@@ -159,3 +161,23 @@ manuscript_copies <- get_manuscript_copies(manuscript_copy_id, token)
 saveRDS(manuscript_copies, "app/data/manuscript_copies.rds")
 
 
+# reshape works
+texts <- readRDS("app/data/works.rds") |>
+  pivot_longer(cols = starts_with("edition"), values_drop_na = TRUE) |> 
+  mutate(
+    edition_no = stringr::str_extract(name, "[0-9]+"),
+    name = gsub("[0-9]+", "", name)
+  ) |> 
+  pivot_wider(# id_cols = c("id", "edition_no"), 
+              names_from = "name", values_from = "value") |> 
+  select(-edition_no)
+
+texts_without_edition <- works |> filter(is.na(edition1)) |> 
+  select(-starts_with("edition"))
+
+texts_reshaped <- bind_rows(texts, texts_without_edition)
+saveRDS(texts_reshaped, "app/data/works_reshaped.rds")
+
+works <- readRDS("app/data/works.rds")
+
+all(works$id %in% texts_reshaped$id)

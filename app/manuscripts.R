@@ -51,20 +51,20 @@ server <- function(id) {
         # 
         # manuscripts <- get_manuscripts(manuscript_id, token)
         copies <- readRDS("app/data/manuscript_copies.rds") |>
-            select(manuscript, sigla, text, date) |>
+            select(manuscript, text, date, title = text) |>
             unique()
         authors <- readRDS("app/data/authors.rds") |>
             select(author_id = id, name)
         works <- readRDS("app/data/works.rds") |>
-            select(text_id = id, sigla, author) |>
+            select(text_id = id, sigla, title, author) |>
             left_join(authors, by = c("author"="name"))
         manuscripts <- readRDS("app/data/manuscripts.rds") |>
             left_join(copies, by = "manuscript") |>
-            left_join(works, by = "sigla")
+            left_join(works, by = "title")
         
         output$manuscripts <- renderDataTable({
             m_table <- manuscripts |> 
-                arrange(text, manuscript)
+                arrange(title, manuscript)
             # m_table$manuscript <- purrr::map2_chr(
             #     m_table$manuscript, m_table$id, function(x, y) {
             #         as.character(a(x, href=paste0("#!/manuscript_detail?manuscriptId=", y)))
@@ -76,7 +76,7 @@ server <- function(id) {
             # })
             
             return(m_table |> select(id, Shelfmark = manuscript, Author = author, 
-                                     Siglum = sigla, Title = text, 
+                                     Siglum = sigla, Title = title, 
                                      Origin = date, Facsimile = facsimile, author_id))
         }, escape = FALSE, rownames = FALSE, 
         # style = 'bootstrap',

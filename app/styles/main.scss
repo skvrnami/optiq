@@ -104,6 +104,21 @@ footer img {
   margin: 0.4rem 1.4rem;
 }
 
+.value a {
+    color: blue !important;
+    text-decoration: underline;
+}
+
+.value a:active {
+    font-weight: normal;
+}
+
+.value a:hover {
+    font-weight: normal;
+    text-decoration: none;
+}
+
+
 .name {
     flex-basis: 15%; /* Set a fixed basis (e.g., 30%) for the 'name' column */
     font-weight: bold;

@@ -1,12 +1,37 @@
 box::use(
-    shiny[h3, moduleServer, NS, div, tagList, textOutput, renderText, reactive, req, 
+    shiny[h3, moduleServer, NS, div, tagList, tags, textOutput, renderText, reactive, req, 
           uiOutput, renderUI, a, HTML],
     httr[GET, content, add_headers], 
     tibble[tibble],
     shiny.router[get_query_param],
-    dplyr[filter, pull, select, left_join, slice, mutate, if_else, case_when],
-    tidyr[pivot_longer, everything]
+    dplyr[filter, pull, select, left_join, slice, mutate, if_else, case_when, group_by, ungroup, summarise],
+    tidyr[pivot_longer, pivot_wider, everything],
+    stringr[str_extract], 
+    purrr[map2, keep]
 )
+
+create_edition_html <- function(edition, edition_link){
+  case_when(
+    !is.na(edition) & !is.na(edition_link) ~ as.character(tags$li(a(edition, href = edition_link))), 
+    !is.na(edition) & is.na(edition_link) ~ as.character(tags$li(edition)), 
+    TRUE ~ NA_character_
+  )
+}
+
+keep_not_empty <- function(x) as.character(tags$ol(HTML(paste0(purrr::keep(x, !is.na(x)), collapse = "")), style="padding-left: 15px;"))
+
+create_literature_html <- function(x) {
+    # browser()
+    if(is.na(x)) {
+        return(NA_character_)
+    }
+
+    lits <- unlist(strsplit(x, ";")) |> 
+        stringr::str_squish()
+
+    as.character(tags$ol(HTML(paste0(purrr::map_chr(lits, \(x) as.character(tags$li(x))), collapse = "")), style="padding-left: 15px;"))
+    
+}
 
 #' @export
 ui <- function(id) {
@@ -65,17 +90,23 @@ server <- function(id) {
         
         output$text <- renderUI({
             req(text_id())
-            text <- readRDS("app/data/works.rds") |>
-                filter(id == !!as.character(text_id()))
+            text <- readRDS("app/data/works_reshaped.rds") |>
+                filter(id == !!as.character(text_id())) |> 
+                group_by(id, author, title, translator, translation_from, 
+                         translation_to, literature, notes, sigla) |> 
+                summarise(
+                    edition_html = keep_not_empty(purrr::map2(.data$edition, .data$edition_link, \(x, y) create_edition_html(x, y)))
+                ) |> 
+                ungroup()
             
             copies <- readRDS("app/data/manuscript_copies.rds") |>
-                mutate(manuscript = if_else(sigla == "114", 
-                                            "Venice, Biblioteca Nazionale Marciana, MS Zanetti Lat. 535 (Valentinelli XIV .13)",
-                                            manuscript
-                )) |>
-                filter(sigla == !!text$sigla) |>
+                # mutate(manuscript = if_else(sigla == "114", 
+                #                             "Venice, Biblioteca Nazionale Marciana, MS Zanetti Lat. 535 (Valentinelli XIV .13)",
+                #                             manuscript
+                # )) |>
+                filter(text == !!text$title) |>
                 slice(1) |>
-                select(text, sigla)
+                select(text)# , sigla)
             
             author <- readRDS("app/data/authors.rds") |>
                 filter(name == !!text$author) |>
@@ -95,15 +126,10 @@ server <- function(id) {
                                 paste0(translation_from, " → ", 
                                          translation_to),
                                 translation_from),
-                    edition = if_else(
-                        !is.na(edition),
-                        as.character(a(edition, href = edition_link, target = "_blank")),
-                        edition
-                    ),
+                    literature = purrr::map_chr(literature, create_literature_html),
                     permalink = paste0("http://optiq.flu.cas.cz/#!/text_detail?textId=", id)
                 ) |>
-                select(-c(author_id, translation_from, translation_to, id, 
-                          edition_link)) |>
+                select(-c(author_id, translation_from, translation_to, id)) |>
                 select(where(~!is.na(.x)))
             
             text_long <- text |> 
@@ -119,7 +145,7 @@ server <- function(id) {
                         name == "author" ~ "Author",
                         name == "translator" ~ "Translator",
                         name == "translation" ~ "Translation",
-                        name == "edition" ~ "Edition",
+                        name == "edition_html" ~ "Edition",
                         name == "literature" ~ "Literature",
                         name == "notes" ~ "Notes",
                         name == "permalink" ~ "Permanlink",
@@ -145,11 +171,11 @@ server <- function(id) {
                 select(manuscript_id = id, manuscript)
             
             copies <- readRDS("app/data/manuscript_copies.rds") |>
-                filter(sigla == !!text$sigla) |>
-                mutate(manuscript = if_else(sigla == "114", 
-                                            "Venice, Biblioteca Nazionale Marciana, MS Zanetti Lat. 535 (Valentinelli XIV .13)",
-                                            manuscript
-                )) |> 
+                filter(text == !!text$title) |>
+                # mutate(manuscript = if_else(sigla == "114", 
+                #                             "Venice, Biblioteca Nazionale Marciana, MS Zanetti Lat. 535 (Valentinelli XIV .13)",
+                #                             manuscript
+                # )) |> 
                 left_join(manuscripts, by = c("manuscript"))
             
             purrr::map(1:nrow(copies), function(i) {

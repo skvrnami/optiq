@@ -4,7 +4,9 @@ box::use(
     httr[GET, content, add_headers], 
     tibble[tibble], 
     purrr[map2_chr],
-    dplyr[select, arrange, left_join, mutate, if_else]
+    dplyr[select, filter, arrange, left_join, mutate, if_else, group_by, slice, ungroup], 
+    tidyr[pivot_longer, pivot_wider],
+    stringr[str_extract]
 )
 
 #' @export
@@ -52,8 +54,11 @@ server <- function(id) {
         # manuscripts <- get_manuscripts(manuscript_id, token)
         authors <- readRDS("app/data/authors.rds") |> 
             select(author_id = id, author = name)
-        
-        texts <- readRDS("app/data/works.rds") |> 
+
+        texts <- readRDS("app/data/works_reshaped.rds") |>
+            group_by(id) |> 
+            slice(1) |> 
+            ungroup() |> 
             arrange(title) |>
             left_join(authors, by = "author")
         
