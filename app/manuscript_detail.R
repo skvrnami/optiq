@@ -205,10 +205,6 @@ server <- function(id) {
                 select(text_id = id, sigla, author) |>
                 left_join(authors, by = c("author"="name"))
             copies <- readRDS("app/data/manuscript_copies.rds") |>
-                mutate(manuscript = if_else(sigla == "114", 
-                                            "Venice, Biblioteca Nazionale Marciana, MS Zanetti Lat. 535 (Valentinelli XIV .13)",
-                                            manuscript
-                )) |>
                 filter(manuscript == !!shelfmark) |>
                 left_join(works, by = c("sigla"="sigla")) |>
                 arrange(foliation)

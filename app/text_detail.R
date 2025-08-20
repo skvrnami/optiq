@@ -100,10 +100,6 @@ server <- function(id) {
                 ungroup()
             
             copies <- readRDS("app/data/manuscript_copies.rds") |>
-                # mutate(manuscript = if_else(sigla == "114", 
-                #                             "Venice, Biblioteca Nazionale Marciana, MS Zanetti Lat. 535 (Valentinelli XIV .13)",
-                #                             manuscript
-                # )) |>
                 filter(text == !!text$title) |>
                 slice(1) |>
                 select(text)# , sigla)
@@ -172,10 +168,6 @@ server <- function(id) {
             
             copies <- readRDS("app/data/manuscript_copies.rds") |>
                 filter(text == !!text$title) |>
-                # mutate(manuscript = if_else(sigla == "114", 
-                #                             "Venice, Biblioteca Nazionale Marciana, MS Zanetti Lat. 535 (Valentinelli XIV .13)",
-                #                             manuscript
-                # )) |> 
                 left_join(manuscripts, by = c("manuscript"))
             
             purrr::map(1:nrow(copies), function(i) {
