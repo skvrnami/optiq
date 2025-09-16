@@ -21,7 +21,9 @@ ui <- function(id) {
         uiOutput(ns("manuscript")),
         
         h3("Texts"),
-        uiOutput(ns("copies"))
+        uiOutput(ns("copies")), 
+
+        uiOutput(ns("iiif"))
         
     )
 }
@@ -108,8 +110,7 @@ server <- function(id) {
                         !is.na(iihf),
                         as.character(a("Digitalised copy (Mirador)", 
                                        img(width="20", height="20", src="static/iiif.png"),
-                                       href = paste0("#!/mirador?manuscriptId=", id),
-                                       target = "_blank")),
+                                       href = "#mirador")),
                         iihf
                     ),
                     permalink = paste0("http://optiq.flu.cas.cz/#!/manuscript_detail?manuscriptId=", id)
@@ -148,8 +149,9 @@ server <- function(id) {
                     ),
                     iihf = if_else(
                         !is.na(iihf),
-                        as.character(a("Digitalised copy (Mirador)", href = paste0("#!/mirador?manuscriptId=", id),
-                                       target = "_blank")),
+                        as.character(a("Digitalised copy (Mirador)", 
+                                       img(width="20", height="20", src="static/iiif.png"),
+                                       href = "#mirador")),
                         iihf
                     ),
                     permalink = paste0("http://optiq.flu.cas.cz/#!/manuscript_detail?manuscriptId=", id)
@@ -243,6 +245,35 @@ server <- function(id) {
                 )
             })
             
+        })
+
+        output$iiif <- renderUI({
+            req(manuscript_id())
+            iiif <- readRDS("app/data/manuscripts.rds") |>
+                filter(id == !!as.character(manuscript_id())) |>
+                pull(iihf) 
+            if(!is.na(iiif)){
+                htmltools::HTML(paste0('
+                <h3>Digitized copy</h3>
+                <div id="mirador"></div>
+                <script type="text/javascript">
+                var mirador = Mirador.viewer({
+                    id: "mirador",
+                    manifests: {"',
+                iiif, 
+                '": { },
+                },
+                windows: [
+                    {
+                        loadedManifest: "',
+                iiif, '",
+                canvasIndex: 2,
+                thumbnailNavigationPosition: "far-bottom",
+                },
+                ],
+                });
+                </script>'))
+            }
         })
     })
 }

@@ -44,7 +44,6 @@ ui <- function(id) {
         h3("Manuscripts"),
         uiOutput(ns("copies"))
         
-        
     )
 }
 
