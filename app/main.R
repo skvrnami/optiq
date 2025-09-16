@@ -10,7 +10,6 @@ box::use(
   app/author_detail,
   app/manuscripts,
   app/manuscript_detail,
-  app/mirador,
   app/texts,
   app/text_detail,
   app/dashboard 
@@ -64,7 +63,6 @@ ui <- function(id) {
           route("author_detail", author_detail$ui(ns("author_detail"))),
           route("manuscripts", manuscripts$ui(ns("manuscripts"))),
           route("manuscript_detail", manuscript_detail$ui(ns("manuscript_detail"))),
-          route("mirador", mirador$ui(ns("mirador"))),
           route("dashboard", dashboard$ui(ns("dashboard"))),
           route("texts", texts$ui(ns("texts"))),
           route("text_detail", text_detail$ui(ns("text_detail")))
@@ -121,7 +119,6 @@ server <- function(id) {
     author_detail$server("author_detail")
     manuscripts$server("manuscripts")
     manuscript_detail$server("manuscript_detail")
-    mirador$server("mirador")
     texts$server("texts")
     text_detail$server("text_detail")
   })
