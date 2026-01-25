@@ -102,7 +102,7 @@ function App() {
     >
       <div style={{ height: LAYOUT_HEADER_HEIGHT }}>
         <div className="text-xl font-medium text-center uppercase">
-          Logiq texts and their depositions
+          OptiQ analysis of texts and their depositions
         </div>
         <div className="flex items-center justify-center gap-2">
           {filter.type === FilterType.NONE ? (
