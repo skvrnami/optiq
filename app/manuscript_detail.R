@@ -15,6 +15,17 @@ ui <- function(id) {
     ns <- NS(id)
     
     tagList(
+        htmltools::tags$script(
+            "function jumpToMirador(elementId) {
+                const element = document.getElementById(elementId);
+                if (element) {
+                    element.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }
+            }"
+        ),
         htmltools::tags$script(src = "https://unpkg.com/mirador@latest/dist/mirador.min.js"),
         
         h3("Manuscript"),
@@ -110,7 +121,9 @@ server <- function(id) {
                         !is.na(iihf),
                         as.character(a("Digitalised copy (Mirador)", 
                                        img(width="20", height="20", src="static/iiif.png"),
-                                       href = "#mirador")),
+                                       onclick = "jumpToMirador('mirador')")),
+                                    #    href = "/#mirador")),
+                                    # href = paste0("manuscript_detail?manuscriptId=", id, "#mirador"))),
                         iihf
                     ),
                     permalink = paste0("http://optiq.flu.cas.cz/#!/manuscript_detail?manuscriptId=", id)
@@ -122,6 +135,7 @@ server <- function(id) {
                 manuscript <- manuscript_joined |> 
                     group_by(id, manuscript) |> 
                     reframe(across(everything(), ~paste0(na.omit(unique(.x)), collapse = ", "))) |> 
+                    mutate(across(everything(), ~if_else(.x == "", NA_character_, .x))) |> 
                     mutate(
                     catalogue = if_else(
                         !is.na(catalogue_link) & !is.na(catalogue),
@@ -151,7 +165,9 @@ server <- function(id) {
                         !is.na(iihf),
                         as.character(a("Digitalised copy (Mirador)", 
                                        img(width="20", height="20", src="static/iiif.png"),
-                                       href = "#mirador")),
+                                       onclick = "jumpToMirador('mirador')")),
+                                    #    href = "/#mirador")),
+                                    # href = paste0("manuscript_detail?manuscriptId=", id, "#mirador"))),
                         iihf
                     ),
                     permalink = paste0("http://optiq.flu.cas.cz/#!/manuscript_detail?manuscriptId=", id)
