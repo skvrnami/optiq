@@ -1,19 +1,42 @@
-FROM rocker/shiny-verse:4.4.1
+FROM rocker/r-ver:4.4.0
 
-# Workaround for renv cache
-RUN mkdir /.cache
-RUN chmod 777 /.cache
+# Install system dependencies required for R packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    libxml2-dev \
+    libfontconfig1-dev \
+    libfreetype6-dev \
+    libpng-dev \
+    libjpeg-dev \
+    zlib1g-dev \
+    libharfbuzz-dev \
+    libfribidi-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /code
+# Set working directory
+WORKDIR /app
 
 # Install renv
-RUN install2.r --error \
-    renv
+RUN R -e "install.packages('renv', repos = 'https://cloud.r-project.org/')"
 
-# Copy application code
-COPY . .
+# Copy renv files first for better caching
+COPY renv.lock renv.lock
+COPY .Rprofile .Rprofile
+COPY renv/activate.R renv/activate.R
+COPY renv/settings.json renv/settings.json
 
-# Install dependencies
-RUN Rscript -e 'options(renv.config.cache.enabled = FALSE); renv::restore(prompt = FALSE)'
+# Restore R packages
+RUN R -e "renv::restore()"
 
-CMD ["R", "--quiet", "-e", "shiny::runApp(host='0.0.0.0', port=7860)"]
+# Copy application files
+COPY app/ app/
+COPY rhino.yml rhino.yml
+COPY config.yml config.yml
+COPY dependencies.R dependencies.R
+
+# Expose Shiny default port
+EXPOSE 3838
+
+# Run the app
+CMD ["R", "-e", "shiny::runApp(rhino::app(), host = '0.0.0.0', port = 3838)"]

@@ -1,0 +1,16 @@
+.git
+.gitignore
+.Rproj.user
+.Rhistory
+.RData
+*.Rproj
+renv/library
+renv/local
+renv/cellar
+renv/lock
+renv/python
+renv/staging
+README.md
+Dockerfile
+.dockerignore
+vis/
