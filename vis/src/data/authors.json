@@ -5,7 +5,8 @@
     "alternativeName": "Abu  ‘Abd Allah Muhammad ibn Mu'idh",
     "wikidataId": "Q2987645",
     "placeOfBirth": [
-      1
+      1,
+      2
     ],
     "placeOfDeath": [
       1
@@ -34,7 +35,9 @@
     "placeOfBirth": [
       15
     ],
-    "placeOfDeath": [],
+    "placeOfDeath": [
+      16
+    ],
     "dateOfBirth": [
       1200,
       1193,
@@ -108,7 +111,9 @@
     "placeOfBirth": [
       25
     ],
-    "placeOfDeath": [],
+    "placeOfDeath": [
+      26
+    ],
     "dateOfBirth": [
       965,
       965
@@ -365,12 +370,8 @@
     "name": "Blasius of Parma",
     "alternativeName": "Biagio Pelacani",
     "wikidataId": "Q855257",
-    "placeOfBirth": [
-      73
-    ],
-    "placeOfDeath": [
-      73
-    ],
+    "placeOfBirth": [],
+    "placeOfDeath": [],
     "dateOfBirth": [
       1355,
       1347
@@ -710,7 +711,9 @@
     "name": "Galen of Pergamum",
     "alternativeName": "",
     "wikidataId": "Q8778",
-    "placeOfBirth": [],
+    "placeOfBirth": [
+      92
+    ],
     "placeOfDeath": [
       12
     ],
@@ -863,8 +866,7 @@
       96
     ],
     "placeOfDeath": [
-      97,
-      98
+      97
     ],
     "dateOfBirth": [
       1168,
@@ -933,7 +935,9 @@
     "name": "Henry of Langenstein (Hesse)",
     "alternativeName": "",
     "wikidataId": "Q71997",
-    "placeOfBirth": [],
+    "placeOfBirth": [
+      102
+    ],
     "placeOfDeath": [],
     "dateOfBirth": [
       1325
@@ -1389,7 +1393,9 @@
     "placeOfBirth": [
       118
     ],
-    "placeOfDeath": [],
+    "placeOfDeath": [
+      119
+    ],
     "dateOfBirth": [
       1227
     ],
@@ -1491,7 +1497,8 @@
       123
     ],
     "placeOfDeath": [
-      85
+      85,
+      124
     ],
     "dateOfBirth": [
       100,

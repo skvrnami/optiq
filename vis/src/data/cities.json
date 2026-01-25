@@ -80,15 +80,15 @@
     "id": 12,
     "placeId": "Q220",
     "cityLabel": "Rome",
-    "x": 41.893056,
-    "y": 12.482778
+    "x": 41.863056,
+    "y": 12.582778
   },
   {
     "id": 13,
     "placeId": "Q237",
     "cityLabel": "Vatican City",
-    "x": 41.904,
-    "y": 12.453
+    "x": 42.004,
+    "y": 12.253
   },
   {
     "id": 14,
@@ -883,17 +883,17 @@
   },
   {
     "id": 127,
-    "placeId": "Q14819",
-    "cityLabel": "Freiberg",
-    "x": 50.911944,
-    "y": 13.342778
-  },
-  {
-    "id": 128,
     "placeId": "Q627521",
     "cityLabel": "Pommersfelden",
     "x": 49.766667,
     "y": 10.816667
+  },
+  {
+    "id": 128,
+    "placeId": "Q14819",
+    "cityLabel": "Freiberg",
+    "x": 50.911944,
+    "y": 13.342778
   },
   {
     "id": 129,
