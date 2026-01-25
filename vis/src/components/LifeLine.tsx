@@ -65,11 +65,11 @@ const LifeLine = ({
     return isInLeftPart ? birthX + lifeLineW : birthX;
   }, [isYearsUnknown, isInLeftPart, birthX, lifeLineW, width]);
 
-  const colors = getColorClasses(state, filter);
+  const colorClasses = getColorClasses(state, filter);
 
   return (
     <div
-      className="w-full h-full relative inset-0"
+      className={`w-full h-full relative inset-0 ${isYearsUnknown ? `${colorClasses.bgLightUnknown} ${colorClasses.bgLightHover} rounded-md` : ''}`}
       style={{
         width: width,
         height: height,
@@ -97,26 +97,27 @@ const LifeLine = ({
 
       <div
         style={{ width: lifeLineW, height: lifeLineH, left: leftStartX, top: 7 }}
-        className={`absolute rounded-md bg-gradient-to-r ${
-          !isBirthUnknown ? colors.bg : 'from-transparent'
-        } ${!isDeathUnknown ? colors.bg : 'to-transparent'}`}
+        className={`absolute rounded-md bg-linear-to-r ${
+          !isBirthUnknown ? colorClasses.bg : 'from-transparent'
+        } ${!isDeathUnknown ? colorClasses.bg : 'to-transparent'}`}
       ></div>
       <div
         style={{
-          left: leftTextX,
+          left: isYearsUnknown ? 0 : leftTextX,
           transform: isInLeftPart ? 'translateX(0)' : 'translateX(-100%)',
           top: 7,
+          width: isYearsUnknown ? width : undefined,
         }}
         className={`
-            absolute 
+            absolute
             top-0 
             flex flex-row 
             items-center gap-x-1 pr-1
-            text-xs font-medium ${colors.text}
+            text-xs font-medium ${colorClasses.text}
           `}
       >
         {isYearsUnknown ? (
-          <div className="w-7 text-center font-light">unknown</div>
+          <div className={`w-full h-full mt-1 text-center font-light italic ${colorClasses.textUnknown}`}>unknown</div>
         ) : (
           <>
             <div className="w-7 text-center">{mostProbableBirth ?? '?'}</div>

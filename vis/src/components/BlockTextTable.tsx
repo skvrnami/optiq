@@ -9,6 +9,7 @@ import DepositionTag from './DepositionTag';
 import SiglaTag from './SiglaTag';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
 import TextTag from './TextTag';
+import { UnknownValue } from './ui/card-section';
 
 interface BlockTextTableProps {
   data: {
@@ -31,11 +32,6 @@ export const BlockTextTable = ({ data, onFilterChange, filter, height }: BlockTe
     deposition: 150,
     sigla: 50,
     date: 50,
-  };
-
-  const getRowColor = (text: DataText) => {
-    const colors = getColorClasses(text.state, filter);
-    return `${colors.text} ${colors.fill} ${colors.bgLight} ${colors.bgLightHover}`;
   };
 
   // Sort texts by state (active first, then inactive)
@@ -77,7 +73,8 @@ export const BlockTextTable = ({ data, onFilterChange, filter, height }: BlockTe
           </TableHeader>
           <TableBody className="overflow-y-auto">
             {sortedTexts.map((text) => {
-              const color = getRowColor(text);
+              const colors = getColorClasses(text.state, filter);
+              const rowColorClass = `${colors.text} ${colors.fill} ${colors.bgLight} ${colors.bgLightHover}`;
               const author = data.authors.find((author) => author.id === text.authorId);
               const city = data.depositions.find((deposition) =>
                 deposition.institutes.some((institute) => institute.id === text.locationId)
@@ -87,29 +84,37 @@ export const BlockTextTable = ({ data, onFilterChange, filter, height }: BlockTe
               );
 
               return (
-                <TableRow key={text.id} className={`border-0 ${color}`}>
+                <TableRow key={text.id} className={`border-0 ${rowColorClass}`}>
                   <TableCell className={`text-left max-w-[${columnSizes.title}px] truncate`}>
                     <TextTag text={text} filter={filter} />
                   </TableCell>
                   <TableCell className={`text-left max-w-[${columnSizes.author}px] truncate`}>
-                    {author && (
+                    {author ? (
                       <AuthorTag author={author} onFilterChange={onFilterChange} filter={filter} />
+                    ) : (
+                      <UnknownValue textUnknownClass={colors.textUnknown} />
                     )}
                   </TableCell>
                   <TableCell className={`text-left max-w-[${columnSizes.deposition}px] truncate`}>
-                    {institute && (
+                    {institute ? (
                       <DepositionTag
                         institute={institute}
                         onFilterChange={onFilterChange}
                         filter={filter}
                       />
+                    ) : (
+                      <UnknownValue textUnknownClass={colors.textUnknown} />
                     )}
                   </TableCell>
                   <TableCell className={`text-left max-w-[${columnSizes.sigla}px] truncate`}>
                     <SiglaTag sigla={text.sigla} state={text.state} filter={filter} />
                   </TableCell>
                   <TableCell className={`text-left max-w-[${columnSizes.date}px] truncate`}>
-                    {text.date}
+                    {text.date ? (
+                      text.date
+                    ) : (
+                      <UnknownValue textUnknownClass={colors.textUnknown} />
+                    )}
                   </TableCell>
                 </TableRow>
               );

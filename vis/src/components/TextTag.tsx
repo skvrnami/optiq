@@ -10,6 +10,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from './ui/card';
 import { Separator } from './ui/separator';
 import { IconAuthor } from './icons/Author';
 import { IconDeposition } from './icons/Deposition';
+import { CardSection, CardLink, UnknownValue } from './ui/card-section';
 
 interface TextTagProps {
   text: DataText;
@@ -81,7 +82,7 @@ const TextTag = ({ text, filter }: TextTagProps) => {
           </div>
         </div>
       </HoverCardTrigger>
-      <HoverCardContent className="w-auto">
+      <HoverCardContent className="w-[50em]">
         <div className="flex flex-col gap-2">
           <div className="flex items-start justify-between gap-2">
             <div className="flex items-start gap-2 min-w-0">
@@ -96,128 +97,102 @@ const TextTag = ({ text, filter }: TextTagProps) => {
           </div>
           <Separator />
           <div className="flex flex-col gap-2 text-sm">
-            <div className="flex flex-col min-w-0">
-              <span className="text-xs text-gray-500">Author</span>
+            <CardSection label="Author">
               <span className={`font-medium flex items-center gap-1 truncate ${colors.text}`}>
-                <IconAuthor className="size-4" />
-                {author?.name || 'Unknown'}
+                <IconAuthor className="size-4 shrink-0" />
+                {author?.name || <UnknownValue textUnknownClass={colors.textUnknown} />}
               </span>
-            </div>
-            <div className="flex flex-col min-w-0">
-              <span className="text-xs text-gray-500">Location</span>
+            </CardSection>
+            <CardSection label="Location">
               <span className={`font-medium flex items-center gap-1 truncate ${colors.text}`}>
-                <IconDeposition className="size-4" />
-                {institute?.nativeLabel || 'Unknown'}
+                <IconDeposition className="size-4 shrink-0" />
+                {institute?.nativeLabel || <UnknownValue textUnknownClass={colors.textUnknown} />}
               </span>
-              {city && <span className="text-xs text-gray-500 truncate">{city.cityLabel}</span>}
-            </div>
-            <div className="flex flex-col min-w-0">
-              <span className="text-xs text-gray-500">Date</span>
-              <span className={`font-medium truncate ${colors.text}`}>{text.date}</span>
-            </div>
+              {city && (
+                <span className="text-xs text-gray-500 truncate pl-5">{city.cityLabel}</span>
+              )}
+            </CardSection>
+            <CardSection label="Date">
+              {text.date ? (
+                <span className={`font-medium truncate ${colors.text}`}>{text.date}</span>
+              ) : (
+                <UnknownValue textUnknownClass={colors.textUnknown} />
+              )}
+            </CardSection>
           </div>
           {text.universalIncipit && (
             <>
               <Separator />
-              <div className="flex flex-col gap-1">
-                <span className="text-xs text-gray-500">Universal Incipit</span>
-                <div className={`text-sm max-w-[400px] ${colors.text}`}>
-                  {formatText(text.universalIncipit)}
-                </div>
-              </div>
+              <CardSection label="Universal Incipit">
+                <div className={`text-sm text-wrap ${colors.text}`}>{formatText(text.universalIncipit)}</div>
+              </CardSection>
             </>
           )}
           {text.translator && (
             <>
               <Separator />
-              <div className="flex flex-col gap-1">
-                <span className="text-xs text-gray-500">Translator</span>
+              <CardSection label="Translator">
                 <span className={`text-sm truncate ${colors.text}`}>{text.translator}</span>
                 {text.translatedFrom && text.translatedTo && (
                   <span className="text-xs text-gray-500">
                     {text.translatedFrom} → {text.translatedTo}
                   </span>
                 )}
-              </div>
+              </CardSection>
             </>
           )}
           {text.editions && text.editions.length > 0 && (
             <>
               <Separator />
-              <div className="flex flex-col gap-1">
-                <span className="text-xs text-gray-500">Editions</span>
+              <CardSection label="Editions">
                 <div className="flex flex-col gap-1">
                   {text.editions.map((edition) => (
-                    <a
-                      key={edition.id}
-                      href={edition.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`${colors.textLink} ${colors.textHover} flex items-center gap-1`}
-                    >
-                      <span className="text-sm truncate max-w-[400px]">{edition.title}</span>
-                      <IconExternalLink className="size-4" />
-                    </a>
+                    <CardLink key={edition.id} href={edition.link} colorClasses={colors}>
+                      {edition.title}
+                    </CardLink>
                   ))}
                 </div>
-              </div>
+              </CardSection>
             </>
           )}
           {text.manuscript && (
             <>
               <Separator />
-              <div className="flex flex-col gap-1">
-                <span className="text-xs text-gray-500">Manuscript</span>
-                <div className="flex flex-col gap-1">
+              <CardSection label="Manuscript">
+                <div className="flex flex-col gap-1 min-w-0">
                   <span className={`text-sm truncate ${colors.text}`}>
                     {text.manuscript.location}
                   </span>
                   {text.manuscript.catalogue && (
-                    <a
-                      href={text.manuscript.catalogueLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`${colors.textLink} ${colors.textHover} flex items-center gap-1`}
+                    <CardLink
+                      href={text.manuscript.catalogueLink ?? '#'}
+                      colorClasses={colors}
                     >
-                      <span className="text-sm">{text.manuscript.catalogue}</span>
-                      <IconExternalLink className="size-4" />
-                    </a>
+                      {text.manuscript.catalogue}
+                    </CardLink>
                   )}
                   {text.manuscript.digitalCopy && (
-                    <a
-                      href={text.manuscript.digitalCopy}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`${colors.textLink} ${colors.textHover} flex items-center gap-1`}
-                    >
-                      <span className="text-sm">Digital Copy</span>
-                      <IconExternalLink className="size-4" />
-                    </a>
+                    <CardLink href={text.manuscript.digitalCopy} colorClasses={colors}>
+                      Digital Copy
+                    </CardLink>
                   )}
                   {text.manuscript.facsimile && (
-                    <a
-                      href={text.manuscript.facsimile}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`${colors.textLink} ${colors.textHover} flex items-center gap-1`}
-                    >
-                      <span className="text-sm">Facsimile</span>
-                      <IconExternalLink className="size-4" />
-                    </a>
+                    <CardLink href={text.manuscript.facsimile} colorClasses={colors}>
+                      Facsimile
+                    </CardLink>
                   )}
                 </div>
-              </div>
+              </CardSection>
             </>
           )}
           {text.literature && (
             <>
               <Separator />
-              <div className="flex flex-col gap-1">
-                <span className="text-xs text-gray-500">Literature</span>
-                <div className={`text-sm max-w-[400px] text-wrap ${colors.text}`}>
+              <CardSection label="Literature">
+                <div className={`text-sm text-wrap ${colors.text}`}>
                   {formatText(text.literature)}
                 </div>
-              </div>
+              </CardSection>
             </>
           )}
         </div>

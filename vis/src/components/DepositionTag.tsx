@@ -3,10 +3,10 @@ import { DataInstitute } from '@/types/data';
 import { Filter, FilterItemState, FilterType } from '@/types/filter';
 import inputCities from '@data/cities.json';
 import { IconDeposition } from './icons/Deposition';
-import { IconExternalLink } from './icons/ExternalLink';
 import SelectButton from './SelectButton';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from './ui/card';
 import { Separator } from './ui/separator';
+import { CardSection, CardLink, UnknownValue } from './ui/card-section';
 interface DepositionTagProps {
   institute: DataInstitute;
   onFilterChange: (filter: Filter) => void;
@@ -49,34 +49,34 @@ const DepositionTag = ({ institute, onFilterChange, filter }: DepositionTagProps
           </div>
           <Separator />
           <div className="flex flex-col gap-2 text-sm">
-            <div className="flex flex-col min-w-0">
-              <span className="text-xs text-gray-500">Type</span>
-              <span className={`font-medium truncate ${colors.text}`}>
-                {institute.placeType || 'Unknown'}
-              </span>
-            </div>
-            <div className="flex flex-col min-w-0">
-              <span className="text-xs text-gray-500">City</span>
-              <span className={`font-medium truncate ${colors.text}`}>
-                {city?.cityLabel || 'Unknown'}
-              </span>
-            </div>
+            <CardSection label="Type">
+              {institute.placeType ? (
+                <span className={`font-medium truncate ${colors.text}`}>
+                  {institute.placeType}
+                </span>
+              ) : (
+                <UnknownValue textUnknownClass={colors.textUnknown} />
+              )}
+            </CardSection>
+            <CardSection label="City">
+              {city?.cityLabel ? (
+                <span className={`font-medium truncate ${colors.text}`}>{city.cityLabel}</span>
+              ) : (
+                <UnknownValue textUnknownClass={colors.textUnknown} />
+              )}
+            </CardSection>
           </div>
           {institute.wikidataId && (
             <>
               <Separator />
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-500">Wikidata</span>
-                <a
+              <CardSection label="Wikidata">
+                <CardLink
                   href={`https://www.wikidata.org/wiki/${institute.wikidataId}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${colors.text} ${colors.textHover} flex items-center gap-1`}
+                  colorClasses={colors}
                 >
-                  <span className="text-sm">View on Wikidata</span>
-                  <IconExternalLink className="size-4" />
-                </a>
-              </div>
+                  View on Wikidata
+                </CardLink>
+              </CardSection>
             </>
           )}
         </div>

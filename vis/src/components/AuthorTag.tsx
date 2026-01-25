@@ -3,10 +3,10 @@ import { DataAuthor } from '@/types/data';
 import { Filter, FilterItemState, FilterType } from '@/types/filter';
 import inputCities from '@data/cities.json';
 import { IconAuthor } from './icons/Author';
-import { IconExternalLink } from './icons/ExternalLink';
 import SelectButton from './SelectButton';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from './ui/card';
 import { Separator } from './ui/separator';
+import { CardSection, CardLink, UnknownValue } from './ui/card-section';
 interface AuthorTagProps {
   author: DataAuthor;
   onFilterChange: (filter: Filter) => void;
@@ -20,9 +20,11 @@ const AuthorTag = ({ author, onFilterChange, filter }: AuthorTagProps) => {
   const colors = getColorClasses(author.state, filter);
 
   const formatDate = (date: number[]) => {
-    if (!date || date.length === 0) return 'Unknown';
+    if (!date || date.length === 0) return null;
     return date.join('|');
   };
+
+  const isDateUnknown = (date: number[]) => !date || date.length === 0;
 
   return (
     <HoverCard>
@@ -59,26 +61,43 @@ const AuthorTag = ({ author, onFilterChange, filter }: AuthorTagProps) => {
           </div>
           <Separator />
           <div className="grid grid-cols-2 gap-2 text-sm">
-            <div className="flex flex-col min-w-0">
-              <span className="text-xs text-gray-500">Place of Birth</span>
-              <span className={`font-medium truncate ${colors.text}`}>
-                {cityOfBirth?.cityLabel || 'Unknown'}
-              </span>
-              <span className="text-xs text-gray-500">{formatDate(author.dateOfBirth)}</span>
-            </div>
-            <div className="flex flex-col min-w-0">
-              <span className="text-xs text-gray-500">Place of Death</span>
-              <span className={`font-medium truncate ${colors.text}`}>
-                {cityOfDeath?.cityLabel || 'Unknown'}
-              </span>
-              <span className="text-xs text-gray-500">{formatDate(author.dateOfDeath)}</span>
-            </div>
+            <CardSection label="Birth">
+              <div className="flex flex-col gap-1">
+                {cityOfBirth?.cityLabel ? (
+                  <span className={`font-medium truncate ${colors.text}`}>
+                    {cityOfBirth.cityLabel}
+                  </span>
+                ) : (
+                  <UnknownValue textUnknownClass={colors.textUnknown} placeholder="Unknown location" />
+                )}
+                {isDateUnknown(author.dateOfBirth) ? (
+                  <UnknownValue textUnknownClass={colors.textUnknown} placeholder="Unknown date" />
+                ) : (
+                  <span className="text-xs text-gray-500">{formatDate(author.dateOfBirth)}</span>
+                )}
+              </div>
+            </CardSection>
+            <CardSection label="Death">
+              <div className="flex flex-col gap-1">
+                {cityOfDeath?.cityLabel ? (
+                  <span className={`font-medium truncate ${colors.text}`}>
+                    {cityOfDeath.cityLabel}
+                  </span>
+                ) : (
+                  <UnknownValue textUnknownClass={colors.textUnknown} placeholder="Unknown location" />
+                )}
+                {isDateUnknown(author.dateOfDeath) ? (
+                  <UnknownValue textUnknownClass={colors.textUnknown} placeholder="Unknown date" />
+                ) : (
+                  <span className="text-xs text-gray-500">{formatDate(author.dateOfDeath)}</span>
+                )}
+              </div>
+            </CardSection>
           </div>
           {author.occupations && author.occupations.length > 0 && (
             <>
               <Separator />
-              <div className="flex flex-col gap-1">
-                <span className="text-xs text-gray-500">Occupations</span>
+              <CardSection label="Occupations">
                 <div className="flex flex-wrap gap-1">
                   {author.occupations.map((occupation, index) => (
                     <span
@@ -89,51 +108,45 @@ const AuthorTag = ({ author, onFilterChange, filter }: AuthorTagProps) => {
                     </span>
                   ))}
                 </div>
-              </div>
+              </CardSection>
             </>
           )}
           {author.religion && (
             <>
               <Separator />
-              <div className="flex flex-col gap-1">
-                <span className="text-xs text-gray-500">Religion</span>
+              <CardSection label="Religion">
                 <span className={`text-sm truncate ${colors.text}`}>{author.religion}</span>
-              </div>
+              </CardSection>
             </>
           )}
           {author.citizenships && author.citizenships.length > 0 && (
             <>
               <Separator />
-              <div className="flex flex-col gap-1">
-                <span className="text-xs text-gray-500">Citizenships</span>
+              <CardSection label="Citizenships">
                 <div className="flex flex-wrap gap-1">
                   {author.citizenships.map((citizenship, index) => (
                     <span
                       key={index}
-                      className="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full"
+                      className={`text-xs ${colors.bgLight} ${colors.text} px-2 py-0.5 rounded-full`}
                     >
                       {citizenship}
                     </span>
                   ))}
                 </div>
-              </div>
+              </CardSection>
             </>
           )}
           {author.wikidataId && (
             <>
               <Separator />
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-500">Wikidata</span>
-                <a
+              <CardSection label="Wikidata">
+                <CardLink
                   href={`https://www.wikidata.org/wiki/${author.wikidataId}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${colors.text} ${colors.textHover} flex items-center gap-1`}
+                  colorClasses={colors}
                 >
-                  <span className="text-sm">View on Wikidata</span>
-                  <IconExternalLink className="size-4" />
-                </a>
-              </div>
+                  View on Wikidata
+                </CardLink>
+              </CardSection>
             </>
           )}
         </div>

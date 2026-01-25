@@ -1,4 +1,4 @@
-import { getColorClasses } from '@/config/colors';
+import { colors, getColorClasses } from '@/config/colors';
 import { BLOCK_PADDING_Y_PX } from '@/constants';
 import { DataAuthor } from '@/types/data';
 import { Filter } from '@/types/filter';
@@ -76,7 +76,7 @@ export const BlockAuthorList = ({
                   {[0, 500, 1000, 1500].map((axisValue) => (
                     <div
                       key={axisValue}
-                      className="absolute text-xs font-medium top-1 text-gray-300 -translate-x-1/2"
+                      className={`absolute text-xs font-medium top-1 -translate-x-1/2 ${colors.dimmed.text}`}
                       style={{ left: valueToX(axisValue) }}
                     >
                       {axisValue}
