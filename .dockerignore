@@ -14,3 +14,6 @@ README.md
 Dockerfile
 .dockerignore
 vis/
+dashboard/node_modules/
+dashboard/dist/
+app/static/dashboard/

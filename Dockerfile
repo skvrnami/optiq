@@ -1,3 +1,13 @@
+# dashboard
+FROM oven/bun:1 AS dashboard-builder
+WORKDIR /workspace/dashboard
+COPY dashboard/package.json dashboard/bun.lock ./
+RUN bun install --frozen-lockfile
+COPY dashboard/ ./
+# Create the output directory structure matching vite.config.ts outDir
+RUN mkdir -p /workspace/app/static/dashboard && bun run build
+
+# R application
 FROM rocker/r-ver:4.4.0
 
 # Install system dependencies required for R packages
@@ -34,6 +44,9 @@ COPY app/ app/
 COPY rhino.yml rhino.yml
 COPY config.yml config.yml
 COPY dependencies.R dependencies.R
+
+# Copy built dashboard from the builder stage
+COPY --from=dashboard-builder /workspace/app/static/dashboard app/static/dashboard
 
 # Expose Shiny default port
 EXPOSE 3838

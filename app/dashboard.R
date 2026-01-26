@@ -11,7 +11,7 @@ ui <- function(id) {
     h3("Dashboard"),
     div(
       tags$iframe(
-        src = "static/vis/index.html",
+        src = "static/dashboard/index.html",
         style = "width: 100%; height: 800px; border: none;",
         sandbox = "allow-same-origin allow-scripts allow-popups allow-forms"
       ),

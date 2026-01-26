@@ -49,3 +49,6 @@ po/*~
 rsconnect/
 
 .DS_Store
+
+# Built dashboard (built in Docker or CI)
+app/static/dashboard/
