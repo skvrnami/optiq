@@ -12,7 +12,7 @@ ui <- function(id) {
     div(
       tags$iframe(
         src = "static/dashboard/index.html",
-        style = "width: 100%; height: 800px; border: none;",
+        style = "width: 100%; height: calc(100vh - 300px); border: none;",
         sandbox = "allow-same-origin allow-scripts allow-popups allow-forms"
       ),
       class = "dashboard-container"

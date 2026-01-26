@@ -74,9 +74,7 @@ const TextTag = ({ text, filter }: TextTagProps) => {
     <HoverCard>
       <HoverCardTrigger>
         <div className={`flex items-center gap-1 cursor-pointer ${colors.text} ${colors.fill}`}>
-          <div className="min-w-6 size-6">
-            <IconText className="size-5" />
-          </div>
+          <IconText className={`size-5 ${colors.fill} shrink-0`} />
           <div className={`text-sm font-medium truncate ${colors.text} ${colors.fill}`}>
             {text.title}
           </div>

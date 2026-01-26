@@ -16,7 +16,7 @@ import { cn } from './utils/utils';
 
 const LAYOUT_GAP = 16;
 const LAYOUT_PADDING = 16;
-const LAYOUT_HEADER_HEIGHT = 70;
+const LAYOUT_HEADER_HEIGHT = 40;
 const LAYOUT_DIVIDER_WIDTH = 4;
 
 function App() {
@@ -101,10 +101,7 @@ function App() {
       onMouseLeave={handleMouseUp}
     >
       <div style={{ height: LAYOUT_HEADER_HEIGHT }}>
-        <div className="text-xl font-medium text-center uppercase">
-          OptiQ analysis of texts and their depositions
-        </div>
-        <div className="flex items-center justify-center gap-2">
+         <div className="flex items-center justify-center gap-2">
           {filter.type === FilterType.NONE ? (
             <div className="text-sm ">No active filter</div>
           ) : (
