@@ -11,8 +11,11 @@ interface SiglaTagProps {
 const SiglaTag = ({ sigla, state = FilterItemState.INACTIVE, filter }: SiglaTagProps) => {
   const colors = getColorClasses(state, filter);
   return (
-    <Badge variant="secondary" className={`${colors.bgMiddle} ${colors.text} ${colors.bgMiddleHover}`}>
-      {sigla} 
+    <Badge
+      variant="secondary"
+      className={`text-sm px-1 py-0 ${colors.bgMiddle} ${colors.text} ${colors.bgMiddleHover}`}
+    >
+      {sigla}
     </Badge>
   );
 };

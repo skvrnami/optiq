@@ -54,8 +54,8 @@ const constructCityInstitutes = (
       noCityTextsActive > 0
         ? FilterItemState.ACTIVE
         : noCityTextsInactive > 0
-        ? FilterItemState.INACTIVE
-        : FilterItemState.INACTIVE,
+          ? FilterItemState.INACTIVE
+          : FilterItemState.INACTIVE,
     institutes: cityInstitutes.map((l) => {
       const isSelected = selectedInstituteId === l.id;
       const [noTextsInactive, noTextsActive] = getInstituteNumberTexts(l.id, allDepositionTexts);
@@ -65,8 +65,8 @@ const constructCityInstitutes = (
         state: isSelected
           ? FilterItemState.SELECTED
           : noTextsActive > 0
-          ? FilterItemState.ACTIVE
-          : FilterItemState.INACTIVE,
+            ? FilterItemState.ACTIVE
+            : FilterItemState.INACTIVE,
         noTextsActive,
         noTextsInactive,
       };

@@ -38,13 +38,13 @@ const AuthorTag = ({ author, onFilterChange, filter }: AuthorTagProps) => {
       </HoverCardTrigger>
       <HoverCardContent className="w-80">
         <div className="flex flex-col gap-2">
-          <div className="flex items-start justify-between gap-2">
-            <div className="flex items-start gap-2 min-w-0">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 min-w-0">
               <IconAuthor className={`size-5 ${colors.fill} shrink-0`} />
               <div className="min-w-0">
                 <h4 className={`text-sm font-semibold truncate ${colors.text}`}>{author.name}</h4>
                 {author.alternativeName && (
-                  <p className="text-xs text-gray-500 truncate">{author.alternativeName}</p>
+                  <p className="text-sm text-gray-500 truncate">{author.alternativeName}</p>
                 )}
               </div>
             </div>
@@ -66,12 +66,15 @@ const AuthorTag = ({ author, onFilterChange, filter }: AuthorTagProps) => {
                     {cityOfBirth.cityLabel}
                   </span>
                 ) : (
-                  <UnknownValue textUnknownClass={colors.textUnknown} placeholder="Unknown location" />
+                  <UnknownValue
+                    textUnknownClass={colors.textUnknown}
+                    placeholder="Unknown location"
+                  />
                 )}
                 {isDateUnknown(author.dateOfBirth) ? (
                   <UnknownValue textUnknownClass={colors.textUnknown} placeholder="Unknown date" />
                 ) : (
-                  <span className="text-xs text-gray-500">{formatDate(author.dateOfBirth)}</span>
+                  <span className="text-sm text-gray-500">{formatDate(author.dateOfBirth)}</span>
                 )}
               </div>
             </CardSection>
@@ -82,12 +85,15 @@ const AuthorTag = ({ author, onFilterChange, filter }: AuthorTagProps) => {
                     {cityOfDeath.cityLabel}
                   </span>
                 ) : (
-                  <UnknownValue textUnknownClass={colors.textUnknown} placeholder="Unknown location" />
+                  <UnknownValue
+                    textUnknownClass={colors.textUnknown}
+                    placeholder="Unknown location"
+                  />
                 )}
                 {isDateUnknown(author.dateOfDeath) ? (
                   <UnknownValue textUnknownClass={colors.textUnknown} placeholder="Unknown date" />
                 ) : (
-                  <span className="text-xs text-gray-500">{formatDate(author.dateOfDeath)}</span>
+                  <span className="text-sm text-gray-500">{formatDate(author.dateOfDeath)}</span>
                 )}
               </div>
             </CardSection>
@@ -100,7 +106,7 @@ const AuthorTag = ({ author, onFilterChange, filter }: AuthorTagProps) => {
                   {author.occupations.map((occupation, index) => (
                     <span
                       key={index}
-                      className={`text-xs ${colors.bgLight} ${colors.text} px-2 py-0.5 rounded-full`}
+                      className={`text-sm ${colors.bgLight} ${colors.text} px-2 py-0.5 rounded-full`}
                     >
                       {occupation}
                     </span>
@@ -125,7 +131,7 @@ const AuthorTag = ({ author, onFilterChange, filter }: AuthorTagProps) => {
                   {author.citizenships.map((citizenship, index) => (
                     <span
                       key={index}
-                      className={`text-xs ${colors.bgLight} ${colors.text} px-2 py-0.5 rounded-full`}
+                      className={`text-sm ${colors.bgLight} ${colors.text} px-2 py-0.5 rounded-full`}
                     >
                       {citizenship}
                     </span>

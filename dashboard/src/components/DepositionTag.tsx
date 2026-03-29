@@ -21,8 +21,8 @@ const DepositionTag = ({ institute, onFilterChange, filter }: DepositionTagProps
     <HoverCard>
       <HoverCardTrigger>
         <div className={`flex items-center gap-1 cursor-pointer ${colors.text} ${colors.fill}`}>
-          <div className="min-w-6 size-6">
-            <IconDeposition className="size-6" />
+          <div className="size-5">
+            <IconDeposition className="size-5" />
           </div>
           <div className={`text-sm font-medium truncate ${colors.text} ${colors.fill}`}>
             {institute.nativeLabel}
@@ -30,9 +30,9 @@ const DepositionTag = ({ institute, onFilterChange, filter }: DepositionTagProps
         </div>
       </HoverCardTrigger>
       <HoverCardContent className="w-80">
-        <div className="flex flex-col gap-2">
-          <div className="flex items-start justify-between gap-2">
-            <div className="flex items-start gap-2 min-w-0">
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center justify-between gap-1">
+            <div className="flex items-center gap-1 min-w-0">
               <IconDeposition className={`size-5 ${colors.fill} shrink-0`} />
               <h4 className={`text-sm font-semibold truncate ${colors.text}`}>
                 {institute.nativeLabel}
@@ -48,12 +48,10 @@ const DepositionTag = ({ institute, onFilterChange, filter }: DepositionTagProps
             </div>
           </div>
           <Separator />
-          <div className="flex flex-col gap-2 text-sm">
+          <div className="flex flex-col gap-1 text-sm">
             <CardSection label="Type">
               {institute.placeType ? (
-                <span className={`font-medium truncate ${colors.text}`}>
-                  {institute.placeType}
-                </span>
+                <span className={`font-medium truncate ${colors.text}`}>{institute.placeType}</span>
               ) : (
                 <UnknownValue textUnknownClass={colors.textUnknown} />
               )}

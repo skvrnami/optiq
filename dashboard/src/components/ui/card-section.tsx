@@ -5,7 +5,7 @@ interface CardSectionLabelProps {
 }
 
 export const CardSectionLabel = ({ children }: CardSectionLabelProps) => (
-  <span className="text-xs text-gray-500">{children}</span>
+  <span className="text-sm text-gray-500">{children}</span>
 );
 
 interface CardSectionValueProps {
@@ -46,8 +46,8 @@ export const CardLink = ({ href, children, colorClasses }: CardLinkProps) => (
     rel="noopener noreferrer"
     className={`${colorClasses.textLink} ${colorClasses.textHover} flex items-center gap-1 min-w-0`}
   >
-    <span className="text-sm truncate">{children}</span>
-    <IconExternalLink className="size-4 shrink-0" />
+    <span className="text-base truncate">{children}</span>
+    <IconExternalLink className="size-5 shrink-0" />
   </a>
 );
 

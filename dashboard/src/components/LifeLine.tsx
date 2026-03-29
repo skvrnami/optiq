@@ -1,12 +1,12 @@
+import { getColorClasses } from '@/config/colors';
+import { Filter, FilterItemState } from '@/types/filter';
+import { useScreenSize } from '@/utils/useScreenSize';
 import authors from '@data/authors.json';
 import { useMemo } from 'react';
-import { getColorClasses } from '@/config/colors';
-import { FilterItemState, Filter } from '@/types/filter';
 
 interface LifeLineProps {
   authorId: number;
   width: number;
-  height: number;
   valueToX: (value: number) => number;
   state?: FilterItemState;
   filter: Filter;
@@ -15,11 +15,36 @@ interface LifeLineProps {
 const LifeLine = ({
   authorId,
   width,
-  height,
   valueToX,
   state = FilterItemState.INACTIVE,
   filter,
 }: LifeLineProps) => {
+  const { width: screenWidth } = useScreenSize();
+
+  const height = useMemo(() => {
+    if (screenWidth < 768) {
+      return 20;
+    }
+    if (screenWidth > 1024) {
+      return 35;
+    }
+    return 0;
+  }, [screenWidth]);
+
+  const lifeLineH = useMemo(() => {
+    if (screenWidth < 768) {
+      return 15;
+    }
+    if (screenWidth > 1024) {
+      return 30;
+    }
+    return 15;
+  }, [screenWidth]);
+
+  const topPadding = useMemo(() => {
+    return (height - lifeLineH) / 2;
+  }, [lifeLineH, height]);
+
   const author = authors.find((author) => author.id === authorId);
   const births = author?.dateOfBirth ?? [];
   const deaths = author?.dateOfDeath ?? [];
@@ -46,7 +71,6 @@ const LifeLine = ({
   }
 
   const lifeLineW = deathX - birthX || 0;
-  const lifeLineH = height / 2;
 
   if (birthX > width || deathX > width) {
     console.log(author?.name, births, birthX, deaths, deathX);
@@ -69,7 +93,11 @@ const LifeLine = ({
 
   return (
     <div
-      className={`w-full h-full relative inset-0 ${isYearsUnknown ? `${colorClasses.bgLightUnknown} ${colorClasses.bgLightHover} rounded-md` : ''}`}
+      className={`w-full h-full relative inset-0 ${
+        isYearsUnknown
+          ? `${colorClasses.bgLightUnknown} ${colorClasses.bgLightHover} rounded-md`
+          : ''
+      }`}
       style={{
         width: width,
         height: height,
@@ -96,7 +124,12 @@ const LifeLine = ({
       ></div>
 
       <div
-        style={{ width: lifeLineW, height: lifeLineH, left: leftStartX, top: 7 }}
+        style={{
+          width: lifeLineW,
+          height: lifeLineH,
+          left: leftStartX,
+          top: topPadding,
+        }}
         className={`absolute rounded-md bg-linear-to-r ${
           !isBirthUnknown ? colorClasses.bg : 'from-transparent'
         } ${!isDeathUnknown ? colorClasses.bg : 'to-transparent'}`}
@@ -105,7 +138,7 @@ const LifeLine = ({
         style={{
           left: isYearsUnknown ? 0 : leftTextX,
           transform: isInLeftPart ? 'translateX(0)' : 'translateX(-100%)',
-          top: 7,
+          top: topPadding + 1,
           width: isYearsUnknown ? width : undefined,
         }}
         className={`
@@ -117,7 +150,11 @@ const LifeLine = ({
           `}
       >
         {isYearsUnknown ? (
-          <div className={`w-full h-full mt-1 text-center font-light italic ${colorClasses.textUnknown}`}>unknown</div>
+          <div
+            className={`w-full h-full text-center justify-center items-center font-light italic ${colorClasses.textUnknown}`}
+          >
+            unknown
+          </div>
         ) : (
           <>
             <div className="w-7 text-center">{mostProbableBirth ?? '?'}</div>
