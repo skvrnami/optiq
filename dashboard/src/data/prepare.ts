@@ -15,7 +15,92 @@ import { InputAuthor, InputCity, InputLocation, InputText } from '../types/input
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Create axios instance with proper User-Agent header for Wikidata API
+// Wikidata requires a User-Agent to identify the application
+const wikidataApi = axios.create({
+  headers: {
+    'User-Agent': 'OptiqDashboard/1.0 (https://github.com/optiq; contact@optiq.dev) axios',
+  },
+});
+
 const cities: InputCity[] = [];
+
+// Geographic boundaries for European/Mediterranean region (to filter out American cities with same names)
+const GEO_BOUNDS = {
+  minLng: -20,
+  maxLng: 60,
+  minLat: 6,
+  maxLat: 63,
+};
+
+interface KnownCoordinates {
+  lat: number;
+  lng: number;
+}
+
+// Pre-built dictionary of city names to coordinates from raw data
+const knownCityCoordinates = new Map<string, KnownCoordinates>();
+
+/**
+ * Extracts the city name from a Manuscript string (e.g., "Venice, Biblioteca Marciana, MS 123" -> "Venice")
+ */
+const extractCityName = (manuscript: string): string | null => {
+  if (!manuscript) return null;
+  const cityName = manuscript.split(',')[0].trim();
+  return cityName || null;
+};
+
+/**
+ * Parses GPS coordinates string from raw data (e.g., "45.433333, 12.316667" -> { lat: 45.433333, lng: 12.316667 })
+ */
+const parseGpsString = (gpsString: string): KnownCoordinates | null => {
+  if (!gpsString || gpsString.trim() === '') return null;
+
+  const parts = gpsString.split(',').map((p) => p.trim());
+  if (parts.length !== 2) return null;
+
+  const lat = parseFloat(parts[0]);
+  const lng = parseFloat(parts[1]);
+
+  if (isNaN(lat) || isNaN(lng)) return null;
+
+  return { lat, lng };
+};
+
+/**
+ * Checks if coordinates fall within the European/Mediterranean geographic bounds
+ */
+const isWithinGeoBounds = (lat: number, lng: number): boolean => {
+  return (
+    lng >= GEO_BOUNDS.minLng &&
+    lng <= GEO_BOUNDS.maxLng &&
+    lat >= GEO_BOUNDS.minLat &&
+    lat <= GEO_BOUNDS.maxLat
+  );
+};
+
+/**
+ * Builds the known coordinates dictionary from raw TSV records.
+ * Maps normalized city names to their GPS coordinates.
+ */
+const buildKnownCoordinatesDict = (records: Record[]): void => {
+  for (const record of records) {
+    const cityName = extractCityName(record.Manuscript);
+    const gps = parseGpsString(record['Manuscript.GPS']);
+
+    if (cityName && gps && !knownCityCoordinates.has(cityName.toLowerCase())) {
+      knownCityCoordinates.set(cityName.toLowerCase(), gps);
+    }
+  }
+  console.log(`Built known coordinates dictionary with ${knownCityCoordinates.size} cities`);
+};
+
+/**
+ * Looks up coordinates for a city name from the pre-built dictionary
+ */
+const getKnownCoordinates = (cityName: string): KnownCoordinates | null => {
+  return knownCityCoordinates.get(cityName.toLowerCase()) || null;
+};
 
 interface CityData {
   id: string | null;
@@ -103,10 +188,15 @@ interface ParseCallback<T> {
 interface WikiDataValue {
   id?: string;
   time?: string;
+  precision?: number;
   latitude?: number;
   longitude?: number;
   [key: string]: unknown;
 }
+
+// WikiData precision levels for dates
+// 7 = century, 8 = decade, 9 = year, 10 = month, 11 = day
+const WIKIDATA_YEAR_PRECISION = 9;
 
 interface WikiDataDataValue {
   value?: WikiDataValue;
@@ -150,11 +240,14 @@ interface WikiDataEntity {
   [key: string]: unknown;
 }
 
-const geoCodeCity = async (placeId: string): Promise<[number | false, number | false]> => {
-  let x: number | false = false;
-  let y: number | false = false;
+/**
+ * Fetches coordinates for a Wikidata place ID from the API
+ */
+const fetchCoordinatesFromWikidata = async (
+  placeId: string
+): Promise<[number | false, number | false]> => {
   try {
-    const response = await axios.get(`https://www.wikidata.org/w/api.php`, {
+    const response = await wikidataApi.get(`https://www.wikidata.org/w/api.php`, {
       params: {
         action: 'wbgetentities',
         ids: placeId,
@@ -172,20 +265,109 @@ const geoCodeCity = async (placeId: string): Promise<[number | false, number | f
       const lat = coordinates.latitude;
       const lng = coordinates.longitude;
       if (typeof lat === 'number' && typeof lng === 'number') {
-        x = parseFloat(lat.toFixed(6));
-        y = parseFloat(lng.toFixed(6));
+        return [parseFloat(lat.toFixed(6)), parseFloat(lng.toFixed(6))];
       }
     }
   } catch (error) {
     console.error(`Error fetching coordinates for ${placeId}:`, (error as Error).message);
   }
-  return [x, y];
+  return [false, false];
 };
 
-const searchCityId = async (cityName: string): Promise<string | null> => {
+/**
+ * Gets coordinates for a city, first checking the known coordinates dictionary,
+ * then falling back to Wikidata API
+ */
+const geocodeCity = async (
+  placeId: string,
+  cityName?: string
+): Promise<[number | false, number | false]> => {
+  // First, check if we have known coordinates for this city
+  if (cityName) {
+    const known = getKnownCoordinates(cityName);
+    if (known) {
+      return [parseFloat(known.lat.toFixed(6)), parseFloat(known.lng.toFixed(6))];
+    }
+  }
+
+  // Fall back to Wikidata API
+  return fetchCoordinatesFromWikidata(placeId);
+};
+
+// Wikidata IDs for cities, towns, and settlements
+const VALID_LOCATION_TYPES = [
+  'Q515', // City
+  'Q3957', // Town
+  'Q56061', // Municipality
+  'Q532', // Village
+  'Q1549591', // Human settlement
+  'Q3024240', // Suburb
+  'Q5119', // Metropolis
+  'Q3184121', // Administrative territorial entity
+  'Q123705', // Big city
+];
+
+/**
+ * Checks if a Wikidata entity is a valid location type (city, town, etc.)
+ */
+const isValidLocationType = (claims: WikiDataClaims): boolean => {
+  if (!claims?.P31) return false;
+
+  const instanceOfIds = claims.P31.map(
+    (claim: WikiDataClaim) => claim.mainsnak.datavalue?.value?.id
+  ).filter(Boolean) as string[];
+
+  return instanceOfIds.some((id: string) => VALID_LOCATION_TYPES.includes(id));
+};
+
+/**
+ * Extracts coordinates from Wikidata claims
+ */
+const extractCoordinatesFromClaims = (
+  claims: WikiDataClaims
+): { lat: number; lng: number } | null => {
+  const coordinates = claims.P625?.[0]?.mainsnak?.datavalue?.value;
+  if (coordinates && typeof coordinates.latitude === 'number' && typeof coordinates.longitude === 'number') {
+    return { lat: coordinates.latitude, lng: coordinates.longitude };
+  }
+  return null;
+};
+
+/**
+ * Fetches entity data from Wikidata API (avoids 403 errors from Special:EntityData)
+ */
+const fetchEntityData = async (entityId: string): Promise<WikiDataEntity | null> => {
   try {
-    // Step 1: Search for the entity by name
-    const response = await axios.get('https://www.wikidata.org/w/api.php', {
+    const response = await wikidataApi.get('https://www.wikidata.org/w/api.php', {
+      params: {
+        action: 'wbgetentities',
+        ids: entityId,
+        format: 'json',
+        languages: 'en',
+        props: 'claims|labels',
+      },
+    });
+    return response.data.entities[entityId] as WikiDataEntity;
+  } catch (error) {
+    console.error(`Error fetching entity ${entityId}:`, (error as Error).message);
+    return null;
+  }
+};
+
+/**
+ * Searches for a city's Wikidata ID, filtering results to only include
+ * places within the European/Mediterranean geographic bounds
+ */
+const searchCityId = async (cityName: string): Promise<string | null> => {
+  // First check if we have known coordinates for this city - if so, we can verify bounds
+  const knownCoords = getKnownCoordinates(cityName);
+  if (knownCoords && !isWithinGeoBounds(knownCoords.lat, knownCoords.lng)) {
+    console.warn(`City "${cityName}" coordinates are outside geographic bounds, skipping`);
+    return null;
+  }
+
+  try {
+    const response = await wikidataApi.get('https://www.wikidata.org/w/api.php', {
       params: {
         action: 'wbsearchentities',
         search: cityName,
@@ -197,40 +379,41 @@ const searchCityId = async (cityName: string): Promise<string | null> => {
       },
     });
 
-    // Extract potential city IDs
     const candidates: string[] = response.data.search.map((item: { id: string }) => item.id);
 
     for (const id of candidates) {
-      // Step 2: Check if the entity is a city or geographical location
-      const entityResponse = await axios.get(
-        `https://www.wikidata.org/wiki/Special:EntityData/${id}.json`
-      );
+      const entityData = await fetchEntityData(id);
+      if (!entityData) continue;
 
-      const entityData = entityResponse.data.entities[id] as WikiDataEntity;
       const claims = entityData.claims;
 
-      if (claims && claims.P31) {
-        const instanceOfIds = claims.P31.map(
-          (claim: WikiDataClaim) => claim.mainsnak.datavalue?.value?.id
-        ).filter(Boolean) as string[];
+      if (!isValidLocationType(claims)) continue;
 
-        // Wikidata IDs for cities, towns, and settlements
-        const validLocationTypes = [
-          'Q515', // City
-          'Q3957', // Town
-          'Q56061', // Municipality
-          'Q532', // Village
-          'Q1549591', // Human settlement
-          'Q3024240', // Suburb
-          'Q5119', // Metropolis
-          'Q3184121', // Administrative territorial entity
-          'Q123705', // Big city
-        ];
-
-        if (instanceOfIds.some((id: string) => validLocationTypes.includes(id))) {
-          return id; // Return the first valid geographical entity
+      // Check if the location is within geographic bounds
+      const coords = extractCoordinatesFromClaims(claims);
+      if (coords) {
+        if (!isWithinGeoBounds(coords.lat, coords.lng)) {
+          console.log(
+            `Skipping "${cityName}" candidate ${id} - outside bounds (${coords.lat}, ${coords.lng})`
+          );
+          continue;
         }
       }
+
+      // If we have known coordinates, prefer candidates that match approximately
+      if (knownCoords && coords) {
+        const latDiff = Math.abs(knownCoords.lat - coords.lat);
+        const lngDiff = Math.abs(knownCoords.lng - coords.lng);
+        // Allow some tolerance (about 50km)
+        if (latDiff > 0.5 || lngDiff > 0.5) {
+          console.log(
+            `Skipping "${cityName}" candidate ${id} - too far from known coordinates`
+          );
+          continue;
+        }
+      }
+
+      return id;
     }
   } catch (error) {
     console.error('Error fetching city ID:', error);
@@ -239,21 +422,28 @@ const searchCityId = async (cityName: string): Promise<string | null> => {
   return null;
 };
 
+/**
+ * Adds a city to the cities list if not already present.
+ * Uses known coordinates if available, otherwise fetches from Wikidata.
+ */
 const addCity = async (placeId: string): Promise<void> => {
-  if (!cities.find((city) => city.placeId === placeId)) {
-    const cityName = await getWikidataLabel(placeId);
-    const [x, y] = await geoCodeCity(placeId);
+  if (cities.find((city) => city.placeId === placeId)) return;
 
-    if (cityName && !cities.find((city) => city.placeId === placeId)) {
-      cities.push({
-        id: cities.length + 1,
-        placeId,
-        cityLabel: cityName,
-        x: x === false ? 0 : x,
-        y: y === false ? 0 : y,
-      });
-    }
-  }
+  const cityName = await getWikidataLabel(placeId);
+  if (!cityName) return;
+
+  // Check again after async call to avoid race conditions
+  if (cities.find((city) => city.placeId === placeId)) return;
+
+  const [x, y] = await geocodeCity(placeId, cityName);
+
+  cities.push({
+    id: cities.length + 1,
+    placeId,
+    cityLabel: cityName,
+    x: x === false ? 0 : x,
+    y: y === false ? 0 : y,
+  });
 };
 
 // Helper function to fetch entity label from Wikidata
@@ -261,7 +451,7 @@ async function getWikidataLabel(entityId: string | null): Promise<string | null>
   if (!entityId) return null;
 
   try {
-    const response = await axios.get(`https://www.wikidata.org/w/api.php`, {
+    const response = await wikidataApi.get(`https://www.wikidata.org/w/api.php`, {
       params: {
         action: 'wbgetentities',
         ids: entityId,
@@ -278,11 +468,23 @@ async function getWikidataLabel(entityId: string | null): Promise<string | null>
   }
 }
 
-// return year from date string
-// +1193-01-01T00:00:00Z -> 1193
-// +1280-00-00T00:00:00Z -> 1280
-const parseYear = (date: string | null): number | null => {
+/**
+ * Parses a year from WikiData date string, only if precision is year-level or better.
+ * WikiData precision: 7=century, 8=decade, 9=year, 10=month, 11=day
+ * We only accept precision >= 9 (year or more specific) as accurate enough.
+ *
+ * @param date - WikiData date string like "+1193-01-01T00:00:00Z"
+ * @param precision - WikiData precision level
+ * @returns Year number or null if date is missing or precision is too low
+ */
+const parseYear = (date: string | null, precision?: number): number | null => {
   if (!date) return null;
+
+  // Ignore dates with century or decade precision (not accurate enough)
+  if (precision !== undefined && precision < WIKIDATA_YEAR_PRECISION) {
+    return null;
+  }
+
   return Number(date.split('-')[0]);
 };
 
@@ -291,7 +493,7 @@ async function fetchWikidataInfo(wikidataId: string): Promise<WikidataInfo | nul
   if (!wikidataId) return null;
 
   try {
-    const response = await axios.get(`https://www.wikidata.org/w/api.php`, {
+    const response = await wikidataApi.get(`https://www.wikidata.org/w/api.php`, {
       params: {
         action: 'wbgetentities',
         ids: wikidataId,
@@ -349,8 +551,9 @@ async function fetchWikidataInfo(wikidataId: string): Promise<WikidataInfo | nul
 
     const birthDates = await Promise.all(
       claims.P569?.map(async (claim: WikiDataClaim) => {
+        const dateValue = claim?.mainsnak?.datavalue?.value;
         return {
-          value: parseYear(claim?.mainsnak?.datavalue?.value?.time ?? null),
+          value: parseYear(dateValue?.time ?? null, dateValue?.precision),
           rank: claim.rank,
         };
       }) ?? []
@@ -358,8 +561,9 @@ async function fetchWikidataInfo(wikidataId: string): Promise<WikidataInfo | nul
 
     const deathDates = await Promise.all(
       claims.P570?.map(async (claim: WikiDataClaim) => {
+        const dateValue = claim?.mainsnak?.datavalue?.value;
         return {
-          value: parseYear(claim?.mainsnak?.datavalue?.value?.time ?? null),
+          value: parseYear(dateValue?.time ?? null, dateValue?.precision),
           rank: claim.rank,
         };
       }) ?? []
@@ -404,7 +608,7 @@ async function fetchLocationInfo(
   if (!wikidataId) return null;
 
   try {
-    const response = await axios.get(`https://www.wikidata.org/w/api.php`, {
+    const response = await wikidataApi.get(`https://www.wikidata.org/w/api.php`, {
       params: {
         action: 'wbgetentities',
         ids: wikidataId,
@@ -493,6 +697,10 @@ async function processData(): Promise<void> {
       );
     });
 
+    // Build the known coordinates dictionary from raw data BEFORE processing
+    // This allows us to use existing GPS data and avoid incorrect Wikidata lookups
+    buildKnownCoordinatesDict(records);
+
     const recordsToImport = records.filter((record) => record.IsExported === 'TRUE');
 
     // Process authors
@@ -567,16 +775,23 @@ async function processData(): Promise<void> {
       }
 
       // Process locations
-      if (record['WikiData'] && !locationsMap.has(record['WikiData'])) {
-        const wikidataId = record['WikiData'] || '';
-        const manuscript = record['Manuscript'] || '';
+      // Extract library identifier (e.g., "Bern, Burgerbibliothek" from "Bern, Burgerbibliothek, MS 216")
+      const manuscript = record['Manuscript'] || '';
+      const libraryKey = manuscript.split(',').slice(0, 2).join(',').trim();
+      const wikidataId = record['WikiData'] || '';
+      const hasValidWikidata = wikidataId && wikidataId !== 'none';
 
-        const locationInfo =
-          wikidataId && wikidataId !== 'none'
-            ? await fetchLocationInfo(wikidataId, manuscript)
-            : null;
+      // Use WikiData ID as key if valid, otherwise use library name to avoid duplicates
+      const locationKey = hasValidWikidata ? wikidataId : `library:${libraryKey}`;
 
-        locationsMap.set(wikidataId || 'undefined', {
+      if (locationKey && !locationsMap.has(locationKey)) {
+        // If WikiData is missing but we have a library match with WikiData, try to find it
+        let locationInfo = null;
+        if (hasValidWikidata) {
+          locationInfo = await fetchLocationInfo(wikidataId, manuscript);
+        }
+
+        locationsMap.set(locationKey, {
           id: locationsMap.size + 1,
           nativeLabel: locationInfo?.nativeLabel || null,
           placeType: locationInfo?.placeType || null,
@@ -586,11 +801,27 @@ async function processData(): Promise<void> {
       }
 
       // Process texts
-      if (record['WikiData']) {
+      // Try to find location by WikiData first, then by library name
+      let textLocationId: number | null = null;
+      if (hasValidWikidata && locationsMap.has(wikidataId)) {
+        textLocationId = locationsMap.get(wikidataId)!.id;
+      } else if (locationsMap.has(`library:${libraryKey}`)) {
+        textLocationId = locationsMap.get(`library:${libraryKey}`)!.id;
+      } else {
+        // Try to find a location with matching library by scanning existing entries
+        for (const [key, loc] of locationsMap.entries()) {
+          if (key.startsWith('Q') && loc.nativeLabel?.toLowerCase().includes(libraryKey.split(',')[1]?.trim().toLowerCase() || '')) {
+            textLocationId = loc.id;
+            break;
+          }
+        }
+      }
+
+      if (textLocationId) {
         texts.push({
           id: texts.length + 1,
           authorId: authorsMap.get(record.Author)!.id,
-          locationId: locationsMap.get(record['WikiData'])!.id,
+          locationId: textLocationId,
           date: record.Date_alt || record.Date || '',
           location: record.Manuscript || '',
           universalIncipit: record['Universal.Incipit'] || '',
