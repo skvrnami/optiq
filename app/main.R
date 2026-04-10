@@ -80,7 +80,7 @@ ui <- function(id) {
     ),
     fluidRow(
       tags$footer(
-        "© The Institute of Philosophy of the Czech Academy of Sciences | OptiQ 2023-2025",
+        "© The Institute of Philosophy of the Czech Academy of Sciences | OptiQ 2023-2026",
         div(
           img(src = "static/lindat-clariah-cz-black-lines.png", width = 120),
           img(src = "static/memori.png", width = 180),
