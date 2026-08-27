@@ -1,4 +1,4 @@
-import { MouseEvent, useCallback, useMemo, useRef, useState } from 'react';
+import { MouseEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import './App.css';
 import AuthorTag from './components/AuthorTag';
 import { BlockAuthorList } from './components/BlockAuthorList';
@@ -8,8 +8,10 @@ import DepositionTag from './components/DepositionTag';
 import { IconClose } from './components/icons/Close';
 import { LayoutBlock } from './components/LayoutBlock';
 import { Button } from './components/ui/button';
+import { loadTexts } from './data/loadTexts';
 import { DataAuthor, DataInstitute } from './types/data';
 import { Filter, FilteredData, FilterType } from './types/filter';
+import { InputText } from './types/input';
 import { filterData } from './utils/filterData';
 import { useContainerSize } from './utils/useContainerSize';
 import { LAYOUT } from './utils/layout';
@@ -89,9 +91,25 @@ function App() {
     value: undefined,
   });
 
+  // texts.json is loaded on demand so it stays out of the entry chunk
+  const [inputTexts, setInputTexts] = useState<InputText[] | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    loadTexts().then((texts) => {
+      if (!cancelled) setInputTexts(texts);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Falling back to an empty dataset keeps the container mounted while texts
+  // load, so useContainerSize observes it from the first render
+  const isLoading = inputTexts === null;
   const data = useMemo<FilteredData>(() => {
-    return filterData(filter);
-  }, [filter]);
+    return filterData(filter, inputTexts ?? []);
+  }, [filter, inputTexts]);
 
   const filteredInstitute: DataInstitute | undefined = data.depositions
     .find((deposition) => deposition.institutes.some((institute) => institute.id === filter.value))
@@ -99,6 +117,12 @@ function App() {
 
   const filteredAuthor: DataAuthor | undefined = data.authors.find(
     (author) => author.id === filter.value
+  );
+
+  const renderLoading = () => (
+    <div className="flex items-center justify-center py-16 text-sm text-stone-500">
+      Loading texts...
+    </div>
   );
 
   // Header component (shared between layouts)
@@ -149,6 +173,9 @@ function App() {
         ref={containerRef}
       >
         {renderHeader()}
+        {isLoading ? (
+          renderLoading()
+        ) : (
         <div className="flex flex-col" style={{ gap }}>
           <LayoutBlock id="texts" w={mobileBlockWidth} h={LAYOUT.mobileTextHeight} title="Texts">
             <BlockTextTable
@@ -178,6 +205,7 @@ function App() {
             />
           </LayoutBlock>
         </div>
+        )}
       </div>
     );
   }
@@ -193,6 +221,9 @@ function App() {
       onMouseLeave={handleMouseUp}
     >
       {renderHeader()}
+      {isLoading ? (
+        renderLoading()
+      ) : (
       <div
         className="relative overflow-hidden"
         style={{
@@ -263,6 +294,7 @@ function App() {
           onMouseDown={handleMouseDownH}
         />
       </div>
+      )}
     </div>
   );
 }

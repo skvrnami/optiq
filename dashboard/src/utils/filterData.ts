@@ -1,10 +1,9 @@
 import { DataDeposition, DataText } from '@/types/data';
 import { Filter, FilteredData, FilterItemState, FilterType } from '@/types/filter';
-import { InputCity, InputLocation } from '@/types/input';
+import { InputCity, InputLocation, InputText } from '@/types/input';
 import inputAuthors from '@data/authors.json';
 import inputCities from '@data/cities.json';
 import inputLocations from '@data/locations.json';
-import inputTexts from '@data/texts.json';
 
 const getAuthorNumberTexts = (authorId: number, texts: DataText[]): [number, number] => {
   const allAuthorTexts = texts.filter((text) => text.authorId === authorId);
@@ -76,7 +75,7 @@ const constructCityInstitutes = (
   };
 };
 
-export const filterData = (filter: Filter): FilteredData => {
+export const filterData = (filter: Filter, inputTexts: InputText[]): FilteredData => {
   const filterType = filter.type as FilterType;
   const filterValue = filter.value;
 
