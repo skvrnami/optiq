@@ -6,7 +6,7 @@ import inputCities from '@data/cities.json';
 import inputLocations from '@data/locations.json';
 import { IconText } from './icons/Text';
 import { IconExternalLink } from './icons/ExternalLink';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from './ui/card';
+import { DetailCard, DetailCardContent, DetailCardTrigger } from './ui/card';
 import { Separator } from './ui/separator';
 import { IconAuthor } from './icons/Author';
 import { IconDeposition } from './icons/Deposition';
@@ -71,16 +71,16 @@ const TextTag = ({ text, filter }: TextTagProps) => {
   };
 
   return (
-    <HoverCard>
-      <HoverCardTrigger>
-        <div className={`flex items-center gap-1 cursor-pointer ${colors.text} ${colors.fill}`}>
+    <DetailCard>
+      <DetailCardTrigger>
+        <span className={`flex items-center gap-1 cursor-pointer ${colors.text} ${colors.fill}`}>
           <IconText className={`size-5 ${colors.fill} shrink-0`} />
-          <div className={`text-sm font-medium truncate ${colors.text} ${colors.fill}`}>
+          <span className={`text-sm font-medium truncate ${colors.text} ${colors.fill}`}>
             {text.title}
-          </div>
-        </div>
-      </HoverCardTrigger>
-      <HoverCardContent className="w-[50em]">
+          </span>
+        </span>
+      </DetailCardTrigger>
+      <DetailCardContent className="w-[50em]">
         <div className="flex flex-col gap-2">
           <div className="flex items-start justify-between gap-2">
             <div className="flex items-start gap-2 min-w-0">
@@ -194,8 +194,8 @@ const TextTag = ({ text, filter }: TextTagProps) => {
             </>
           )}
         </div>
-      </HoverCardContent>
-    </HoverCard>
+      </DetailCardContent>
+    </DetailCard>
   );
 };
 

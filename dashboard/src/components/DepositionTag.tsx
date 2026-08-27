@@ -4,7 +4,7 @@ import { Filter, FilterItemState, FilterType } from '@/types/filter';
 import inputCities from '@data/cities.json';
 import { IconDeposition } from './icons/Deposition';
 import SelectButton from './SelectButton';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from './ui/card';
+import { DetailCard, DetailCardContent, DetailCardTrigger } from './ui/card';
 import { Separator } from './ui/separator';
 import { CardSection, CardLink, UnknownValue } from './ui/card-section';
 interface DepositionTagProps {
@@ -18,18 +18,16 @@ const DepositionTag = ({ institute, onFilterChange, filter }: DepositionTagProps
   const colors = getColorClasses(institute.state, filter);
 
   return (
-    <HoverCard>
-      <HoverCardTrigger>
-        <div className={`flex items-center gap-1 cursor-pointer ${colors.text} ${colors.fill}`}>
-          <div className="size-5">
-            <IconDeposition className="size-5" />
-          </div>
-          <div className={`text-sm font-medium truncate ${colors.text} ${colors.fill}`}>
+    <DetailCard>
+      <DetailCardTrigger>
+        <span className={`flex items-center gap-1 cursor-pointer ${colors.text} ${colors.fill}`}>
+          <IconDeposition className={`size-5 ${colors.fill} shrink-0`} />
+          <span className={`text-sm font-medium truncate ${colors.text} ${colors.fill}`}>
             {institute.nativeLabel}
-          </div>
-        </div>
-      </HoverCardTrigger>
-      <HoverCardContent className="w-80">
+          </span>
+        </span>
+      </DetailCardTrigger>
+      <DetailCardContent className="w-80">
         <div className="flex flex-col gap-1">
           <div className="flex items-center justify-between gap-1">
             <div className="flex items-center gap-1 min-w-0">
@@ -78,8 +76,8 @@ const DepositionTag = ({ institute, onFilterChange, filter }: DepositionTagProps
             </>
           )}
         </div>
-      </HoverCardContent>
-    </HoverCard>
+      </DetailCardContent>
+    </DetailCard>
   );
 };
 

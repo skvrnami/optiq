@@ -4,7 +4,7 @@ import { Filter, FilterItemState, FilterType } from '@/types/filter';
 import inputCities from '@data/cities.json';
 import { IconAuthor } from './icons/Author';
 import SelectButton from './SelectButton';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from './ui/card';
+import { DetailCard, DetailCardContent, DetailCardTrigger } from './ui/card';
 import { Separator } from './ui/separator';
 import { CardSection, CardLink, UnknownValue } from './ui/card-section';
 interface AuthorTagProps {
@@ -27,16 +27,16 @@ const AuthorTag = ({ author, onFilterChange, filter }: AuthorTagProps) => {
   const isDateUnknown = (date: number[]) => !date || date.length === 0;
 
   return (
-    <HoverCard>
-      <HoverCardTrigger>
-        <div className={`flex items-center gap-1 cursor-pointer ${colors.text} ${colors.fill}`}>
+    <DetailCard>
+      <DetailCardTrigger>
+        <span className={`flex items-center gap-1 cursor-pointer ${colors.text} ${colors.fill}`}>
           <IconAuthor className={`size-5 ${colors.fill} shrink-0`} />
-          <div className={`text-sm font-medium truncate ${colors.text} ${colors.fill}`}>
+          <span className={`text-sm font-medium truncate ${colors.text} ${colors.fill}`}>
             {author.name}
-          </div>
-        </div>
-      </HoverCardTrigger>
-      <HoverCardContent className="w-80">
+          </span>
+        </span>
+      </DetailCardTrigger>
+      <DetailCardContent className="w-80">
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2 min-w-0">
@@ -154,8 +154,8 @@ const AuthorTag = ({ author, onFilterChange, filter }: AuthorTagProps) => {
             </>
           )}
         </div>
-      </HoverCardContent>
-    </HoverCard>
+      </DetailCardContent>
+    </DetailCard>
   );
 };
 
