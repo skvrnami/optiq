@@ -19,27 +19,17 @@ const LifeLine = ({
   state = FilterItemState.INACTIVE,
   filter,
 }: LifeLineProps) => {
-  const { width: screenWidth } = useScreenSize();
+  const { screenType } = useScreenSize();
 
-  const height = useMemo(() => {
-    if (screenWidth < 768) {
-      return 20;
-    }
-    if (screenWidth > 1024) {
-      return 35;
-    }
-    return 0;
-  }, [screenWidth]);
-
-  const lifeLineH = useMemo(() => {
-    if (screenWidth < 768) {
-      return 15;
-    }
-    if (screenWidth > 1024) {
-      return 30;
-    }
-    return 15;
-  }, [screenWidth]);
+  // Row height and the bar drawn inside it. Taken from screenType rather than
+  // re-derived from the width: the hook puts the desktop boundary at >= 1024,
+  // and the copy here used > 1024, so a 1024px window was desktop everywhere
+  // else in the app and fell into the gap between these branches here.
+  const { height, lifeLineH } = useMemo(() => {
+    if (screenType === 'mobile') return { height: 20, lifeLineH: 15 };
+    if (screenType === 'tablet') return { height: 28, lifeLineH: 24 };
+    return { height: 35, lifeLineH: 30 };
+  }, [screenType]);
 
   const topPadding = useMemo(() => {
     return (height - lifeLineH) / 2;
