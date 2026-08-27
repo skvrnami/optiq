@@ -76,12 +76,13 @@ export const BlockAuthorList = memo(
             <TableHeader className="sticky top-0 bg-white z-10">
               <TableRow>
                 <TableHead
-                  className={`w-[${columnSizes.texts}px] max-w-[${columnSizes.texts}px] text-right`}
+                  className="text-right"
+                  style={{ width: columnSizes.texts, maxWidth: columnSizes.texts }}
                 >
                   No
                 </TableHead>
-                <TableHead className={`w-[${columnSizes.name}px]`}>Author</TableHead>
-                <TableHead className={`w-[${columnSizes.lifetime}px] text-center`}>
+                <TableHead style={{ width: columnSizes.name }}>Author</TableHead>
+                <TableHead className="text-center" style={{ width: columnSizes.lifetime }}>
                   <div className="flex flex-row items-center justify-center gap-x-1 relative">
                     <div className="text-xs font-medium -mt-3">Timeline</div>
                     {[0, 500, 1000, 1500].map((axisValue) => (
@@ -103,17 +104,20 @@ export const BlockAuthorList = memo(
                 return (
                   <TableRow key={author.id} className={`border-0 ${color} `}>
                     <TableCell
-                      className={`text-right w-[${columnSizes.texts}px] max-w-[${columnSizes.texts}px]`}
+                      className="text-right"
+                      style={{ width: columnSizes.texts, maxWidth: columnSizes.texts }}
                     >
                       {noLabel(author)}
                     </TableCell>
                     <TableCell
-                      className={`text-left w-[${columnSizes.name}px] max-w-[${columnSizes.name}px] truncate`}
+                      className="text-left truncate"
+                      style={{ width: columnSizes.name, maxWidth: columnSizes.name }}
                     >
                       <AuthorTag author={author} onFilterChange={onFilterChange} filter={filter} />
                     </TableCell>
                     <TableCell
-                      className={`text-left w-[${columnSizes.lifetime}px] truncate p-0 m-0`}
+                      className="text-left truncate p-0 m-0"
+                      style={{ width: columnSizes.lifetime }}
                     >
                       <LifeLine
                         authorId={author.id}

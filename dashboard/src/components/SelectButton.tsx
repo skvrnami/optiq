@@ -28,7 +28,7 @@ const SelectButton = ({ id, type, onFilterChange, className, isSelected }: Selec
         ${
           isSelected
             ? `text-white ${colors.primary.bg} ${colors.primary.bgHover} hover:shadow-md transition-shadow`
-            : `${colors.primary.text} ${colors.primary.textHover} hover:${colors.primary.bgLight} transition-colors`
+            : `${colors.primary.text} ${colors.primary.bgLightHover} transition-colors`
         }
         ${className}
         min-w-[60px]

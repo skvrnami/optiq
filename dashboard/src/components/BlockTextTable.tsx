@@ -88,10 +88,16 @@ export const BlockTextTable = memo(
 
                 return (
                   <TableRow key={text.id} className={`border-0 ${rowColorClass}`}>
-                    <TableCell className={`text-left max-w-[${columnSizes.title}px] truncate`}>
+                    <TableCell
+                      className="text-left truncate"
+                      style={{ maxWidth: columnSizes.title }}
+                    >
                       <TextTag text={text} filter={filter} />
                     </TableCell>
-                    <TableCell className={`text-left max-w-[${columnSizes.author}px] truncate`}>
+                    <TableCell
+                      className="text-left truncate"
+                      style={{ maxWidth: columnSizes.author }}
+                    >
                       {author ? (
                         <AuthorTag
                           author={author}
@@ -102,7 +108,10 @@ export const BlockTextTable = memo(
                         <UnknownValue textUnknownClass={colors.textUnknown} />
                       )}
                     </TableCell>
-                    <TableCell className={`text-left max-w-[${columnSizes.deposition}px] truncate`}>
+                    <TableCell
+                      className="text-left truncate"
+                      style={{ maxWidth: columnSizes.deposition }}
+                    >
                       {institute ? (
                         <DepositionTag
                           institute={institute}
@@ -113,10 +122,16 @@ export const BlockTextTable = memo(
                         <UnknownValue textUnknownClass={colors.textUnknown} />
                       )}
                     </TableCell>
-                    <TableCell className={`text-left max-w-[${columnSizes.sigla}px] truncate`}>
+                    <TableCell
+                      className="text-left truncate"
+                      style={{ maxWidth: columnSizes.sigla }}
+                    >
                       <SiglaTag sigla={text.sigla} state={text.state} filter={filter} />
                     </TableCell>
-                    <TableCell className={`text-left max-w-[${columnSizes.date}px] truncate`}>
+                    <TableCell
+                      className="text-left truncate"
+                      style={{ maxWidth: columnSizes.date }}
+                    >
                       {text.date ? (
                         text.date
                       ) : (
