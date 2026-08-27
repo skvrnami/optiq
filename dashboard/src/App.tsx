@@ -152,10 +152,10 @@ function App() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="size-5"
+                aria-label="Clear active filter"
                 onClick={() => setFilter({ type: FilterType.NONE, value: undefined })}
               >
-                <IconClose className="size-5" />
+                <IconClose className="size-4" aria-hidden="true" />
               </Button>
             </div>
           </div>
