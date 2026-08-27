@@ -1,13 +1,18 @@
 import { DataDeposition } from '@/types/data';
 import { Filter, FilterItemState, FilterType } from '@/types/filter';
 import 'leaflet/dist/leaflet.css';
-import { memo, useState, useCallback, useMemo } from 'react';
+import { memo, useState, useCallback, useEffect, useMemo, useRef, type ComponentProps } from 'react';
 import { CircleMarker, LayerGroup, MapContainer, TileLayer } from 'react-leaflet';
+import { updateClassName } from '@react-leaflet/core';
 import { CityTooltip } from './CityTooltip';
 import { MapInvalidator } from './MapInvalidator';
 import { MapZoom } from './MapZoom';
 import { colors } from '@/config/colors';
-import { type LatLngBoundsExpression, type LeafletEventHandlerFnMap } from 'leaflet';
+import {
+  type CircleMarker as LeafletCircleMarker,
+  type LatLngBoundsExpression,
+  type LeafletEventHandlerFnMap,
+} from 'leaflet';
 import { useScreenSize } from '@/utils/useScreenSize';
 
 const zoomCoefficient = (zoom: number) => {
@@ -28,6 +33,41 @@ const WORLD_BOUNDS: LatLngBoundsExpression = [
 
 const MIN_ZOOM = 4;
 const DEFAULT_ZOOM = 5;
+
+/**
+ * A CircleMarker whose class can change after it mounts.
+ *
+ * react-leaflet's updateCircle forwards only center and radius, and Leaflet
+ * reads options.className exactly once, in _initPath. So a class derived from
+ * application state is frozen at mount: React re-renders and the DOM never
+ * hears about it. Remounting the marker would fix that, but it also unbinds
+ * the popup Leaflet has attached to it -- and that popup carries this app's
+ * filter control.
+ *
+ * Instead the class is synced onto the live element, using the same helper
+ * react-leaflet uses for Pane. `stateClassName` is the part that varies;
+ * everything static belongs in `className`.
+ */
+const SyncedCircleMarker = ({
+  stateClassName,
+  className,
+  ...props
+}: ComponentProps<typeof CircleMarker> & { stateClassName: string }) => {
+  const ref = useRef<LeafletCircleMarker | null>(null);
+  const applied = useRef(stateClassName);
+
+  useEffect(() => {
+    // getElement() returns the SVG <path>, which updateClassName types as
+    // HTMLElement. The cast is safe rather than convenient: the helper delegates
+    // to Leaflet's DomUtil.addClass, which uses classList when present, and
+    // Leaflet itself calls that same function on this same SVG path in _initPath.
+    const element = ref.current?.getElement() as HTMLElement | undefined;
+    updateClassName(element, applied.current, stateClassName);
+    applied.current = stateClassName;
+  }, [stateClassName]);
+
+  return <CircleMarker ref={ref} className={`${className} ${stateClassName}`} {...props} />;
+};
 
 interface BlockDepositionMapProps {
   data: DataDeposition[];
@@ -130,12 +170,7 @@ export const BlockDepositionMap = memo(
             return (
               <LayerGroup key={point.id}>
                 {radiusAll > 0 && radiusAll !== radiusActive && (
-                  <CircleMarker
-                    // react-leaflet's updateCircle only forwards center and radius, and
-                    // Leaflet reads options.className once in _initPath. A className that
-                    // changes with app state therefore never reaches the DOM unless the
-                    // marker remounts, so the state it depends on belongs in the key.
-                    key={`all-${isSomethingSelected}`}
+                  <SyncedCircleMarker
                     center={[point.x, point.y]}
                     radius={radiusAll}
                     pathOptions={{
@@ -144,20 +179,19 @@ export const BlockDepositionMap = memo(
                       opacity: isHovered ? 0.9 : 0.75,
                       stroke: true,
                     }}
-                    className={`${isSomethingSelected ? colors.dimmed.fill : colors.default.fill} ${
-                      colors.default.fillHover
-                    } ${allStroke} cursor-pointer transition-all`}
+                    className={`${colors.default.fillHover} ${allStroke} cursor-pointer transition-all`}
+                    stateClassName={isSomethingSelected ? colors.dimmed.fill : colors.default.fill}
                     eventHandlers={eventHandlers}
                   >
                     {renderTooltip(point)}
-                  </CircleMarker>
+                  </SyncedCircleMarker>
                 )}
                 {radiusActive > 0 && isSomethingSelected && (
-                  <CircleMarker
-                    key={`active-${isSelected}`}
+                  <SyncedCircleMarker
                     center={[point.x, point.y]}
                     radius={radiusActive}
-                    className={`${activeFill} ${activeFillHover} ${activeStroke} cursor-pointer transition-all`}
+                    className="cursor-pointer transition-all"
+                    stateClassName={`${activeFill} ${activeFillHover} ${activeStroke}`}
                     pathOptions={{
                       weight: isHovered ? 2 : 0,
                       fillOpacity: isHovered ? 0.7 : 0.5,
@@ -167,7 +201,7 @@ export const BlockDepositionMap = memo(
                     eventHandlers={eventHandlers}
                   >
                     {renderTooltip(point)}
-                  </CircleMarker>
+                  </SyncedCircleMarker>
                 )}
               </LayerGroup>
             );
