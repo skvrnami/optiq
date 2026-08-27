@@ -116,6 +116,10 @@ export const BlockDepositionMap = memo(
             );
 
             const activeStroke = isSelected ? colors.primary.stroke : 'stroke-transparent';
+            // Leaflet writes pathOptions.color into the SVG stroke attribute, so it must
+            // be a CSS colour, never a class. The stroke stays palette-driven by riding
+            // on className instead; a CSS rule overrides the attribute Leaflet sets.
+            const allStroke = isHovered ? colors.default.stroke : 'stroke-transparent';
             const activeFill = isSelected ? colors.primary.fill : colors.active.fill;
             const activeFillHover = isSelected ? colors.primary.fillHover : colors.active.fillHover;
 
@@ -131,12 +135,11 @@ export const BlockDepositionMap = memo(
                       weight: isHovered ? 3 : 2,
                       fillOpacity: isHovered ? 0.6 : 0.4,
                       opacity: isHovered ? 0.9 : 0.75,
-                      stroke: isHovered,
-                      color: colors.default.text,
+                      stroke: true,
                     }}
                     className={`${isSomethingSelected ? colors.dimmed.fill : colors.default.fill} ${
                       colors.default.fillHover
-                    } cursor-pointer transition-all`}
+                    } ${allStroke} cursor-pointer transition-all`}
                     eventHandlers={eventHandlers}
                   >
                     {renderTooltip(point)}
