@@ -35,7 +35,10 @@ body {
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.929 0.013 255.508);
   --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  /* 4.29:1 on the light ground and 4.69:1 on the dark one, measured; the
+     previous value was 2.63:1, under the 3:1 that SC 1.4.11 asks of a focus
+     indicator, and 1.45:1 once the /50 opacity was applied. */
+  --ring: oklch(0.58 0.08 256);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -125,7 +128,15 @@ body {
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
+  }
+  /* `outline-ring/50` on `*` only ever emitted outline-color, so it recoloured
+     the browser's own focus ring rather than drawing one -- and recoloured it
+     to something invisible. Draw a real one, and only where focus is
+     keyboard-driven. */
+  *:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
   }
   body {
     @apply bg-background text-foreground;

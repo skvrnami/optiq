@@ -26,7 +26,7 @@ const DetailCardTrigger = ({
       // min-w-0 and max-w-full let the truncation inside the trigger resolve
       // against the table cell rather than the trigger's own content width
       'min-w-0 max-w-full rounded-sm text-left outline-none',
-      'focus-visible:ring-ring/50 focus-visible:ring-[3px]',
+      'focus-visible:ring-ring focus-visible:ring-[3px]',
       className
     )}
     {...props}
