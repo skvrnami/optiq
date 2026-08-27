@@ -66,7 +66,7 @@ export const BlockTextTable = memo(
 
     return (
       <div className="bg-white overflow-hidden" style={{ height: height - blockPadding.y }}>
-        <div className="flex flex-col h-full overflow-auto">
+        <div className="flex flex-col h-full overflow-auto scrollbar-slim">
           <Table>
             <TableHeader ref={tableHeaderRef} className="sticky top-0 bg-white z-10">
               <TableRow>

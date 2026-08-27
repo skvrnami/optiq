@@ -184,6 +184,45 @@ body {
 }
 
 @layer utilities {
+  /* Slim scrollbars drawn from the theme tokens, so they follow the palette
+     rather than the OS default. `scrollbar-*` covers Firefox and current
+     Chromium; the ::-webkit rules give the same result on older WebKit and
+     allow the rounded thumb with a transparent gutter. */
+  .scrollbar-slim {
+    /* Reserve the gutter so clientWidth does not change when the scrollbar
+       appears. Without it, anything measuring this box sizes its content to the
+       pre-scrollbar width and then overflows by exactly the scrollbar; it also
+       stops the content jumping sideways as the bar comes and goes. */
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--foreground) 25%, transparent) transparent;
+  }
+
+  .scrollbar-slim::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  .scrollbar-slim::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-slim::-webkit-scrollbar-thumb {
+    background-color: color-mix(in oklab, var(--foreground) 22%, transparent);
+    border: 3px solid transparent;
+    background-clip: content-box;
+    border-radius: 9999px;
+  }
+
+  .scrollbar-slim::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in oklab, var(--foreground) 40%, transparent);
+  }
+
+  .scrollbar-slim::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+
   .table-td-padding {
     padding: var(--table-td-padding) !important;
   }

@@ -26,9 +26,9 @@ const LifeLine = ({
   // and the copy here used > 1024, so a 1024px window was desktop everywhere
   // else in the app and fell into the gap between these branches here.
   const { height, lifeLineH } = useMemo(() => {
-    if (screenType === 'mobile') return { height: 20, lifeLineH: 15 };
-    if (screenType === 'tablet') return { height: 28, lifeLineH: 24 };
-    return { height: 35, lifeLineH: 30 };
+    if (screenType === 'mobile') return { height: 16, lifeLineH: 12 };
+    if (screenType === 'tablet') return { height: 20, lifeLineH: 16 };
+    return { height: 24, lifeLineH: 20 };
   }, [screenType]);
 
   const topPadding = useMemo(() => {

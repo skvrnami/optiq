@@ -2,11 +2,12 @@ import { colors, getColorClasses } from '@/config/colors';
 import { DataAuthor } from '@/types/data';
 import { Filter, FilterItemState, FilterType } from '@/types/filter';
 import 'leaflet/dist/leaflet.css';
-import { memo } from 'react';
+import { memo, useRef, type CSSProperties } from 'react';
 import AuthorTag from './AuthorTag';
 import LifeLine from './LifeLine';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
 import { useScreenSize } from '@/utils/useScreenSize';
+import { useContainerSize } from '@/utils/useContainerSize';
 
 interface BlockAuthorListProps {
   data: DataAuthor[];
@@ -20,9 +21,20 @@ export const BlockAuthorList = memo(
   ({ data, onFilterChange, filter, width, height }: BlockAuthorListProps) => {
     const { screenType, blockPadding } = useScreenSize();
 
+    // Measured rather than derived. Computing the available width from the block
+    // width meant guessing at the block's padding and at whether a vertical
+    // scrollbar was taking space; it was 31px out, which is what pushed the
+    // table wider than its container and produced a horizontal scrollbar.
+    // clientWidth already excludes the scrollbar, so this is the real space.
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const [availableWidth] = useContainerSize(scrollRef);
+
     const columnNameW = screenType === 'desktop' ? 150 : 100;
     const columnTextsW = filter.type === FilterType.NONE ? 25 : 50;
-    const columnLifetimeW = width - columnNameW - columnTextsW - blockPadding.x * 2;
+    const columnLifetimeW = Math.max(
+      80,
+      (availableWidth || width - blockPadding.x * 2) - columnNameW - columnTextsW
+    );
 
     const columnSizes = {
       name: columnNameW,
@@ -71,8 +83,24 @@ export const BlockAuthorList = memo(
 
     return (
       <div className="bg-white overflow-hidden" style={{ height: height - blockPadding.y }}>
-        <div className="flex flex-col h-full overflow-auto">
-          <Table>
+        <div ref={scrollRef} className="flex flex-col h-full overflow-y-auto overflow-x-hidden scrollbar-slim">
+          {/* The author rows are denser than the texts table's: override the
+              padding token rather than fight the !important on .table-td-padding */}
+          <Table
+            // table-fixed makes the specified column widths authoritative. Under
+            // the default auto layout the browser widens a column to its
+            // min-content width -- and the cells are whitespace-nowrap -- so a
+            // long author name pushed the table past its container no matter
+            // what width was asked for.
+            className="table-fixed"
+            // Not overflow-x-hidden: per the CSS overflow spec, setting one axis
+            // to a non-visible value promotes `visible` on the other axis to
+            // `auto`, which turned this div into a second vertical scroller and
+            // cost 15px to its scrollbar. Left visible, the wrapper above is the
+            // only scroll container.
+            containerClassName="overflow-x-visible"
+            style={{ '--table-td-padding': '0.15rem' } as CSSProperties}
+          >
             <TableHeader className="sticky top-0 bg-white z-10">
               <TableRow>
                 <TableHead
@@ -102,7 +130,7 @@ export const BlockAuthorList = memo(
               {sortedAuthors.map((author) => {
                 const color = getRowColor(author);
                 return (
-                  <TableRow key={author.id} className={`border-0 ${color} `}>
+                  <TableRow key={author.id} className={`border-0 ${color}`}>
                     <TableCell
                       className="text-right"
                       style={{ width: columnSizes.texts, maxWidth: columnSizes.texts }}
