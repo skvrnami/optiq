@@ -20,9 +20,7 @@ export const CityTooltip = ({ city, onFilterChange, filter }: CityTooltipProps) 
 
   const colors = getColorClasses(city.state, filter);
 
-  const isSomethingSelected = city.institutes.some(
-    (institute) => institute.state === FilterItemState.INACTIVE
-  );
+  const isSomethingSelected = filter.type !== FilterType.NONE;
 
   return (
     <Popup className="w-84">
