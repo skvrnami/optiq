@@ -19,7 +19,7 @@ const circleRadius = (value: number, zoom: number) => {
   return Math.pow(value, 0.3) * 5 * zoomCoefficient(zoom);
 };
 
-const MIN_MAP_HEIGHT = 150;
+const MIN_MAP_HEIGHT = 350;
 const MIN_ZOOM = 4;
 const DEFAULT_ZOOM = 5;
 
