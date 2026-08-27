@@ -60,7 +60,6 @@ const constructCityInstitutes = (
       const [noTextsInactive, noTextsActive] = getInstituteNumberTexts(l.id, allDepositionTexts);
       return {
         ...l,
-        wikidataId: l.id.toString(),
         state: isSelected
           ? FilterItemState.SELECTED
           : noTextsActive > 0
