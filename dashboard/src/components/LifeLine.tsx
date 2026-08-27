@@ -72,10 +72,6 @@ const LifeLine = ({
 
   const lifeLineW = deathX - birthX || 0;
 
-  if (birthX > width || deathX > width) {
-    console.log(author?.name, births, birthX, deaths, deathX);
-  }
-
   const isInLeftPart = birthX < width / 2;
 
   const leftStartX = birthX;
