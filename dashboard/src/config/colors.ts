@@ -54,6 +54,7 @@ export const colors = {
     fill: 'fill-gray-700',
     fillHover: 'hover:fill-gray-800',
     stroke: 'stroke-gray-700',
+    strokeHover: 'hover:stroke-gray-700',
     border: 'border-gray-700',
     borderHover: 'hover:border-gray-800',
     ...unknownColors,

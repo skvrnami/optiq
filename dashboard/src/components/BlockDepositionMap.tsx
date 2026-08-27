@@ -117,9 +117,11 @@ export const BlockDepositionMap = memo(
 
             const activeStroke = isSelected ? colors.primary.stroke : 'stroke-transparent';
             // Leaflet writes pathOptions.color into the SVG stroke attribute, so it must
-            // be a CSS colour, never a class. The stroke stays palette-driven by riding
-            // on className instead; a CSS rule overrides the attribute Leaflet sets.
-            const allStroke = isHovered ? colors.default.stroke : 'stroke-transparent';
+            // be a CSS colour, never a class. The stroke rides on className instead; a
+            // CSS rule overrides the attribute Leaflet sets. It has to be a `hover:`
+            // variant rather than a JS ternary on isHovered, because className is
+            // applied once at mount and never updated - see the key below.
+            const allStroke = `stroke-transparent ${colors.default.strokeHover}`;
             const activeFill = isSelected ? colors.primary.fill : colors.active.fill;
             const activeFillHover = isSelected ? colors.primary.fillHover : colors.active.fillHover;
 
@@ -129,6 +131,11 @@ export const BlockDepositionMap = memo(
               <LayerGroup key={point.id}>
                 {radiusAll > 0 && radiusAll !== radiusActive && (
                   <CircleMarker
+                    // react-leaflet's updateCircle only forwards center and radius, and
+                    // Leaflet reads options.className once in _initPath. A className that
+                    // changes with app state therefore never reaches the DOM unless the
+                    // marker remounts, so the state it depends on belongs in the key.
+                    key={`all-${isSomethingSelected}`}
                     center={[point.x, point.y]}
                     radius={radiusAll}
                     pathOptions={{
@@ -147,6 +154,7 @@ export const BlockDepositionMap = memo(
                 )}
                 {radiusActive > 0 && isSomethingSelected && (
                   <CircleMarker
+                    key={`active-${isSelected}`}
                     center={[point.x, point.y]}
                     radius={radiusActive}
                     className={`${activeFill} ${activeFillHover} ${activeStroke} cursor-pointer transition-all`}
