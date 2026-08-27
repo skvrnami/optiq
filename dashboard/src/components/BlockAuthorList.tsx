@@ -1,6 +1,6 @@
 import { colors, getColorClasses } from '@/config/colors';
 import { DataAuthor } from '@/types/data';
-import { Filter, FilterType } from '@/types/filter';
+import { Filter, FilterItemState, FilterType } from '@/types/filter';
 import 'leaflet/dist/leaflet.css';
 import { memo } from 'react';
 import AuthorTag from './AuthorTag';
@@ -51,6 +51,19 @@ export const BlockAuthorList = memo(
       return `${author.noTextsActive} / ${noAll}`;
     };
 
+    // Matching authors are pulled to the top, the way the texts table already
+    // orders its rows. Array.sort is stable, so the original order survives
+    // within each group and an unfiltered view is left untouched.
+    const stateRank = (state: FilterItemState) => {
+      if (state === FilterItemState.SELECTED) return 0;
+      if (state === FilterItemState.ACTIVE) return 1;
+      return 2;
+    };
+
+    const sortedAuthors = [...data].sort(
+      (a, b) => stateRank(a.state) - stateRank(b.state)
+    );
+
     const getRowColor = (author: DataAuthor) => {
       const colors = getColorClasses(author.state, filter);
       return `${colors.text} ${colors.fill} ${colors.bgLight} ${colors.bgLightHover}`;
@@ -85,7 +98,7 @@ export const BlockAuthorList = memo(
               </TableRow>
             </TableHeader>
             <TableBody className="overflow-y-auto">
-              {data.map((author) => {
+              {sortedAuthors.map((author) => {
                 const color = getRowColor(author);
                 return (
                   <TableRow key={author.id} className={`border-0 ${color} `}>
