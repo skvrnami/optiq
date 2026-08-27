@@ -29,10 +29,16 @@ export const useContainerSize = (containerRef: RefObject<HTMLDivElement | null>)
         const widthChanged = Math.abs(newWidth - lastSizeRef.current.width) >= SIZE_CHANGE_THRESHOLD;
         const heightChanged = Math.abs(newHeight - lastSizeRef.current.height) >= SIZE_CHANGE_THRESHOLD;
 
-        if (widthChanged || heightChanged) {
-          lastSizeRef.current = { width: newWidth, height: newHeight };
-          if (widthChanged) setContainerWidth(newWidth);
-          if (heightChanged) setContainerHeight(newHeight);
+        // Advance the remembered size per axis only when that axis is actually
+        // committed to state, otherwise an uncommitted sub-threshold change on
+        // one axis is recorded as seen and every later comparison drifts.
+        if (widthChanged) {
+          lastSizeRef.current.width = newWidth;
+          setContainerWidth(newWidth);
+        }
+        if (heightChanged) {
+          lastSizeRef.current.height = newHeight;
+          setContainerHeight(newHeight);
         }
       });
     };

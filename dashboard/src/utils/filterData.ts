@@ -78,26 +78,30 @@ export const filterData = (filter: Filter, inputTexts: InputText[]): FilteredDat
   const filterType = filter.type as FilterType;
   const filterValue = filter.value;
 
-  const texts = inputTexts.map((text) => ({
-    ...text,
-    state: FilterItemState.INACTIVE,
-  }));
-
-  const defaultData: FilteredData = {
-    texts: texts as DataText[],
-    authors: inputAuthors.map((author) => ({
-      ...author,
+  // Built on demand: only the unfiltered paths below return this, and building
+  // it eagerly walked every city and every text on each filter change.
+  const buildDefaultData = (): FilteredData => {
+    const texts = inputTexts.map((text) => ({
+      ...text,
       state: FilterItemState.INACTIVE,
-      noTextsInactive: 0,
-      noTextsActive: inputTexts.filter((text) => text.authorId === author.id).length,
-    })),
-    depositions: inputCities.map((city) => {
-      return constructCityInstitutes(city, texts as DataText[]);
-    }),
+    }));
+
+    return {
+      texts: texts as DataText[],
+      authors: inputAuthors.map((author) => ({
+        ...author,
+        state: FilterItemState.INACTIVE,
+        noTextsInactive: 0,
+        noTextsActive: inputTexts.filter((text) => text.authorId === author.id).length,
+      })),
+      depositions: inputCities.map((city) => {
+        return constructCityInstitutes(city, texts as DataText[]);
+      }),
+    };
   };
 
   if (!filterValue || filterType === FilterType.NONE) {
-    return defaultData;
+    return buildDefaultData();
   }
 
   switch (filterType) {
@@ -164,14 +168,15 @@ export const filterData = (filter: Filter, inputTexts: InputText[]): FilteredDat
         };
       });
       const authors = inputAuthors.map((author) => {
+        const [noTextsInactive, noTextsActive] = getAuthorNumberTexts(
+          author.id,
+          texts as DataText[]
+        );
         return {
           ...author,
-          noTextsActive: getAuthorNumberTexts(author.id, texts as DataText[])[1],
-          noTextsInactive: getAuthorNumberTexts(author.id, texts as DataText[])[0],
-          state:
-            getAuthorNumberTexts(author.id, texts as DataText[])[1] > 0
-              ? FilterItemState.ACTIVE
-              : FilterItemState.INACTIVE,
+          noTextsActive,
+          noTextsInactive,
+          state: noTextsActive > 0 ? FilterItemState.ACTIVE : FilterItemState.INACTIVE,
         };
       });
 
@@ -192,11 +197,15 @@ export const filterData = (filter: Filter, inputTexts: InputText[]): FilteredDat
         }
       });
       const authors = inputAuthors.map((author) => {
+        const [noTextsInactive, noTextsActive] = getAuthorNumberTexts(
+          author.id,
+          texts as DataText[]
+        );
         return {
           ...author,
           state: FilterItemState.INACTIVE,
-          noTextsInactive: getAuthorNumberTexts(author.id, texts as DataText[])[0],
-          noTextsActive: getAuthorNumberTexts(author.id, texts as DataText[])[1],
+          noTextsInactive,
+          noTextsActive,
         };
       });
       const depositions = inputCities.map((city) => {
@@ -211,6 +220,6 @@ export const filterData = (filter: Filter, inputTexts: InputText[]): FilteredDat
     }
 
     default:
-      return defaultData;
+      return buildDefaultData();
   }
 };

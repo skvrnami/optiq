@@ -8,9 +8,15 @@ export const MapZoom: React.FC<MapZoomProps> = ({ onZoomEnd }) => {
   const map = useMap();
 
   useEffect(() => {
-    map.on('zoomend', () => {
+    const handleZoomEnd = () => {
       onZoomEnd(map.getZoom());
-    });
+    };
+
+    map.on('zoomend', handleZoomEnd);
+
+    return () => {
+      map.off('zoomend', handleZoomEnd);
+    };
   }, [map, onZoomEnd]);
 
   return null;

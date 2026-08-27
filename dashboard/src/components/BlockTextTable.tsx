@@ -50,16 +50,19 @@ export const BlockTextTable = memo(
 
     // Scroll to top when filter changes
     useEffect(() => {
-      if (tableHeaderRef.current) {
-        const containerRect = tableHeaderRef.current.closest('[data-slot="table-container"]');
+      if (!tableHeaderRef.current) return;
 
-        if (containerRect) {
-          setTimeout(() => {
-            containerRect.scrollTo({ top: 0 });
-          }, 1000);
-        }
-      }
-    }, [filter.value]);
+      const containerRect = tableHeaderRef.current.closest('[data-slot="table-container"]');
+      if (!containerRect) return;
+
+      const timer = setTimeout(() => {
+        containerRect.scrollTo({ top: 0 });
+      }, 1000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }, [filter.type, filter.value]);
 
     return (
       <div className="bg-white overflow-hidden" style={{ height: height - blockPadding.y }}>
