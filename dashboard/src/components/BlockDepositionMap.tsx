@@ -7,7 +7,7 @@ import { CityTooltip } from './CityTooltip';
 import { MapInvalidator } from './MapInvalidator';
 import { MapZoom } from './MapZoom';
 import { colors } from '@/config/colors';
-import { type LeafletEventHandlerFnMap } from 'leaflet';
+import { type LatLngBoundsExpression, type LeafletEventHandlerFnMap } from 'leaflet';
 import { useScreenSize } from '@/utils/useScreenSize';
 
 const zoomCoefficient = (zoom: number) => {
@@ -18,6 +18,13 @@ const circleRadius = (value: number, zoom: number) => {
   if (value === 0) return 0;
   return Math.pow(value, 0.3) * 5 * zoomCoefficient(zoom);
 };
+
+// Latitude beyond this is Mercator distortion with no data in it; the bound
+// also stops the view drifting off the top or bottom of the world.
+const WORLD_BOUNDS: LatLngBoundsExpression = [
+  [-85, -180],
+  [85, 180],
+];
 
 const MIN_MAP_HEIGHT = 350;
 const MIN_ZOOM = 4;
@@ -79,6 +86,13 @@ export const BlockDepositionMap = memo(
           center={[center.lat, center.lng]}
           zoom={zoom}
           minZoom={MIN_ZOOM}
+          // Tiles repeat forever horizontally, but a CircleMarker is drawn only
+          // at its literal longitude. Panning past the date line therefore lands
+          // on a copy of the world with no circles on it. worldCopyJump moves the
+          // view back onto the primary copy, so the depositions stay visible.
+          worldCopyJump
+          maxBounds={WORLD_BOUNDS}
+          maxBoundsViscosity={0.5}
           className="z-40 h-full w-full"
         >
           <MapInvalidator width={effectiveWidth} height={effectiveHeight} />
