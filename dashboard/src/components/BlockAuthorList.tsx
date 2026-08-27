@@ -71,7 +71,7 @@ export const BlockAuthorList = memo(
 
     return (
       <div className="bg-white overflow-hidden" style={{ height: height - blockPadding.y }}>
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full overflow-auto">
           <Table>
             <TableHeader className="sticky top-0 bg-white z-10">
               <TableRow>
@@ -97,7 +97,7 @@ export const BlockAuthorList = memo(
                 </TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody className="overflow-y-auto">
+            <TableBody>
               {sortedAuthors.map((author) => {
                 const color = getRowColor(author);
                 return (

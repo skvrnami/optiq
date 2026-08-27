@@ -74,7 +74,7 @@ export const BlockTextTable = memo(
                 <TableHead>Date</TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody className="overflow-y-auto">
+            <TableBody>
               {sortedTexts.map((text) => {
                 const colors = getColorClasses(text.state, filter);
                 const rowColorClass = `${colors.text} ${colors.fill} ${colors.bgLight} ${colors.bgLightHover}`;
