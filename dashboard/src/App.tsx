@@ -225,7 +225,10 @@ function App() {
         renderLoading()
       ) : (
       <div
-        className="relative overflow-hidden"
+        // Scrolls rather than clips: the block minimums can exceed the available
+        // height on a short window, and silently unreachable panels are worse
+        // than a scrollbar.
+        className="relative overflow-y-auto"
         style={{
           display: 'grid',
           gap: `${gap}px`,

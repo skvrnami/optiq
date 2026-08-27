@@ -26,7 +26,6 @@ const WORLD_BOUNDS: LatLngBoundsExpression = [
   [85, 180],
 ];
 
-const MIN_MAP_HEIGHT = 350;
 const MIN_ZOOM = 4;
 const DEFAULT_ZOOM = 5;
 
@@ -48,7 +47,9 @@ export const BlockDepositionMap = memo(
 
     // Calculate effective dimensions - ensure they don't exceed passed height/width
     const effectiveWidth = Math.max(0, width - blockPadding.x);
-    const effectiveHeight = Math.max(MIN_MAP_HEIGHT, Math.min(height - blockPadding.y, height));
+    // The minimum lives in LAYOUT.minMapBlockHeight; a second floor here would
+    // render a map taller than the block that clips it.
+    const effectiveHeight = Math.max(0, height - blockPadding.y);
 
     const isSomethingSelected = filter.type !== FilterType.NONE;
 
@@ -79,7 +80,6 @@ export const BlockDepositionMap = memo(
         style={{
           height: effectiveHeight,
           width: effectiveWidth,
-          minHeight: MIN_MAP_HEIGHT,
         }}
       >
         <MapContainer
