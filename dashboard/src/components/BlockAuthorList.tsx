@@ -30,7 +30,9 @@ export const BlockAuthorList = memo(
     const [availableWidth] = useContainerSize(scrollRef);
 
     const columnNameW = screenType === 'desktop' ? 150 : 100;
-    const columnTextsW = filter.type === FilterType.NONE ? 25 : 50;
+    // Wide enough for the column label as well as its values ("149", "3 / 149");
+    // the timeline column absorbs whatever is left.
+    const columnTextsW = filter.type === FilterType.NONE ? 70 : 86;
     const columnLifetimeW = Math.max(
       80,
       (availableWidth || width - blockPadding.x * 2) - columnNameW - columnTextsW
@@ -99,7 +101,7 @@ export const BlockAuthorList = memo(
             // cost 15px to its scrollbar. Left visible, the wrapper above is the
             // only scroll container.
             containerClassName="overflow-x-visible"
-            style={{ '--table-td-padding': '0.15rem' } as CSSProperties}
+            style={{ '--table-td-padding': '0.3rem' } as CSSProperties}
           >
             <TableHeader className="sticky top-0 bg-white z-10">
               <TableRow>
@@ -107,16 +109,19 @@ export const BlockAuthorList = memo(
                   className="text-right"
                   style={{ width: columnSizes.texts, maxWidth: columnSizes.texts }}
                 >
-                  No
+                  Texts
                 </TableHead>
                 <TableHead style={{ width: columnSizes.name }}>Author</TableHead>
                 <TableHead className="text-center" style={{ width: columnSizes.lifetime }}>
-                  <div className="flex flex-row items-center justify-center gap-x-1 relative">
-                    <div className="text-xs font-medium -mt-3">Timeline</div>
-                    {[0, 500, 1000, 1500].map((axisValue) => (
+                  <div
+                    className="flex flex-row items-center justify-center gap-x-1 relative"
+                    aria-hidden="true"
+                  >
+                    <div className="-mt-3">Timeline</div>
+                    {[500, 1500].map((axisValue) => (
                       <div
                         key={axisValue}
-                        className={`absolute text-xs font-medium top-1 -translate-x-1/2 ${colors.dimmed.text}`}
+                        className={`absolute top-1 -translate-x-1/2 font-sans text-[10px] font-medium tracking-normal tabular-nums ${colors.dimmed.text}`}
                         style={{ left: valueToX(axisValue) }}
                       >
                         {axisValue}
@@ -132,7 +137,7 @@ export const BlockAuthorList = memo(
                 return (
                   <TableRow key={author.id} className={`border-0 ${color}`}>
                     <TableCell
-                      className="text-right"
+                      className="text-right tabular-nums"
                       style={{ width: columnSizes.texts, maxWidth: columnSizes.texts }}
                     >
                       {noLabel(author)}

@@ -63,7 +63,9 @@ function TableHead({ className, ...props }: React.ComponentProps<'th'>) {
     <th
       data-slot="table-head"
       className={cn(
-        'text-foreground h-10 px-2 text-left align-middle font-bold whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+        // Column labels share the display face with the panel titles, set small
+        // and letterspaced so they read as catalogue headings rather than data.
+        'text-muted-foreground font-display h-9 px-2 text-left align-middle text-xs font-semibold tracking-[0.12em] uppercase overflow-hidden text-ellipsis whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
         className
       )}
       {...props}

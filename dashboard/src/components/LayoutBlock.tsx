@@ -28,8 +28,12 @@ export const LayoutBlock: React.FC<LayoutBlockProps> = ({
       }}
       className="bg-white rounded-md shadow-lg overflow-hidden"
     >
-      <div className="flex-none px-1">
-        <h3 className={`font-medium text-left ${isCompact ? 'text-base' : 'text-lg'}`}>
+      <div className="flex-none px-1 pb-1">
+        <h3
+          className={`font-display text-left tracking-wide text-gray-800 ${
+            isCompact ? 'text-lg' : 'text-xl'
+          }`}
+        >
           {title}
         </h3>
       </div>

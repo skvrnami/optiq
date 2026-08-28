@@ -68,11 +68,18 @@ const LifeLine = ({
 
   const isYearsUnknown = isBirthUnknown && isDeathUnknown;
 
+  // Width of the "0000 -> 0000" label: two w-7 fields, a w-3 arrow, two gaps
+  // and the trailing padding. Used to keep the label inside the column.
+  const YEAR_LABEL_W = 80;
+
   const leftTextX = useMemo<number>(() => {
     if (isYearsUnknown) {
       return width / 2;
     }
-    return isInLeftPart ? birthX + lifeLineW : birthX;
+    // Placed right of the bar when the bar starts in the left half, otherwise
+    // left of it. In the second case the label is anchored by its right edge,
+    // so an early date would push it off the column; clamp so it cannot.
+    return isInLeftPart ? birthX + lifeLineW : Math.max(birthX, YEAR_LABEL_W);
   }, [isYearsUnknown, isInLeftPart, birthX, lifeLineW, width]);
 
   const colorClasses = getColorClasses(state, filter);
@@ -121,23 +128,24 @@ const LifeLine = ({
         } ${!isDeathUnknown ? colorClasses.bg : 'to-transparent'}`}
       ></div>
       <div
-        style={{
-          left: isYearsUnknown ? 0 : leftTextX,
-          transform: isInLeftPart ? 'translateX(0)' : 'translateX(-100%)',
-          top: topPadding + 1,
-          width: isYearsUnknown ? width : undefined,
-        }}
-        className={`
-            absolute
-            top-0 
-            flex flex-row 
-            items-center gap-x-1 pr-1
-            text-xs font-medium ${colorClasses.text}
-          `}
+        style={
+          isYearsUnknown
+            ? // fill the band exactly, so the placeholder centres on it rather
+              // than inheriting the offsets that position a dated range
+              { left: 0, top: 0, width: '100%', height: '100%' }
+            : {
+                left: leftTextX,
+                transform: isInLeftPart ? 'translateX(0)' : 'translateX(-100%)',
+                top: topPadding + 1,
+              }
+        }
+        className={`absolute flex flex-row items-center gap-x-1 text-xs font-medium ${
+          isYearsUnknown ? '' : 'pr-1'
+        } ${colorClasses.text}`}
       >
         {isYearsUnknown ? (
           <div
-            className={`w-full h-full text-center justify-center items-center font-light italic ${colorClasses.textUnknown}`}
+            className={`flex h-full w-full items-center justify-center italic ${colorClasses.textUnknown}`}
           >
             unknown
           </div>

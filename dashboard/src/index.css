@@ -1,6 +1,11 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
+/* Self-hosted rather than loaded from Google Fonts: this app deliberately has
+   no runtime third-party dependency, and a webfont link would reintroduce one.
+   Variable weight, so headings and labels share a single file. */
+@import '@fontsource-variable/eb-garamond';
+
 @custom-variant dark (&:is(.dark *));
 
 /* Leaflet map container fix */
@@ -89,6 +94,10 @@ body {
 }
 
 @theme inline {
+  /* Display face. EB Garamond is the letterform tradition of the printed
+     critical editions this corpus is catalogued in; it is used only for panel
+     titles and column labels, never for data. */
+  --font-display: 'EB Garamond Variable', 'EB Garamond', Georgia, serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
