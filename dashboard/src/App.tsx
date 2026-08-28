@@ -6,11 +6,12 @@ import { BlockDepositionMap } from './components/BlockDepositionMap';
 import { BlockTextTable } from './components/BlockTextTable';
 import DepositionTag from './components/DepositionTag';
 import { IconClose } from './components/icons/Close';
+import SiglaTag from './components/SiglaTag';
 import { LayoutBlock } from './components/LayoutBlock';
 import { Button } from './components/ui/button';
 import { loadTexts } from './data/loadTexts';
 import { DataAuthor, DataInstitute } from './types/data';
-import { Filter, FilteredData, FilterType } from './types/filter';
+import { Filter, FilteredData, FilterItemState, FilterType } from './types/filter';
 import { InputText } from './types/input';
 import { filterData } from './utils/filterData';
 import { useContainerSize } from './utils/useContainerSize';
@@ -147,7 +148,12 @@ function App() {
                   filter={filter}
                 />
               ) : filter.type === FilterType.SIGLA ? (
-                <div className="text-sm">Sigla: {filter.value}</div>
+                <SiglaTag
+                  sigla={String(filter.value)}
+                  state={FilterItemState.SELECTED}
+                  filter={filter}
+                  onFilterChange={setFilter}
+                />
               ) : null}
               <Button
                 variant="ghost"

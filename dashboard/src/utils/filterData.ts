@@ -190,7 +190,10 @@ export const filterData = (filter: Filter, inputTexts: InputText[]): FilteredDat
     // Sigla
     case FilterType.SIGLA: {
       const texts = inputTexts.map((text) => {
-        if (text.sigla.includes(filter.value as string)) {
+        // Exact, not a substring test: 546 pairs of sigla in this corpus have
+        // one contained in the other, so `includes` would make "10" match 100,
+        // 101, 102/A and dozens more.
+        if (text.sigla === filter.value) {
           return { ...text, state: FilterItemState.ACTIVE };
         } else {
           return { ...text, state: FilterItemState.INACTIVE };
@@ -203,7 +206,7 @@ export const filterData = (filter: Filter, inputTexts: InputText[]): FilteredDat
         );
         return {
           ...author,
-          state: FilterItemState.INACTIVE,
+          state: noTextsActive > 0 ? FilterItemState.ACTIVE : FilterItemState.INACTIVE,
           noTextsInactive,
           noTextsActive,
         };

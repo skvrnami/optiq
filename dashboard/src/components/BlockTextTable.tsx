@@ -129,7 +129,12 @@ export const BlockTextTable = memo(
                       className="text-left truncate"
                       style={{ maxWidth: columnSizes.sigla }}
                     >
-                      <SiglaTag sigla={text.sigla} state={text.state} filter={filter} />
+                      <SiglaTag
+                        sigla={text.sigla}
+                        state={text.state}
+                        filter={filter}
+                        onFilterChange={onFilterChange}
+                      />
                     </TableCell>
                     <TableCell
                       className="text-left truncate"
