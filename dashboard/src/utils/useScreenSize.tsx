@@ -18,34 +18,43 @@ const getLayoutValues = (screenType: ScreenType) => {
   }
 };
 
+/**
+ * The hook is called from roughly 88 places - once per author row, among
+ * others - so what it stores decides what a resize costs.
+ *
+ * It used to hold { width, height }. That is a fresh object on every resize
+ * event, so Object.is never matched, React's bail-out never fired, and every
+ * subscriber re-rendered even when the viewport had not changed at all. No
+ * consumer ever read either field: they all take screenType, blockPadding,
+ * gap, padding or the isMobile/isTablet flags.
+ *
+ * Holding the breakpoint itself makes the common case free. A resize that does
+ * not cross 768 or 1024 sets the same string, React bails out before
+ * rendering, and the mobile URL bar - which changes only innerHeight - can
+ * never cause a render at all.
+ */
 export const useScreenSize = (): ScreenSize => {
-  const [dimensions, setDimensions] = useState({
-    width: typeof window !== 'undefined' ? window.innerWidth : 1200,
-    height: typeof window !== 'undefined' ? window.innerHeight : 800,
-  });
+  const [screenType, setScreenType] = useState<ScreenType>(() =>
+    getScreenType(typeof window !== 'undefined' ? window.innerWidth : 1200)
+  );
 
   useEffect(() => {
-    const handleResize = () => {
-      setDimensions({ width: window.innerWidth, height: window.innerHeight });
-    };
+    const handleResize = () => setScreenType(getScreenType(window.innerWidth));
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return useMemo(() => {
-    const screenType = getScreenType(dimensions.width);
     const layoutValues = getLayoutValues(screenType);
     return {
-      width: dimensions.width,
-      height: dimensions.height,
       screenType,
       isMobile: screenType === 'mobile',
       isTablet: screenType === 'tablet',
       isDesktop: screenType === 'desktop',
       ...layoutValues,
     };
-  }, [dimensions.width, dimensions.height]);
+  }, [screenType]);
 };
 
 export const useLayoutDimensions = (

@@ -188,7 +188,6 @@ function App() {
               data={data}
               onFilterChange={setFilter}
               filter={filter}
-              width={mobileBlockWidth}
               height={LAYOUT.mobileTextHeight}
             />
           </LayoutBlock>
@@ -248,7 +247,6 @@ function App() {
             data={data}
             onFilterChange={setFilter}
             filter={filter}
-            width={layout.leftColumnWidth}
             height={layout.textBlockHeight}
           />
         </LayoutBlock>

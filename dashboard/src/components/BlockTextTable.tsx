@@ -19,7 +19,6 @@ interface BlockTextTableProps {
   };
   onFilterChange: (filter: Filter) => void;
   filter: Filter;
-  width: number;
   height: number;
 }
 

@@ -28,8 +28,6 @@ export const LAYOUT = {
 export type ScreenType = 'mobile' | 'tablet' | 'desktop';
 
 export interface ScreenSize {
-  width: number;
-  height: number;
   screenType: ScreenType;
   isMobile: boolean;
   isTablet: boolean;
